@@ -1,0 +1,32 @@
+[
+  {
+    "workoutName": "Morning Pilates",
+    "roomName": "A",
+    "date": "2026-02-10T00:00:00.000Z",
+    "time": "08:00"
+  },
+  {
+    "workoutName": "Power Yoga",
+    "roomName": "B",
+    "date": "2026-02-10T00:00:00.000Z",
+    "time": "08:30"
+  },
+  {
+    "workoutName": "HIIT Training",
+    "roomName": "D",
+    "date": "2026-02-11T00:00:00.000Z",
+    "time": "18:00"
+  },
+  {
+    "workoutName": "Core Strength",
+    "roomName": "C",
+    "date": "2026-02-11T00:00:00.000Z",
+    "time": "19:00"
+  },
+  {
+    "workoutName": "Zumba Party",
+    "roomName": "D",
+    "date": "2026-02-12T00:00:00.000Z",
+    "time": "20:00"
+  }
+]

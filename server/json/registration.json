@@ -1,0 +1,22 @@
+[
+  {
+    "user": "69833c69b4869ea8ed2d6ea1",
+    "workout": "69835ea72bf3e7a3f5fb47ad",
+    "status": "Registered"
+  },
+  {
+    "user": "69833c69b4869ea8ed2d6ea2",
+    "workout": "69835ea72bf3e7a3f5fb47ad",
+    "status": "Registered"
+  },
+  {
+    "user": "69833c69b4869ea8ed2d6ea3",
+    "workout": "69835ea72bf3e7a3f5fb47ad",
+    "status": "Registered"
+  },
+  {
+    "user": "69833c69b4869ea8ed2d6ea4",
+    "workout": "69835ea72bf3e7a3f5fb47ad",
+    "status": "Waitlist"
+  }
+]

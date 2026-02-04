@@ -1,0 +1,32 @@
+[
+  {
+    "name": "2xWeek",
+    "price": 250,
+    "duration": "month"
+  },
+  {
+    "name": "4xWeek",
+    "price": 450,
+    "duration": "month"
+  },
+  {
+    "name": "Unlimited",
+    "price": 550,
+    "duration": "month"
+  },
+  {
+    "name": "2xWeek",
+    "price": 2400,
+    "duration": "year"
+  },
+  {
+    "name": "4xWeek",
+    "price": 4200,
+    "duration": "year"
+  },
+  {
+    "name": "Unlimited",
+    "price": 5000,
+    "duration": "year"
+  }
+]

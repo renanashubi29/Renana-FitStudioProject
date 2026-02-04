@@ -1,0 +1,74 @@
+[
+  {
+    "name": "Michal Coach",
+    "userName": "michal_c",
+    "email": "michal@fit.com",
+    "password": "hashed_password_1",
+    "phone": "050-1111111",
+    "address": {
+      "city": "Tel Aviv",
+      "street": "Dizengoff",
+      "houseNumber": "100"
+    },
+    "role": "coach",
+    "experience": 8,
+    "specialization": "Pilates & Yoga",
+    "plan": null
+  },
+  {
+    "name": "Roni Trainer",
+    "userName": "roni_t",
+    "email": "roni@test.com",
+    "password": "password123",
+    "phone": "054-2222222",
+    "address": {
+      "city": "Ramat Gan",
+      "street": "Bialik",
+      "houseNumber": "40"
+    },
+    "role": "trainer",
+    "plan": "69833064ea6f3f652b0fc80d"
+  },
+  {
+    "name": "Dana Levi",
+    "userName": "dana_l",
+    "email": "dana@test.com",
+    "password": "password123",
+    "phone": "052-3333333",
+    "address": {
+      "city": "Givatayim",
+      "street": "Katznelson",
+      "houseNumber": "12"
+    },
+    "role": "trainer",
+    "plan": "69833064ea6f3f652b0fc80e"
+  },
+  {
+    "name": "Noa Golan",
+    "userName": "noa_g",
+    "email": "noa@fit.com",
+    "password": "password123",
+    "phone": "053-4444444",
+    "address": {
+      "city": "Herzliya",
+      "street": "Sokolov",
+      "houseNumber": "5"
+    },
+    "role": "trainer",
+    "plan": "69833064ea6f3f652b0fc812"
+  },
+  {
+    "name": "Admin User",
+    "userName": "admin_sys",
+    "email": "admin@fit.com",
+    "password": "secure_pass_99",
+    "phone": "050-9999999",
+    "address": {
+      "city": "Tel Aviv",
+      "street": "Rothschild",
+      "houseNumber": "1"
+    },
+    "role": "admin",
+    "plan": null
+  }
+]
