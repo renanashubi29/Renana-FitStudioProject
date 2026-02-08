@@ -1,9 +1,12 @@
 
 import { 
+  changePasswordService,
   createUser, 
   deleteUserById, 
   getAllUsers, 
   getUserById, 
+  loginUserService, 
+  registerUserService, 
   resetUsersFromFile, 
   updateUserById 
 } from "../services/userService.js";
@@ -87,5 +90,55 @@ export const updateUserController = async (req, res) => {
     res.send(updatedUser);
   } catch (error) {
     res.status(500).send({ message: "Error updating user", error: error.message });
+  }
+};
+export const registerUserController = async (req, res) => {
+  try {
+    const newUser = req.body;
+    const result = await registerUserService(newUser);
+
+    res.status(201).json(
+    { message: "User registered successfully",
+     token: result.token,
+     user:result.user });
+  } catch (error) {
+    res.status(error.status || 400).json({
+      message: error.message || "Failed to register user",
+    });
+  }
+};
+
+//שירה לוין:AdminStrongPass!2026
+export const loginUserController = async (req, res) => {
+  try {
+    const { email, password } = req.body;
+    const result = await loginUserService(email, password);
+
+    res.status(200).json({ message: "Login successful",
+     token: result.token,
+     user:result.user });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      message: error.message || "Login failed",
+    });
+  }
+};
+
+
+export const changePasswordController = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const { oldPassword, newPassword } = req.body;
+
+    const updatedUser = await changePasswordService(id, oldPassword, newPassword);
+
+    res.status(200).json({
+      message: "Password updated successfully",
+      user: updatedUser,
+    });
+  } catch (error) {
+    res.status(error.status || 500).json({
+      message: error.message || "Failed to change password",
+    });
   }
 };

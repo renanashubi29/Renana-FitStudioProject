@@ -19,8 +19,9 @@ function App() {
   </nav>
 
 </header>
-
-<WeekScheduleTable/>
+ <div className="box">
+        <WeekScheduleTable/>
+      </div>
 
 </>
 }

@@ -22,8 +22,6 @@ router.post("/", createPlanController);
 router.post("/reset", resetPlansController);
 
 
-
-
 router.get("/:id", getPlanByIdController);
 
 

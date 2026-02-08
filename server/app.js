@@ -9,7 +9,8 @@ import userRoutes from "./routes/userRoutes.js";
 import planRoutes from "./routes/planRoutes.js";
 import registrationRoutes from "./routes/registrationRoutes.js";
 import workoutRoutes from "./routes/workoutRoutes.js";
-dotenv.config({ path: path.resolve('./server/.env') });
+
+dotenv.config();
 const app = express();
 const port = process.env.PORT;
 
@@ -19,8 +20,6 @@ app.use("/api/users", userRoutes);
 app.use("/api/plans", planRoutes);
 app.use("/api/workouts", workoutRoutes);
 app.use("/api/registrations", registrationRoutes);
-console.log("Current working dir:", process.cwd());
-console.log("MONGO_URI:", process.env.MONGO_URI);
 const startServer=async()=>{
   await connectedDB(process.env.MONGO_URI);
   app.listen(port,()=>{

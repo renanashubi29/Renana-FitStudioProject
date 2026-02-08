@@ -20,8 +20,6 @@ router.post("/", createRegistrationController);
 router.post("/reset", resetRegistrationsController);
 
 
-
-
 router.get("/:id", getRegistrationByIdController);
 
 

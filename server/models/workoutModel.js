@@ -1,5 +1,10 @@
 import mongoose from "mongoose";
-
+const ROOM_CAPACITIES = {
+    'A': 10,
+    'B': 15,
+    'C': 20,
+    'D': 25
+};
 const workoutSchema = new mongoose.Schema({
     workoutName: { type: String, required: true },
     roomName: { 
@@ -11,8 +16,7 @@ const workoutSchema = new mongoose.Schema({
    maxParticipants: { 
         type: Number,
         default: function() {
-            const capacities = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 };
-            return capacities[this.roomName];
+            return ROOM_CAPACITIES[this.roomName];
         }
     }, 
     date: { type: Date, required: true },

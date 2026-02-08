@@ -7,13 +7,12 @@ import {
   deleteWorkoutController, 
   resetWorkoutsController 
 } from "../controllers/workoutController.js";
+import { verifyToken } from "../middlwares/auth.js";
 
 const router = express.Router();
 
 
-
-
-router.get("/", getAllWorkoutsController);
+router.get("/"/* ,verifyToken */, getAllWorkoutsController);
 
 
 router.post("/", createWorkoutController);

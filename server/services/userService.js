@@ -1,7 +1,8 @@
 import User from "../models/userModel.js";
 import { getAllPlans } from "./planService.js";
 import fs from "fs";
-
+import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
 
 // איפוס משתמשים עם בדיקת תקינות מנויים מול הסרביס
 export const resetUsersFromFile = async () => {
@@ -85,4 +86,98 @@ export const updateUserById = async (id, data) => {
     throw new Error("Could not update user: " + error.message);
   }
 };
+export const loginUserService = async (email, password) => {
+  if (!email || !password) {
+    const error = new Error("Email and password are required");
+    error.status = 400;
+    throw error;
+  }
 
+  const user = await User.findOne({ email }); // או getUserByEmail(email)
+  if (!user) {
+    const error = new Error("User not found");
+    error.status = 404;
+    throw error;
+  }
+
+  const isMatching = bcrypt.compareSync(password, user.password);
+  if (!isMatching) {
+    const error = new Error("Invalid credentials");
+    error.status = 401;
+    throw error;
+  }
+
+  //return user;
+
+  // Create the Token
+const token = jwt.sign(
+  { sub: user._id, email: user.email }, // Payload
+  process.env.JWT_SECRET, // Secret Key
+  { expiresIn: "1d" }, // Options
+);
+
+// Return the user (without password) and the token
+const userObject = user.toObject();
+delete userObject.password;
+
+return { user: userObject, token };
+
+};
+export const registerUserService = async (userData) => {
+  if (!userData.password) {
+    const error = new Error("Password is required");
+    error.status = 400;
+    throw error;
+  }
+
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(userData.password, salt);
+
+  const userToSave = { ...userData, password: hash };
+
+  const user = await User.create(userToSave); // או createUser(userToSave)
+ const token = jwt.sign(
+  { sub: user._id, email: user.email }, // Payload
+  process.env.JWT_SECRET, // Secret Key
+  { expiresIn: "1d" }, // Options
+);
+
+// Return the user (without password) and the token
+const userObject = user.toObject();
+delete userObject.password;
+
+return { user: userObject, token };
+
+};
+export const changePasswordService = async (id, oldPassword, newPassword) => {
+  if (!oldPassword || !newPassword) {
+    const error = new Error("Both passwords are required");
+    error.status = 400;
+    throw error;
+  }
+
+  const user = await User.findById(id);
+  if (!user) {
+    const error = new Error("User not found");
+    error.status = 404;
+    throw error;
+  }
+
+  const isMatching = bcrypt.compareSync(oldPassword, user.password);
+  if (!isMatching) {
+    const error = new Error("Old password is incorrect");
+    error.status = 401;
+    throw error;
+  }
+
+  const salt = bcrypt.genSaltSync(10);
+  const hash = bcrypt.hashSync(newPassword, salt);
+
+  const updatedUser = await User.findOneAndUpdate(
+    { _id: id },
+    { password: hash },
+    { new: true }
+  );
+
+  return updatedUser;
+};
