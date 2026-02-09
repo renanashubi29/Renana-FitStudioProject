@@ -1,17 +1,8 @@
 import fs from "fs";
 import Workout from "../models/workoutModel.js";
+import { getMinutesFromStartOfDay } from "../utils/dateUtil.js";
 
-const getMinutesFromStartOfDay = (timeStr) => {
 
-  // למשל "10:30" הופך למערך ["10", "30"]
-  const [hours, minutes] = timeStr.split(':');
-
-  // 2. המרה של הטקסט למספרים וחישוב
-  // (שעות כפול 60 דקות) + דקות
-  const totalMinutes = (Number(hours) * 60) + Number(minutes);
-
-  return totalMinutes;
-};
 // קבלת כל האימונים
 export const getAllWorkouts = async () => {
   try {

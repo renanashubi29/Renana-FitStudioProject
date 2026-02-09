@@ -1,4 +1,4 @@
-
+import { serverResponse } from "../utils/serverResponse.js";
 
 import { 
   createPlan, 
@@ -8,82 +8,123 @@ import {
   resetPlansFromFile, 
   updatePlanById 
 } from "../services/planService.js";
-
+import { ErrorMessages, SuccessMessages } from "../utils/messages.js";
 
 export const getAllPlansController = async (req, res) => {
   try {
     const plans = await getAllPlans();
-    res.send(plans);
-  } catch (error) {
-    res.status(500).send({ message: "Error fetching plans", error: error.message });
-  }
-};
 
-
-export const getPlanByIdController = async (req, res) => {
-  try {
-    const plan = await getPlanById(req.params.id);
-    if (!plan) {
-      return res.status(404).json({ message: "Plan not found" });
+    if (!plans || plans.length === 0) {
+      return serverResponse(res, 204, { 
+        message: ErrorMessages.PLANS.GET_ALL 
+      }); 
     }
-    res.json(plan);
-  } catch (error) {
-    res.status(500).json({ message: `Invalid plan id: ${req.params.id}` });
-  }
-};
 
+    return serverResponse(res, 200, { 
+        message: SuccessMessages.PLANS.GET_ALL, 
+        data: plans 
+    });
 
-export const createPlanController = async (req, res) => {
-  try {
-    const savedPlan = await createPlan(req.body);
-    res.status(201).json(savedPlan);
   } catch (error) {
-    res.status(400).json({ message: "Error creating plan", error: error.message });
-  }
-};
-export const resetPlansController = async (req, res) => {
-  try {
-  
-    const allPlans = await resetPlansFromFile();
-    
-    
-    res.status(201).json(allPlans);
-  } catch (error) {
-    // טיפול בשגיאות
-    res.status(400).json({ 
-      message: "Error resetting plans", 
-      error: error.message 
+    return serverResponse(res, 500, { 
+        message: ErrorMessages.PLANS.GET_ALL, 
+        error: error.message 
     });
   }
+};
+
+export const getPlanByIdController = async (req, res) => {
+    try {
+        const plan = await getPlanById(req.params.id);
+        if (!plan) {
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.PLANS.NOT_FOUND 
+            });
+        }
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.PLANS.GET_BY_ID, 
+            data: plan 
+        });
+    } catch (error) {
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.GENERAL.INVALID_ID(req.params.id), 
+            error: error.message 
+        });
+    }
+};
+
+export const createPlanController = async (req, res) => {
+    try {
+        const planData = { ...req.body };
+        const savedPlan = await createPlan(planData);
+        return serverResponse(res, 201, { 
+            message: SuccessMessages.PLANS.CREATED, 
+            data: savedPlan 
+        });
+    } catch (error) {
+        return serverResponse(res, 400, { 
+            message: ErrorMessages.PLANS.CREATE_FAILED, 
+            error: error.message 
+        });
+    }
+};
+
+export const resetPlansController = async (req, res) => {
+    try {
+        const allPlans = await resetPlansFromFile();
+        return serverResponse(res, 201, { 
+            message: SuccessMessages.PLANS.RESET, 
+            data: allPlans 
+        });
+    } catch (error) {
+        return serverResponse(res, 400, { 
+            message: ErrorMessages.PLANS.RESET_FAILED, 
+            error: error.message 
+        });
+    }
 };
 
 export const deletePlanController = async (req, res) => {
-  try {
-    const deletedPlan = await deletePlanById(req.params.id);
-    if (!deletedPlan) {
-      return res.status(404).json({ message: "Plan not found: could not delete" });
+    try {
+        const deletedPlan = await deletePlanById(req.params.id);
+        if (!deletedPlan) {
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.PLANS.NOT_FOUND 
+            });
+        }
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.PLANS.DELETED, 
+            data: deletedPlan 
+        });
+    } catch (error) {
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.PLANS.DELETE_FAILED, 
+            error: error.message 
+        });
     }
-    res.json({
-      message: "Plan deleted successfully",
-      plan: deletedPlan
-    });
-  } catch (error) {
-    res.status(500).send({ message: "Error deleting plan", error: error.message });
-  }
 };
-
 
 export const updatePlanController = async (req, res) => {
-  try {
-    const id = req.params.id;
-    const updateData = { ...req.body };
-    const updatedPlan = await updatePlanById(id, updateData);
-    
-    if (!updatedPlan) {
-      return res.status(404).send({ message: "Plan not found" });
+    try {
+        const id = req.params.id;
+        const updateData = { ...req.body };
+        const updatedPlan = await updatePlanById(id, updateData);
+        
+        if (!updatedPlan) {
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.PLANS.NOT_FOUND 
+            });
+        }
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.PLANS.UPDATED, 
+            data: updatedPlan 
+        });
+    } catch (error) {
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.PLANS.UPDATE_FAILED, 
+            error: error.message 
+        });
     }
-    res.send(updatedPlan);
-  } catch (error) {
-    res.status(500).send({ message: "Error updating plan", error: error.message });
-  }
 };
+
+

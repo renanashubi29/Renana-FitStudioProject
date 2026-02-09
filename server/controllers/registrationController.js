@@ -8,12 +8,27 @@ import {
 } from "../services/registrationService.js";
 
 
+import { serverResponse } from "../utils/serverResponse.js";
+
+import { SuccessMessages, ErrorMessages } from "../utils/messages.js";
+
 export const getAllRegistrationsController = async (req, res) => {
     try {
         const registrations = await getAllRegistrations();
-        res.status(200).json(registrations);
+        if (!registrations || registrations.length === 0) {
+            return serverResponse(res, 204, { 
+                message: ErrorMessages.REGISTRATIONS.GET_ALL 
+            });
+        }
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.REGISTRATIONS.GET_ALL, 
+            data: registrations 
+        });
     } catch (error) {
-        res.status(500).json({ message: "Error fetching registrations", error: error.message });
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.REGISTRATIONS.GET_ALL, 
+            error: error.message 
+        });
     }
 };
 
@@ -21,26 +36,37 @@ export const getRegistrationByIdController = async (req, res) => {
     try {
         const registration = await getRegistrationById(req.params.id);
         if (!registration) {
-            return res.status(404).json({ message: "Registration not found" });
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.REGISTRATIONS.NOT_FOUND 
+            });
         }
-        res.status(200).json(registration);
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.REGISTRATIONS.GET_BY_ID, 
+            data: registration 
+        });
     } catch (error) {
-        res.status(500).json({ message: `Invalid registration ID: ${req.params.id}` });
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.GENERAL.INVALID_ID(req.params.id), 
+            error: error.message 
+        });
     }
 };
-
 
 export const createRegistrationController = async (req, res) => {
     try {
-        // הסרביס כבר יבדוק אם ה-User וה-Workout קיימים
-        const savedRegistration = await createRegistration(req.body);
-        res.status(201).json(savedRegistration);
+        const registrationData = { ...req.body }
+        const savedRegistration = await createRegistration(registrationData);
+        return serverResponse(res, 201, { 
+            message: SuccessMessages.REGISTRATIONS.CREATED, 
+            data: savedRegistration 
+        });
     } catch (error) {
-        // אם הסרביס זרק שגיאה (כמו "User not found"), היא תתפס כאן
-        res.status(400).json({ message: "Error creating registration", error: error.message });
+        return serverResponse(res, 400, { 
+            message: ErrorMessages.REGISTRATIONS.CREATE_FAILED, 
+            error: error.message 
+        });
     }
 };
-
 
 export const updateRegistrationController = async (req, res) => {
     try {
@@ -48,38 +74,52 @@ export const updateRegistrationController = async (req, res) => {
         const updatedRegistration = await updateRegistrationById(id, req.body);
         
         if (!updatedRegistration) {
-            return res.status(404).json({ message: "Registration not found" });
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.REGISTRATIONS.NOT_FOUND 
+            });
         }
-        res.status(200).json(updatedRegistration);
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.REGISTRATIONS.UPDATED, 
+            data: updatedRegistration 
+        });
     } catch (error) {
-        res.status(500).json({ message: "Error updating registration", error: error.message });
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.REGISTRATIONS.UPDATE_FAILED, 
+            error: error.message 
+        });
     }
 };
-
 
 export const deleteRegistrationController = async (req, res) => {
     try {
         const deletedRegistration = await deleteRegistrationById(req.params.id);
         if (!deletedRegistration) {
-            return res.status(404).json({ message: "Registration not found" });
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.REGISTRATIONS.NOT_FOUND 
+            });
         }
-        res.status(200).json({
-            message: "Registration cancelled successfully",
-            registration: deletedRegistration
+        return serverResponse(res, 200, { 
+            message: SuccessMessages.REGISTRATIONS.DELETED, 
+            data: deletedRegistration 
         });
     } catch (error) {
-        res.status(500).json({ message: "Error deleting registration", error: error.message });
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.REGISTRATIONS.DELETE_FAILED, 
+            error: error.message 
+        });
     }
 };
-
 
 export const resetRegistrationsController = async (req, res) => {
     try {
         const allRegistrations = await resetRegistrationsFromFile();
-        res.status(201).json(allRegistrations);
+        return serverResponse(res, 201, { 
+            message: SuccessMessages.REGISTRATIONS.RESET, 
+            data: allRegistrations 
+        });
     } catch (error) {
-        res.status(400).json({ 
-            message: "Error resetting registrations", 
+        return serverResponse(res, 400, { 
+            message: ErrorMessages.REGISTRATIONS.RESET_FAILED, 
             error: error.message 
         });
     }

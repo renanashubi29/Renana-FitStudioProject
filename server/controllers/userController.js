@@ -11,134 +11,166 @@ import {
   updateUserById 
 } from "../services/userService.js";
 
-export const resetUsersController =async(req,res)=>{
+import { serverResponse } from "../utils/serverResponse.js";
 
-  try{
-   
-    const allUsers=await resetUsersFromFile();
-    res.status(201).json(allUsers).end();
+import { SuccessMessages, ErrorMessages } from "../utils/messages.js";
+
+export const resetUsersController = async (req, res) => {
+  try {
+    const allUsers = await resetUsersFromFile();
+    return serverResponse(res, 201, { 
+      message: SuccessMessages.USERS.RESET, 
+      data: allUsers 
+    });
+  } catch (error) {
+    return serverResponse(res, 400, { 
+      message: ErrorMessages.USERS.RESET_FAILED, 
+      error: error.message 
+    });
   }
-   catch(error)
- {
-    res.status(400).json({message:"Error reserting users",error:error.message});
- }
 };
-
-
-
 
 export const getAllUsersController = async (req, res) => {
   try {
     const users = await getAllUsers();
-    res.send(users);
+    if (!users || users.length === 0) {
+      return serverResponse(res, 204, { 
+        message: ErrorMessages.USERS.GET_ALL 
+      });
+    }
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.GET_ALL, 
+      data: users 
+    });
   } catch (error) {
-    res.status(500).send({ message: "Error fetching users", error: error.message });
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.USERS.GET_ALL, 
+      error: error.message 
+    });
   }
 };
-
 
 export const getUserByIdController = async (req, res) => {
   try {
     const user = await getUserById(req.params.id);
     if (!user) {
-      return res.status(404).json({ message: "User not found" });
+      return serverResponse(res, 404, { 
+        message: ErrorMessages.USERS.NOT_FOUND 
+      });
     }
-    res.json(user);
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.GET_BY_ID, 
+      data: user 
+    });
   } catch (error) {
-    res.status(500).json({ message: `Invalid user id: ${req.params.id}`, error: error.message });
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.GENERAL.INVALID_ID(req.params.id), 
+      error: error.message 
+    });
   }
 };
-
 
 export const createUserController = async (req, res) => {
   try {
-    const savedUser = await createUser(req.body);
-    res.status(201).json(savedUser);
+    const userData = { ...req.body }
+    const savedUser = await createUser(userData);
+    return serverResponse(res, 201, { 
+      message: SuccessMessages.USERS.CREATED, 
+      data: savedUser 
+    });
   } catch (error) {
-    res.status(400).json({ message: "Error creating user", error: error.message });
+    return serverResponse(res, 400, { 
+      message: ErrorMessages.USERS.CREATE_FAILED, 
+      error: error.message 
+    });
   }
 };
-
-
-
 
 export const deleteUserController = async (req, res) => {
   try {
     const deletedUser = await deleteUserById(req.params.id);
     if (!deletedUser) {
-      return res.status(404).json({ message: "User not found: could not delete" });
+      return serverResponse(res, 404, { 
+        message: ErrorMessages.USERS.NOT_FOUND 
+      });
     }
-    res.json({
-      message: "User deleted successfully",
-      user: deletedUser
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.DELETED, 
+      data: deletedUser 
     });
   } catch (error) {
-    res.status(500).send({ message: "Error deleting user", error: error.message });
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.USERS.DELETE_FAILED, 
+      error: error.message 
+    });
   }
 };
-
 
 export const updateUserController = async (req, res) => {
   try {
     const id = req.params.id;
-    const updateData = { ...req.body };
-    const updatedUser = await updateUserById(id, updateData);
-    
+    const updatedUser = await updateUserById(id, req.body);
     if (!updatedUser) {
-      return res.status(404).send({ message: "User not found" });
+      return serverResponse(res, 404, { 
+        message: ErrorMessages.USERS.NOT_FOUND 
+      });
     }
-    res.send(updatedUser);
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.UPDATED, 
+      data: updatedUser 
+    });
   } catch (error) {
-    res.status(500).send({ message: "Error updating user", error: error.message });
-  }
-};
-export const registerUserController = async (req, res) => {
-  try {
-    const newUser = req.body;
-    const result = await registerUserService(newUser);
-
-    res.status(201).json(
-    { message: "User registered successfully",
-     token: result.token,
-     user:result.user });
-  } catch (error) {
-    res.status(error.status || 400).json({
-      message: error.message || "Failed to register user",
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.USERS.UPDATE_FAILED, 
+      error: error.message 
     });
   }
 };
 
-//שירה לוין:AdminStrongPass!2026
+export const registerUserController = async (req, res) => {
+  try {
+    const result = await registerUserService(req.body);
+    return serverResponse(res, 201, { 
+      message: SuccessMessages.USERS.REGISTER, 
+      data: { token: result.token, user: result.user } 
+    });
+  } catch (error) {
+    return serverResponse(res, error.status || 400, { 
+      message: ErrorMessages.USERS.REGISTER_FAILED,
+      error: error.message 
+    });
+  }
+};
+
 export const loginUserController = async (req, res) => {
   try {
     const { email, password } = req.body;
     const result = await loginUserService(email, password);
-
-    res.status(200).json({ message: "Login successful",
-     token: result.token,
-     user:result.user });
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.LOGIN, 
+      data: { token: result.token, user: result.user } 
+    });
   } catch (error) {
-    res.status(error.status || 500).json({
-      message: error.message || "Login failed",
+    return serverResponse(res, error.status || 500, { 
+      message: ErrorMessages.USERS.LOGIN_FAILED,
+      error: error.message 
     });
   }
 };
-
 
 export const changePasswordController = async (req, res) => {
   try {
     const { id } = req.params;
     const { oldPassword, newPassword } = req.body;
-
     const updatedUser = await changePasswordService(id, oldPassword, newPassword);
-
-    res.status(200).json({
-      message: "Password updated successfully",
-      user: updatedUser,
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.PASSWORD_CHANGED, 
+      data: updatedUser 
     });
   } catch (error) {
-    res.status(error.status || 500).json({
-      message: error.message || "Failed to change password",
+    return serverResponse(res, error.status || 500, { 
+      message: ErrorMessages.USERS.PASSWORD_CHANGE_FAILED,
+      error: error.message 
     });
   }
 };

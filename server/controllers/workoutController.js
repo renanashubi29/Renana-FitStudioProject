@@ -8,80 +8,118 @@ import {
 } from "../services/workoutService.js";
 
 
+import { serverResponse } from "../utils/serverResponse.js";
+
+import { SuccessMessages, ErrorMessages } from "../utils/messages.js";
+
 export const getAllWorkoutsController = async (req, res) => {
   try {
     const workouts = await getAllWorkouts();
-    res.send(workouts);
-  } catch (error) {
-    res.status(500).send({ message: "Error fetching workouts", error: error.message });
-  }
-};
-
-
-export const getWorkoutByIdController = async (req, res) => {
-  try {
-    const workout = await getWorkoutById(req.params.id);
-    if (!workout) {
-      return res.status(404).json({ message: "Workout not found" });
+    if (!workouts || workouts.length === 0) {
+      return serverResponse(res, 204, { 
+        message: ErrorMessages.WORKOUTS.GET_ALL 
+      });
     }
-    res.json(workout);
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.WORKOUTS.GET_ALL, 
+      data: workouts 
+    });
   } catch (error) {
-    res.status(500).json({ message: `Invalid workout id: ${req.params.id}` });
-  }
-};
-
-
-export const createWorkoutController = async (req, res) => {
-  try {
-   
-    const savedWorkout = await createWorkout(req.body);
-    res.status(201).json(savedWorkout);
-  } catch (error) {
- 
-    res.status(400).json({ message: "Error creating workout", error: error.message });
-  }
-};
-
-
-export const resetWorkoutsController = async (req, res) => {
-  try {
-    const allWorkouts = await resetWorkoutsFromFile();
-    res.status(201).json(allWorkouts);
-  } catch (error) {
-    res.status(400).json({ 
-      message: "Error resetting workouts from file", 
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.WORKOUTS.GET_ALL, 
       error: error.message 
     });
   }
 };
 
+export const getWorkoutByIdController = async (req, res) => {
+  try {
+    const workout = await getWorkoutById(req.params.id);
+    if (!workout) {
+      return serverResponse(res, 404, { 
+        message: ErrorMessages.WORKOUTS.NOT_FOUND 
+      });
+    }
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.WORKOUTS.GET_BY_ID, 
+      data: workout 
+    });
+  } catch (error) {
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.GENERAL.INVALID_ID(req.params.id), 
+      error: error.message 
+    });
+  }
+};
+
+export const createWorkoutController = async (req, res) => {
+  try {
+    const workoutData = { ...req.body }
+    const savedWorkout = await createWorkout(workoutData);
+    return serverResponse(res, 201, { 
+      message: SuccessMessages.WORKOUTS.CREATED, 
+      data: savedWorkout 
+    });
+  } catch (error) {
+    return serverResponse(res, 400, { 
+      message: ErrorMessages.WORKOUTS.CREATE_FAILED, 
+      error: error.message 
+    });
+  }
+};
+
+export const resetWorkoutsController = async (req, res) => {
+  try {
+    const allWorkouts = await resetWorkoutsFromFile();
+    return serverResponse(res, 201, { 
+      message: SuccessMessages.WORKOUTS.RESET, 
+      data: allWorkouts 
+    });
+  } catch (error) {
+    return serverResponse(res, 400, { 
+      message: ErrorMessages.WORKOUTS.RESET_FAILED, 
+      error: error.message 
+    });
+  }
+};
 
 export const deleteWorkoutController = async (req, res) => {
   try {
     const deletedWorkout = await deleteWorkoutById(req.params.id);
     if (!deletedWorkout) {
-      return res.status(404).json({ message: "Workout not found: could not delete" });
+      return serverResponse(res, 404, { 
+        message: ErrorMessages.WORKOUTS.NOT_FOUND 
+      });
     }
-    res.json({
-      message: "Workout deleted successfully",
-      workout: deletedWorkout
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.WORKOUTS.DELETED, 
+      data: deletedWorkout 
     });
   } catch (error) {
-    res.status(500).send({ message: "Error deleting workout", error: error.message });
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.WORKOUTS.DELETE_FAILED, 
+      error: error.message 
+    });
   }
 };
-
 
 export const updateWorkoutController = async (req, res) => {
   try {
     const id = req.params.id;
     const updatedWorkout = await updateWorkoutById(id, req.body);
-    
     if (!updatedWorkout) {
-      return res.status(404).send({ message: "Workout not found" });
+      return serverResponse(res, 404, { 
+        message: ErrorMessages.WORKOUTS.NOT_FOUND 
+      });
     }
-    res.send(updatedWorkout);
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.WORKOUTS.UPDATED, 
+      data: updatedWorkout 
+    });
   } catch (error) {
-    res.status(400).send({ message: "Error updating workout", error: error.message });
+    return serverResponse(res, 400, { 
+      message: ErrorMessages.WORKOUTS.UPDATE_FAILED, 
+      error: error.message 
+    });
   }
 };
