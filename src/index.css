@@ -101,4 +101,7 @@ body {
   background-color: #fafafa;
 }
 
-
+.workouts {
+  display: flex;
+  flex-wrap: wrap;
+}
