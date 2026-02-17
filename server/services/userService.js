@@ -4,7 +4,7 @@ import fs from "fs";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 
-// איפוס משתמשים עם בדיקת תקינות מנויים מול הסרביס
+/* // איפוס משתמשים עם בדיקת תקינות מנויים מול הסרביס
 export const resetUsersFromFile = async () => {
   try {
   
@@ -35,7 +35,7 @@ export const resetUsersFromFile = async () => {
   
     throw new Error("Reset Users Failed: " + error.message);
   }
-};
+}; */
 
 
 
@@ -180,4 +180,33 @@ export const changePasswordService = async (id, oldPassword, newPassword) => {
   );
 
   return updatedUser;
+};
+export const resetUsersFromFile = async () => {
+  try {
+    const data = fs.readFileSync("./json/users.json", "utf-8");
+    const users = JSON.parse(data);
+
+    const allPlans = await getAllPlans();
+    const validPlanIds = allPlans.map(plan => plan._id.toString());
+
+    await User.deleteMany({});
+
+    const insertedUsers = [];
+
+    for (const userData of users) {
+      if (userData.plan && !validPlanIds.includes(userData.plan)) {
+        throw new Error(`User "${userData.name}" has an invalid Plan ID`);
+      }
+
+      // 1. חייב await כדי שההצפנה והשמירה יסתיימו
+      // 2. הסרביס שלך מחזיר אובייקט { user, token }, אז ניקח רק את ה-user
+      const result = await registerUserService(userData);
+      
+      insertedUsers.push(result.user);
+    }
+
+    return insertedUsers;
+  } catch (error) {
+    throw new Error("Reset Users Failed: " + error.message);
+  }
 };

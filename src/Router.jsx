@@ -1,24 +1,98 @@
-import { useQuery } from "@tanstack/react-query";
-import { handleWorkouts } from "./api/workoutsApi.js";
+import {  resetWorkoutsFromCatalog } from "./api/workoutsApi.js";
 import { ShopContext } from "./ShopContext.js";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App.jsx";
+import LoginPage from "./pages/LoginPage.jsx";
+import { useEffect, useState } from "react";
+import { fetchNextSevenDaysWorkouts } from "./api/workoutsApi.js";
+import { groupWorkoutsByDay } from "./utils/workoutsUtils.js";
+import { fetchUserRegistrations } from "./api/registerApi.js";
+import { PlansCardsPage } from "./pages/PlansCardsPage.jsx";
+import { getAllPlans } from "./api/planApi.js";
+
  const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
   },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/plansCards",
+    element: <PlansCardsPage />,
+  },
  
 ]);
 export const Router=()=>{
+const [workouts, setWorkouts] = useState([]);
+const [plans, setplans] = useState([]);
+const [user, setUser] = useState(null);
+const [userRegistrations, setUserRegistrations] = useState([]);
+useEffect(() => {
+resetWorkoutsFromCatalog(); 
+  }, []); 
 
-const { data: allWorkouts = [] } = useQuery({
-    queryKey: ["all-workouts"],
-    queryFn: handleWorkouts,
-  });
-  console.log("allWorkouts",allWorkouts);
+/*   const { data: allWorkouts = [] } = useWorkouts();
+  const { data: upcomingWorkouts = [] } = useNextSevenDaysWorkouts(); */
+
+  ///
+
+
+useEffect(() => {
+    const loadData = async () => {
+        try {
+            // 1. מביאים את הנתונים הגולמיים
+            const rawData = await fetchNextSevenDaysWorkouts();
+              const plansData = await getAllPlans();
+              setplans(plansData);
+             console.log("נתונים גולמיים מהשרת:", plans);
+
+            // 2. מעבדים אותם (Grouping) מיד על המשתנה המקומי
+            const grouped = groupWorkoutsByDay(rawData);
+          //  console.log("נתונים לאחר קבוץ:", grouped);
+
+            // 3. שומרים ב-State את התוצאה הסופית
+            setWorkouts(grouped);
+            
+        } catch (error) {
+            console.error("Failed to fetch:", error);
+        }
+    };
+
+    loadData();
+}, []); // נשאר ריק כדי שירוץ רק פעם אחת בטעינה
+
+ 
+    ////////
+
+
+useEffect(() => {
+        const loadData = async () => {
+            // רק אם יש יוזר מחובר, נשלוף את הרישומים שלו
+            if (user && user._id) {
+                try {
+                    const regs = await fetchUserRegistrations(user._id);
+                    setUserRegistrations(regs);
+                    console.log("userRegistrations:",userRegistrations);
+                } catch (err) {
+                    console.error("Failed to load registrations on refresh", err);
+                }
+            }
+        };
+
+        loadData();
+    }, [user]);
 return ( <ShopContext.Provider
-      value={{ workouts: allWorkouts }}>
+     value={{ 
+      workouts: workouts, 
+      user: user, 
+      setUser: setUser,
+      userRegistrations:userRegistrations,
+      setUserRegistrations:setUserRegistrations,
+      plans:plans
+    }}>
 <RouterProvider router={router} /> 
 </ShopContext.Provider>);
 };

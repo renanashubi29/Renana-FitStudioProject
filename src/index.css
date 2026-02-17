@@ -76,6 +76,11 @@ body {
   font-weight: 600;
   cursor: pointer;
 }
+.register-btn:disabled {
+  color: #888;          /* צבע אפור במקום אדום */
+  cursor: not-allowed;  /* סימן של "אין כניסה" במקום יד */
+  opacity: 0.7;         /* קצת שקיפות */
+}
 .schedule-table {
   width: 100%;
   border-collapse: collapse;
@@ -103,5 +108,13 @@ body {
 
 .workouts {
   display: flex;
-  flex-wrap: wrap;
+gap: 20px 10px;
+}
+.day-group h1 {
+  color: white;
+}
+.cards-grid{
+  display: flex;
+  flex-direction: column;
+gap: 20px 10px;
 }

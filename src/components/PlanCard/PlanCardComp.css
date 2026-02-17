@@ -1,0 +1,63 @@
+/* הכרטיס עצמו */
+.plan-card-mui {
+    clip-path: polygon(0 5%, 100% 0, 100% 95%, 0 100%);
+    background-color: #1a1a1a !important;
+    color: white !important;
+    text-align: center;
+    border: 1px solid #333 !important;
+    cursor: pointer;
+    max-width: 320px;
+    padding: 16px;
+}
+
+/* אפקט ריחוף על כל הכרטיס */
+/*!important מכריח את הצבע להיות ככה בגלל הגדרות קשוחות של MUI */
+.plan-card-mui:hover {
+    background-color: white !important;
+    color: black !important;
+}
+
+/* שינוי צבע הכפתור רק כשהעכבר על הכרטיס */
+.plan-card-mui:hover .enroll-btn-mui {
+    background-color: #ff6600 !important;
+}
+
+/* כותרת */
+.plan-title-mui {
+    font-weight: bold !important;
+    margin-bottom: 8px !important;
+    text-transform: uppercase;
+}
+
+/* אזור המחיר */
+.price-container-mui {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    margin-bottom: 8px;
+}
+
+.price-color {
+    color: #ff6600 !important;
+    font-weight: bold !important;
+}
+
+/* רשימת התכונות */
+.features-list-mui {
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.feature-item-mui {
+    margin-bottom: 8px !important;
+    opacity: 0.8;
+}
+
+/* הכפתור */
+.enroll-btn-mui {
+    background-color: #333 !important;
+    color: white !important;
+    font-weight: bold !important;
+    padding: 12px 0 !important;
+    transition: 0.3s !important;
+}

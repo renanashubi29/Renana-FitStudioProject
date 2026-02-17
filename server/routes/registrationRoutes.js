@@ -5,7 +5,9 @@ import {
     createRegistrationController, 
     updateRegistrationController, 
     deleteRegistrationController, 
-    resetRegistrationsController 
+    resetRegistrationsController, 
+    getUserRegistrationsController,
+    getWorkoutRegistrationsController
 } from "../controllers/registrationController.js";
 
 const router = express.Router();
@@ -21,6 +23,12 @@ router.post("/reset", resetRegistrationsController);
 
 
 router.get("/:id", getRegistrationByIdController);
+
+
+router.get("/user/:userId", getUserRegistrationsController);
+
+
+router.get("/workout/:workoutId", getWorkoutRegistrationsController);
 
 
 router.put("/:id", updateRegistrationController);

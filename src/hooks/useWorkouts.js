@@ -1,12 +1,25 @@
 import { useQuery } from "@tanstack/react-query";
-import { handleWorkouts } from "../api/workoutsApi.js";
+import { fetchNextSevenDaysWorkouts, handleWorkouts } from "../api/workoutsApi.js";
+import { groupWorkoutsByDay } from "../utils/workoutsUtils.js";
 
 
-// ההוק המותאם אישית
+
 export const useWorkouts = () => {
   return useQuery({
     queryKey: ["All-workouts"], 
     queryFn: handleWorkouts,  
-    staleTime:1000 * 60 * 5, 
+    select: (data) =>
+    groupWorkoutsByDay(data),
+    staleTime: 5 * 60 * 1000, 
+  });
+};
+export const useNextSevenDaysWorkouts = () => {
+  return useQuery({
+    queryKey: ["workouts", "next-seven-days"], 
+    queryFn: fetchNextSevenDaysWorkouts,
+    select: (data) =>
+        groupWorkoutsByDay(data),
+    
+    staleTime: 5 * 60 * 1000, // המידע נחשב טרי ל-5 דקות
   });
 };

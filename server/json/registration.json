@@ -1,22 +1,52 @@
 [
   {
     "user": "69833c69b4869ea8ed2d6ea1",
-    "workout": "69835ea72bf3e7a3f5fb47ad",
-    "status": "Registered"
-  },
-  {
-    "user": "69833c69b4869ea8ed2d6ea2",
-    "workout": "69835ea72bf3e7a3f5fb47ad",
+    "workout": "699211cc97f8b0d5c3c2a59f",
     "status": "Registered"
   },
   {
     "user": "69833c69b4869ea8ed2d6ea3",
-    "workout": "69835ea72bf3e7a3f5fb47ad",
+    "workout": "699211cc97f8b0d5c3c2a59f",
     "status": "Registered"
   },
   {
     "user": "69833c69b4869ea8ed2d6ea4",
-    "workout": "69835ea72bf3e7a3f5fb47ad",
-    "status": "Waitlist"
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "69833c69b4869ea8ed2d6ea5",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "6988fd79bd0167be056238e0",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "698902604510d1051710c410",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "69890323ac4c3a993d0d3049",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "698ef9f7132f21a61a3b30bf",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "6992ec2f0cd30ce3a64dd1a7",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
+  },
+  {
+    "user": "699323f597ecadcf8f19fd80",
+    "workout": "699211cc97f8b0d5c3c2a59f",
+    "status": "Registered"
   }
 ]

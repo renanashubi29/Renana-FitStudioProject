@@ -13,7 +13,9 @@ export const SuccessMessages = {
         CREATED: "Workout created successfully",
         UPDATED: "Workout updated successfully",
         DELETED: "Workout deleted successfully",
-        RESET: "Workouts reset successfully"
+        RESET: "Workouts reset successfully",
+        SYNC_CATALOG: "Active workouts synchronized from catalog successfully",
+        ALREADY_UP_TO_DATE: "Schedule is already up to date"
     },
     USERS: {
         GET_ALL: "Users fetched successfully",
@@ -51,7 +53,8 @@ export const ErrorMessages = {
         CREATE_FAILED: "Error creating workout",
         UPDATE_FAILED: "Error updating workout",
         DELETE_FAILED: "Error deleting workout",
-        RESET_FAILED: "Error resetting workouts"
+        RESET_FAILED: "Error resetting workouts",
+        SYNC_CATALOG_FAILED: "Failed to sync active workouts from catalog"
     },
     USERS: {
         GET_ALL: "Error fetching users",

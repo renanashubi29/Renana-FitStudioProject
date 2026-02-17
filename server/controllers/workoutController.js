@@ -3,6 +3,8 @@ import {
   deleteWorkoutById, 
   getAllWorkouts, 
   getWorkoutById, 
+  getWorkoutsForNextSevenDays, 
+  resetWorkoutsFromCatalog, 
   resetWorkoutsFromFile, 
   updateWorkoutById 
 } from "../services/workoutService.js";
@@ -120,6 +122,73 @@ export const updateWorkoutController = async (req, res) => {
     return serverResponse(res, 400, { 
       message: ErrorMessages.WORKOUTS.UPDATE_FAILED, 
       error: error.message 
+    });
+  }
+};
+// סנכרון הקטלוג לתוך טבלת האימונים הפעילים
+export const resetWorkoutsFromCatalogController = async (req, res) => {
+  try {
+    
+    const createdWorkouts = await resetWorkoutsFromCatalog();
+
+   
+    if (!createdWorkouts || createdWorkouts.length === 0) {
+      return serverResponse(res, 200, { 
+        message: SuccessMessages.WORKOUTS.ALREADY_UP_TO_DATE 
+      });
+    }
+
+
+    return serverResponse(res, 201, { 
+      message: SuccessMessages.WORKOUTS.SYNC_CATALOG, 
+      data: createdWorkouts 
+    });
+
+  } catch (error) {
+   
+    return serverResponse(res, 400, { 
+      message: ErrorMessages.WORKOUTS.SYNC_CATALOG_FAILED, 
+      error: error.message 
+    });
+  }
+};
+export const resetWorkouts = async () => {
+  // בדרך כלל פעולות שמשנות נתונים בשרת (כמו ריסט) משתמשות ב-POST
+  const response = await fetch("http://localhost:5000/api/workouts/reset", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+
+  if (!response.ok) {
+    // זריקת שגיאה במידה והשרת החזיר סטטוס שאינו 200-299
+    const errorData = await response.json();
+    throw new Error(errorData.message || "Failed to reset workouts from catalog");
+  }
+
+  const result = await response.json();
+  
+  // מחזירים את ה-data (רשימת האימונים שנוצרו) כפי שהקונטרולר שולח
+  return result.data;
+};
+export const getWorkoutsForNextSevenDaysController = async (req, res) => {
+  try {
+
+    // קריאה לפונקציה שמבצעת את הסינון הלוגי
+    const workouts = await getWorkoutsForNextSevenDays();
+
+    // החזרת תשובה סטנדרטית עם הנתונים המסוננים
+    return serverResponse(res, 200, {
+      message: "Upcoming workouts for the next 7 days fetched successfully",
+      data: workouts
+    });
+  } catch (error) {
+  
+    // במקרה של שגיאה בחישוב התאריכים או בשליפה מה-DB
+    return serverResponse(res, 400, {
+      message: "Error fetching upcoming workouts",
+      error: error.message
     });
   }
 };
