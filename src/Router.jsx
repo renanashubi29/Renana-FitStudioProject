@@ -2,7 +2,7 @@ import {  resetWorkoutsFromCatalog } from "./api/workoutsApi.js";
 import { ShopContext } from "./ShopContext.js";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App.jsx";
-import LoginPage from "./pages/LoginPage.jsx";
+import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import { useEffect, useState } from "react";
 import { fetchNextSevenDaysWorkouts } from "./api/workoutsApi.js";
 import { groupWorkoutsByDay } from "./utils/workoutsUtils.js";

@@ -1,14 +1,16 @@
 import React, { useContext } from 'react';
 
-import { PlanCardComp } from './/PlanCard/PlanCardComp';
-import { Box } from '@mui/material';
-import { ShopContext } from '../ShopContext';
+import { PlanCardComp } from '../PlanCard/PlanCardComp.jsx';
 
-export const PlansList = () => {
+import { Box } from '@mui/material';
+import { ShopContext } from '../../../ShopContext';
+import './PlanSectionComp.css';
+
+export const PlanSectionComp = () => {
   const { plans } = useContext(ShopContext);
 
   return (
-    <Box sx={{ display: 'flex', flexWrap: 'wrap', gap: 3, justifyContent: 'center', p: 4 }}>
+    <Box className="plans-container">
       {plans && plans.map((planItem) => (
         // עבור כל איבר במערך, אנחנו מפעילים את הקומפוננטה ומעבירים לה את האיבר
         <PlanCardComp

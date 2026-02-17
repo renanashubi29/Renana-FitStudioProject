@@ -1,8 +1,8 @@
-import { PlansList } from "../components/PlanSectionComp"
+import { PlanSectionComp } from '../components/plans/PlanSection/PlanSectionComp.jsx';
 
 
 export const PlansCardsPage=()=>{
     return <>
-    <PlansList/>
+    <PlanSectionComp/>
     </>
 }

@@ -1,19 +1,13 @@
-body {
-  background-color: #222; /* צבע שמתקבל כרקע בהיר */
-  margin: 0; /* מסיר מרווחים אוטומטיים של הדפדפן */
-  font-family: Arial, sans-serif; /* אופציונלי, רק כדי שהטקסט יראה יפה */
-}
-
 .my-nav {
   display: flex;
   justify-content: space-around;
   align-items: center;
   background: #222;
   padding: 10px 20px;
-    width: 250px;
+  width: 250px;
   position: absolute;  /* מאפשר למקם במדויק */
   left: 50%;           /* ממקם באמצע אופקית */
-  transform: translate(-50%, 50%); /* מזיז חזרה חצי מהגובה והרוחב כדי באמת להיות במרכז */
+  transform: translate(-50%, 50%); /* מזיז חזרה חצי מהגובה והרוחב */
 }
 
 .my-nav a {
@@ -29,92 +23,4 @@ body {
   border: none;
   color: white;
   font-size: 24px;
-}
-
-
-.class-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 360px;
-  direction: rtl;
-  font-family: Arial, sans-serif;
-}
-
-.card-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
-}
-
-.time {
-  font-size: 14px;
-  color: #777;
-}
-
-
-.title {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.subtitle {
-  margin-top: 4px;
-  font-size: 14px;
-  color: #555;
-}
-
-.register-btn {
-  width: 100%;
-  background: none;
-  border: none;
-  color: #e53935;
-  font-size: 18px;
-  font-weight: 600;
-  cursor: pointer;
-}
-.register-btn:disabled {
-  color: #888;          /* צבע אפור במקום אדום */
-  cursor: not-allowed;  /* סימן של "אין כניסה" במקום יד */
-  opacity: 0.7;         /* קצת שקיפות */
-}
-.schedule-table {
-  width: 100%;
-  border-collapse: collapse;
-  direction: rtl;
-}
-
-.schedule-table th,
-.schedule-table td {
-  border: 1px solid #ddd;
-  vertical-align: top; /* חשוב לקארד */
-  padding: 12px;
-}
-
-.schedule-table th {
-  background-color: #f5f5f5;
-  text-align: center;
-}
-
-.day {
-  width: 80px;
-  font-weight: bold;
-  text-align: center;
-  background-color: #fafafa;
-}
-
-.workouts {
-  display: flex;
-gap: 20px 10px;
-}
-.day-group h1 {
-  color: white;
-}
-.cards-grid{
-  display: flex;
-  flex-direction: column;
-gap: 20px 10px;
 }

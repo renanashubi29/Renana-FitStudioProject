@@ -1,11 +1,11 @@
 
 import "./index.css";
 
-import { CardsSection } from "./components/CardsSection.jsx";
+import { WorkoutsSection } from "./components/workouts/WorkoutsSection/WorkoutsSection.jsx";
 
 function App() {
 return <>
-<CardsSection/>
+<WorkoutsSection/>
 </>
 
 }

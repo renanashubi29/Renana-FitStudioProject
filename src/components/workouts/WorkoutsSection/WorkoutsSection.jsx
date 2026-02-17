@@ -1,7 +1,7 @@
 
 import { useContext } from "react";
-import { CardComp } from "./CardComp";
-import { ShopContext } from "../ShopContext";
+import { WorkoutCardComp } from "../WorkoutCard/WorkoutCardComp";
+import { ShopContext } from "../../../ShopContext";
 
 // פונקציית עזר לקבלת שם היום באנגלית
 const getDayName = (dayIndex) => {
@@ -12,7 +12,7 @@ const getDayName = (dayIndex) => {
   return new Intl.DateTimeFormat("en-US", { weekday: "long" }).format(date);
 };
 
-export const CardsSection = () => {
+export const WorkoutsSection = () => {
   const { workouts } = useContext(ShopContext);
 
   return (
@@ -22,13 +22,12 @@ export const CardsSection = () => {
         
         // לוגיקה מעודכנת: מציג רק אם זה לא שבת ואם יש אימונים ביום הזה
         return (
-          dayName !== "Saturday" && 
-          workoutsInSpecificDay.length > 0 && (
+          dayName !== "Saturday" &&  workoutsInSpecificDay.length > 0 && (
             <div key={dayIndex} className="day-group">
               <h1>{dayName}</h1>
               <div className="cards-grid">
                 {workoutsInSpecificDay.map((workout) => (
-                  <CardComp
+                  <WorkoutCardComp
                     key={workout._id} 
                     id={workout._id}
                     workoutName={workout.workoutName}

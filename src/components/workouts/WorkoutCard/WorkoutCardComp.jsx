@@ -2,12 +2,12 @@ import { useContext, useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { registerToWorkoutAPI, fetchWorkoutRegistrations, deleteRegistration } from "../api/registerApi";
-import { ShopContext } from "../ShopContext";
+import { registerToWorkoutAPI, fetchWorkoutRegistrations, deleteRegistration } from "../../../api/registerApi";
+import { ShopContext } from "../../../ShopContext";
+import './WorkoutCardComp.css';
 
 
-
-export const CardComp = (props) => {
+export const WorkoutCardComp = (props) => {
   const { userRegistrations, setUserRegistrations, user } = useContext(ShopContext);
   const [participantsCount, setParticipantsCount] = useState(0);
   const [liked, setLiked] = useState(false);

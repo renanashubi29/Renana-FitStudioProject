@@ -1,0 +1,7 @@
+.plans-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px; /* זה שווה ל-gap: 3 של MUI (3 * 8px) */
+  justify-content: center;
+  padding: 32px; /* זה שווה ל-p: 4 של MUI (4 * 8px) */
+}
