@@ -3,7 +3,7 @@ import { Card, CardContent, Typography, Button, Box, Divider } from '@mui/materi
 import './PlanCardComp.css';
 
 export const PlanCardComp = (props) => {
-    const {name,price,duration} = props;
+    const {name,price,duration,onSelect} = props;
    
   // נתונים קבועים לפי התמונה מה-DB שלך
   const planData = {
@@ -48,13 +48,14 @@ export const PlanCardComp = (props) => {
         </Box>
 
         <Button 
+        onClick={onSelect}
           variant="contained" 
           fullWidth 
           className="enroll-btn-mui"
           sx={{ mt: 3 }}
         >
           ENROLL NOW
-        </Button>
+        </Button >
       </CardContent>
     </Card>
   );

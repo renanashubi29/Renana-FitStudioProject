@@ -2,9 +2,11 @@ const BASE_URL = "http://localhost:5000/api/registrations";
 //רישום לאימון
 export const registerToWorkoutAPI = async (userId, workoutId) => {
     try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`${BASE_URL}/`, {
             method: "POST",
             headers: {
+                'Authorization': `Bearer ${token}`,
                 "Content-Type": "application/json",
             },
             body: JSON.stringify({ 
@@ -84,11 +86,12 @@ export const fetchWorkoutRegistrations = async (workoutId) => {
 };
 export const deleteRegistration = async (registrationId) => {
     try {
+        const token = localStorage.getItem('token');
         const response = await fetch(`http://localhost:5000/api/registrations/${registrationId}`, {
             method: 'DELETE',
             headers: {
                 'Content-Type': 'application/json',
-                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+                 'Authorization': `Bearer ${localStorage.getItem('token')}`
             }
         });
 

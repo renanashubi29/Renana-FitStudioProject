@@ -3,6 +3,7 @@ import { ShopContext } from "./ShopContext.js";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
+import {RegisterPage} from "./pages/RegisterPage/RegisterPage.jsx";
 import { useEffect, useState } from "react";
 import { fetchNextSevenDaysWorkouts } from "./api/workoutsApi.js";
 import { groupWorkoutsByDay } from "./utils/workoutsUtils.js";
@@ -19,6 +20,10 @@ import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
   {
     path: "/login",
     element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
   },
   {
     path: "/plansCards",

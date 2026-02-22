@@ -9,6 +9,7 @@ import {
     getUserRegistrationsController,
     getWorkoutRegistrationsController
 } from "../controllers/registrationController.js";
+import { verifyToken} from "../middlwares/auth.js";
 
 const router = express.Router();
 
@@ -16,7 +17,7 @@ const router = express.Router();
 router.get("/", getAllRegistrationsController);
 
 
-router.post("/", createRegistrationController);
+router.post("/",verifyToken, createRegistrationController);
 
 
 router.post("/reset", resetRegistrationsController);
@@ -34,6 +35,6 @@ router.get("/workout/:workoutId", getWorkoutRegistrationsController);
 router.put("/:id", updateRegistrationController);
 
 
-router.delete("/:id", deleteRegistrationController);
+router.delete("/:id",verifyToken, deleteRegistrationController);
 
 export default router;
