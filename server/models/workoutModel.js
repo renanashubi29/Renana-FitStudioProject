@@ -18,6 +18,11 @@ const workoutSchema = new mongoose.Schema({
         default: function() {
             return ROOM_CAPACITIES[this.roomName];
         }
+    },
+    coach: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', // השם של מודל המשתמשים שלך
+        required: true 
     }, 
     date: { type: Date, required: true },
     time: { type: String, required: true }

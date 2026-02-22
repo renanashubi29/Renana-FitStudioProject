@@ -9,6 +9,7 @@ import { groupWorkoutsByDay } from "./utils/workoutsUtils.js";
 import { fetchUserRegistrations } from "./api/registerApi.js";
 import { PlansCardsPage } from "./pages/PlansCardsPage.jsx";
 import { getAllPlans } from "./api/planApi.js";
+import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
 
  const router = createBrowserRouter([
   {
@@ -30,12 +31,14 @@ const [workouts, setWorkouts] = useState([]);
 const [plans, setplans] = useState([]);
 const [user, setUser] = useState(null);
 const [userRegistrations, setUserRegistrations] = useState([]);
+ const [filter, setFilter] = useState("all");
+
 useEffect(() => {
 resetWorkoutsFromCatalog(); 
   }, []); 
 
-/*   const { data: allWorkouts = [] } = useWorkouts();
-  const { data: upcomingWorkouts = [] } = useNextSevenDaysWorkouts(); */
+   const { data: allWorkouts = [] } = useWorkouts();
+  const { data: upcomingWorkouts = [] } = useNextSevenDaysWorkouts(filter,userRegistrations); 
 
   ///
 
@@ -69,6 +72,9 @@ useEffect(() => {
 
 
 useEffect(() => {
+  setFilter("all");
+}, [user]);
+useEffect(() => {
         const loadData = async () => {
             // רק אם יש יוזר מחובר, נשלוף את הרישומים שלו
             if (user && user._id) {
@@ -84,14 +90,20 @@ useEffect(() => {
 
         loadData();
     }, [user]);
+
+
 return ( <ShopContext.Provider
      value={{ 
-      workouts: workouts, 
+      workouts:/*  workouts */upcomingWorkouts, 
+      setFilter:setFilter,
+      filter: filter,
       user: user, 
       setUser: setUser,
       userRegistrations:userRegistrations,
       setUserRegistrations:setUserRegistrations,
-      plans:plans
+      plans:plans,
+  
+
     }}>
 <RouterProvider router={router} /> 
 </ShopContext.Provider>);

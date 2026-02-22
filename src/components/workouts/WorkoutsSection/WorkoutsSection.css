@@ -1,12 +1,9 @@
-.cards-grid{
-  display: flex;
-  flex-direction: column;
-  gap: 20px 10px;
-}
 
-.day {
-  width: 80px;
-  font-weight: bold;
-  text-align: center;
-  background-color: #fafafa;
+.workouts {
+  display: flex;
+  justify-content: center;
+  height: 100%;
+  margin: 0; 
+  width: 100%; 
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }

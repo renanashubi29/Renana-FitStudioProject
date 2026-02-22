@@ -203,6 +203,7 @@ export const resetWorkoutsFromFile = async () => {
                     roomName: item.roomName,
                     date: targetDate,
                     time: item.time,
+                    coach: item.coach,
                     maxParticipants: item.maxParticipants
                 });
                 //שמירה בDB
@@ -217,7 +218,9 @@ export const resetWorkoutsFromFile = async () => {
 export const getWorkoutsForNextSevenDays = async () => {
   try {
    
-    const allWorkouts = await Workout.find({}).sort({ date: 1, time: 1 });
+   const allWorkouts = await Workout.find({})
+      .populate('coach') 
+      .sort({ date: 1, time: 1 });
 
     // היום הנוכחי
     const now = new Date();

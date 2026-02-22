@@ -1,6 +1,7 @@
 import fs from "fs";
 import CatalogWorkout from "../models/catalogWorkoutModel.js"; // וודאי שהנתיב נכון
 import { getMinutesFromStartOfDay } from "../utils/dateUtil.js";
+import User from "../models/userModel.js";
 
 // קבלת כל אימוני הקטלוג
 export const getAllCatalogWorkouts = async () => {
@@ -108,7 +109,6 @@ export const deleteCatalogWorkoutById = async (id) => {
   }
 };
 
-// אתחול הקטלוג מקובץ JSON
 export const resetCatalogFromFile = async () => {
   try {
     const rawData = fs.readFileSync("./json/catalogWorkouts.json", "utf-8");
@@ -116,11 +116,21 @@ export const resetCatalogFromFile = async () => {
 
     for (let i = 0; i < catalogData.length; i++) {
       const current = catalogData[i];
-      
-      // בדיקת כפילויות בתוך הקובץ עצמו לפני ההכנסה
+
+      // 1. בדיקה שהמאמנת קיימת ב-Database
+      const coachExists = await User.findById(current.coach);
+      if (!coachExists) {
+        throw new Error(`Coach Validation Error: Coach with ID ${current.coach} was not found for workout "${current.workoutName}"`);
+      }
+
+      // 2. (בונוס) בדיקה שהמשתמש הוא אכן מאמנת או אדמין
+      if (coachExists.role !== 'coach' && coachExists.role !== 'admin') {
+        throw new Error(`Role Error: User ${coachExists.firstName} is not authorized to coach "${current.workoutName}"`);
+      }
+
+      // בדיקת כפילויות בתוך הקובץ (הקוד הקיים שלך)
       for (let j = i + 1; j < catalogData.length; j++) {
         const other = catalogData[j];
-        
         if (current.dayOfWeek === other.dayOfWeek && current.roomName === other.roomName) {
           const time1 = getMinutesFromStartOfDay(current.time);
           const time2 = getMinutesFromStartOfDay(other.time);

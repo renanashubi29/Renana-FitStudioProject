@@ -174,7 +174,10 @@ export const createRegistration = async (data) => {
 
         // 4. יצירת הרישום
        const registration = new Registration({ ...data, status: registrationStatus });
-        return await registration.save();
+       const savedRegistration = await registration.save();
+
+// כאן הקסם: שליפה מחדש של הרישום עם אובייקט האימון המלא
+        return await Registration.findById(savedRegistration._id).populate('workout');
         
     } catch (error) {
         if (error.code === 11000) {

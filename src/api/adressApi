@@ -1,0 +1,76 @@
+;   import React, { useState, useEffect } from 'react';
+; function debounceWithMinChars(func, wait = 1000, minChars = 3) {
+;   let timeout;
+
+;   return function(...args) {
+;     const context = this;
+;     const inputValue = args[0]?.target?.value || args[0] || "";
+
+;     clearTimeout(timeout);
+
+;     if (inputValue.length >= minChars) {
+;       timeout = setTimeout(() => {
+;         func.apply(context, args);
+;       }, wait);
+;     } else {
+;       console.log(`Input too short (min ${minChars} chars)`);
+;     }
+;   };
+; }
+
+; ; const IsraelLocationPicker = () => {
+;   const [cities, setCities] = useState([]);
+;   const [streets, setStreets] = useState([]);
+;   const [selectedCity, setSelectedCity] = useState("");
+;   const [loading, setLoading] = useState(false);
+
+  
+;     const fetchCities = async () => {
+;       try {
+;         const resourceId = "5c78ad88-283a-4c5c-a49e-c6e257f788f5"; // מזהה מאגר הערים
+;         const url = `https://data.gov.il/api/3/action/datastore_search?resource_id=${resourceId}&limit=1500`;
+        
+;         const response = await fetch(url);
+;         const data = await response.json();
+        
+;         // חילוץ שמות הערים ומיון אלפביתי
+;         const cityNames = data.result.records
+;           .map(item => item["שם_ישוב"].trim())
+;           .sort((a, b) => a.localeCompare(b, 'he'));
+        
+;         setCities(cityNames);
+;       } catch (error) {
+;         console.error("שגיאה בטעינת ערים:", error);
+;       }
+;     };
+
+
+
+;   // 2. פונקציה לטעינת רחובות לפי העיר שנבחרה
+;   const fetchStreets = async (cityName) => {
+;     if (!cityName) {
+;       setStreets([]);
+;       return;
+;     }
+
+;     setLoading(true);
+;     try {
+;       const resourceId = "a7296d99-f6f1-4512-87c0-2433d98da469"; // מזהה מאגר הרחובות
+;       const url = `https://data.gov.il/api/3/action/datastore_search?resource_id=${resourceId}&q=${cityName}&limit=3000`;
+      
+;       const response = await fetch(url);
+;       const data = await response.json();
+      
+;       // סינון כפול: לוודא שהרחוב באמת שייך לעיר (לפעמים ה-API מחזיר תוצאות דומות)
+;       const streetNames = data.result.records
+;         .filter(item => item["שם_ישוב"].trim() === cityName)
+;         .map(item => item["שם_רחוב"].trim())
+;         .sort((a, b) => a.localeCompare(b, 'he'));
+
+;       setStreets(streetNames);
+;     } catch (error) {
+;       console.error("שגיאה בטעינת רחובות:", error);
+;     } finally {
+;       setLoading(false);
+;     }
+;   };        

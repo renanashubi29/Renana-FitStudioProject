@@ -24,6 +24,11 @@ const CatalogWorkoutSchema = new mongoose.Schema({
         required: true, 
         enum: ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday']
     },
+    coach: { 
+        type: mongoose.Schema.Types.ObjectId, 
+        ref: 'User', // השם של מודל המשתמשים שלך
+        required: true 
+    },
     time: { type: String, required: true }
 }, { timestamps: true });
 // אינדקס למניעת כפילויות (אופציונלי): 

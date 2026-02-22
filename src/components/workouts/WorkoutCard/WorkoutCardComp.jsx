@@ -19,6 +19,7 @@ export const WorkoutCardComp = (props) => {
     return regId === cardId;
   });
 
+
  // פונקציית הרישום
   const handleRegisterClick = async () => {
     if (!user) {
@@ -28,7 +29,11 @@ export const WorkoutCardComp = (props) => {
 
     try {
       const result = await registerToWorkoutAPI(user._id, props.id);
-      setUserRegistrations((prev) => [...prev, result]);
+   
+setUserRegistrations((prev) => {
+  const updated = [...prev, result];
+  return updated;
+});
       if (result.status === "Registered") {
     setParticipantsCount((prev) => prev + 1);
     alert("Registered successfully! See you there.");
@@ -94,16 +99,7 @@ const isDisabled = isRegistered || isWaitlisted;
     return `${endHour}:${minutes}`;
   };
 
-  // פורמט תאריך
-  const formatDate = (dateStr) => {
-    if (!dateStr) return "";
-    const date = new Date(dateStr);
-    return date.toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    });
-  };
+
 
   return (
     <div className="class-card">
@@ -122,14 +118,18 @@ const isDisabled = isRegistered || isWaitlisted;
 {/* כפתור הביטול - יופיע רק אם המשתמש רשום או בהמתנה */}
     
         <div className="time">
-          {props.time} - {calculateEndTime(props.time)} | {formatDate(props.date)}
+          {props.time} - {calculateEndTime(props.time)} 
         </div>
       </div>
 
       <h2 className="title">{props.workoutName}</h2>
 
       <p className="subtitle">Room: {props.roomName}</p>
-
+        <p className="subtitle">{props.coach}</p>
+        {/* הוספת שורת התפוסה */}
+<p className="participants-count">
+  {participantsCount}/{props.maxParticipants}
+</p>
       <button
         className="register-btn"
        onClick={handleRegisterClick}

@@ -1,6 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import { fetchNextSevenDaysWorkouts, handleWorkouts } from "../api/workoutsApi.js";
 import { groupWorkoutsByDay } from "../utils/workoutsUtils.js";
+import { fetchUserRegistrations } from "../api/registerApi.js";
+import { useContext } from "react";
+import { ShopContext } from "../ShopContext.js";
 
 
 
@@ -13,13 +16,23 @@ export const useWorkouts = () => {
     staleTime: 5 * 60 * 1000, 
   });
 };
-export const useNextSevenDaysWorkouts = () => {
+export const useNextSevenDaysWorkouts = (filter, userRegistrations) => {
+  // אם ה-Context עדיין מחזיר null, נוסיף הגנה קטנה
+
+
   return useQuery({
     queryKey: ["workouts", "next-seven-days"], 
     queryFn: fetchNextSevenDaysWorkouts,
-    select: (data) =>
-        groupWorkoutsByDay(data),
-    
-    staleTime: 5 * 60 * 1000, // המידע נחשב טרי ל-5 דקות
+    select: (data) => {
+      let filtered;
+      filtered=data;
+    if (filter === "registered" && userRegistrations?.length > 0){
+       filtered = userRegistrations.map(reg => { return reg.workout });
+      }
+     
+
+      return groupWorkoutsByDay(filtered);
+    },
+    staleTime: 5 * 60 * 1000,
   });
 };

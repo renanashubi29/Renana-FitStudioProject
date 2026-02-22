@@ -3,132 +3,154 @@
     "workoutName": "Yoga Flow",
     "roomName": "A",
     "dayOfWeek": "Sunday",
-    "time": "08:00"
+    "time": "08:00",
+    "coach": "699461f21b01117607061a66"
   },
   {
     "workoutName": "CrossFit",
     "roomName": "B",
     "dayOfWeek": "Sunday",
-    "time": "10:00"
+    "time": "10:00",
+    "coach": "699461f21b01117607061a68"
   },
   {
     "workoutName": "Pilates",
     "roomName": "C",
     "dayOfWeek": "Sunday",
-    "time": "17:00"
+    "time": "17:00",
+    "coach": "699461f21b01117607061a6a"
   },
   {
     "workoutName": "Zumba",
     "roomName": "D",
     "dayOfWeek": "Sunday",
-    "time": "19:00"
+    "time": "19:00",
+    "coach": "699461f21b01117607061a6c"
   },
   {
     "workoutName": "Body Pump",
     "roomName": "B",
     "dayOfWeek": "Monday",
-    "time": "08:30"
+    "time": "08:30",
+    "coach": "699461f21b01117607061a6e"
   },
   {
     "workoutName": "Spinning",
     "roomName": "C",
     "dayOfWeek": "Monday",
-    "time": "09:45"
+    "time": "09:45",
+    "coach": "699461f21b01117607061a66"
   },
   {
     "workoutName": "Kickboxing",
     "roomName": "A",
     "dayOfWeek": "Monday",
-    "time": "18:00"
+    "time": "18:00",
+    "coach": "699461f21b01117607061a68"
   },
   {
     "workoutName": "Yoga Flow",
     "roomName": "D",
     "dayOfWeek": "Monday",
-    "time": "20:00"
+    "time": "20:00",
+    "coach": "699461f21b01117607061a6a"
   },
   {
     "workoutName": "TRX",
     "roomName": "C",
     "dayOfWeek": "Tuesday",
-    "time": "07:00"
+    "time": "07:00",
+    "coach": "699461f21b01117607061a6c"
   },
   {
     "workoutName": "Pilates",
     "roomName": "A",
     "dayOfWeek": "Tuesday",
-    "time": "08:30"
+    "time": "08:30",
+    "coach": "699461f21b01117607061a6e"
   },
   {
     "workoutName": "Zumba",
     "roomName": "B",
     "dayOfWeek": "Tuesday",
-    "time": "16:00"
+    "time": "16:00",
+    "coach": "699461f21b01117607061a66"
   },
   {
     "workoutName": "CrossFit",
     "roomName": "D",
     "dayOfWeek": "Tuesday",
-    "time": "18:30"
+    "time": "18:30",
+    "coach": "699461f21b01117607061a68"
   },
   {
     "workoutName": "Yoga Flow",
     "roomName": "A",
     "dayOfWeek": "Wednesday",
-    "time": "08:00"
+    "time": "08:00",
+    "coach": "699461f21b01117607061a6a"
   },
   {
     "workoutName": "Body Pump",
     "roomName": "B",
     "dayOfWeek": "Wednesday",
-    "time": "10:00"
+    "time": "10:00",
+    "coach": "699461f21b01117607061a6c"
   },
   {
     "workoutName": "Spinning",
     "roomName": "C",
     "dayOfWeek": "Wednesday",
-    "time": "17:00"
+    "time": "17:00",
+    "coach": "699461f21b01117607061a6e"
   },
   {
     "workoutName": "Kickboxing",
     "roomName": "D",
     "dayOfWeek": "Wednesday",
-    "time": "19:00"
+    "time": "19:00",
+    "coach": "699461f21b01117607061a66"
   },
   {
     "workoutName": "TRX",
     "roomName": "C",
     "dayOfWeek": "Thursday",
-    "time": "08:00"
+    "time": "08:00",
+    "coach": "699461f21b01117607061a68"
   },
   {
     "workoutName": "Pilates",
     "roomName": "A",
     "dayOfWeek": "Thursday",
-    "time": "09:30"
+    "time": "09:30",
+    "coach": "699461f21b01117607061a6a"
   },
   {
     "workoutName": "Zumba",
     "roomName": "B",
     "dayOfWeek": "Thursday",
-    "time": "17:30"
+    "time": "17:30",
+    "coach": "699461f21b01117607061a6c"
   },
   {
     "workoutName": "CrossFit",
     "roomName": "D",
     "dayOfWeek": "Thursday",
-    "time": "19:00"
+    "time": "19:00",
+    "coach": "699461f21b01117607061a6e"
   },
   {
     "workoutName": "Morning Yoga",
     "roomName": "A",
     "dayOfWeek": "Friday",
-    "time": "08:00"
+    "time": "08:00",
+    "coach": "699461f21b01117607061a66"
   },
   {
     "workoutName": "Friday HIIT",
     "roomName": "B",
     "dayOfWeek": "Friday",
-    "time": "09:30"
+    "time": "09:30",
+    "coach": "699461f21b01117607061a68"
   }
 ]

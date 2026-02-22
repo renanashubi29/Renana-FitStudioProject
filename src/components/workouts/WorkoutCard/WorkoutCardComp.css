@@ -33,15 +33,23 @@ body {
 
 
 .class-card {
-  background: #ffffff;
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  max-width: 360px;
-  direction: rtl;
-  font-family: Arial, sans-serif;
-}
+   width: 180px; 
 
+  background: #ffffff;
+
+  border-radius: 16px;
+
+  padding: 16px;
+
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+
+  max-width: 360px;
+
+  direction: rtl;
+
+  font-family: Arial, sans-serif;
+
+}
 .card-header {
   display: flex;
   align-items: center;
@@ -92,5 +100,11 @@ body {
 .workouts {
   display: flex;
 gap: 20px 10px;
+}
+.participants-count {
+  direction: ltr;
+  unicode-bidi: isolate; /* שומר שהמספרים לא יתהפכו גם אם הכרטיס כולו בעברית */
+  display: block;
+  text-align: center; /* כדי שזה יישאר באמצע הכרטיס */
 }
 
