@@ -2,7 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import IconButton from "@mui/material/IconButton";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
-import { registerToWorkoutAPI, fetchWorkoutRegistrations, deleteRegistration } from "../../../api/registerApi";
+import { createRegistrationApi, getAllParticipantsInWorkoutApi, deleteRegistrationApi } from "../../../api/registrationApi";
 import { ShopContext } from "../../../ShopContext";
 import './WorkoutCardComp.css';
 
@@ -28,7 +28,7 @@ export const WorkoutCardComp = (props) => {
     }
 
     try {
-      const result = await registerToWorkoutAPI(user._id, props.id);
+      const result = await createRegistrationApi(user._id, props.id);
    
 setUserRegistrations((prev) => {
   const updated = [...prev, result];
@@ -58,12 +58,12 @@ setUserRegistrations((prev) => {
   try {
     console.log(registration._id);
     // 1. קריאה ל-API (משתמשים ב-ID של הרישום שמצאנו קודם)
-    const result = await deleteRegistration(registration._id);
+    const result = await deleteRegistrationApi(registration._id);
 
     // 2. עדכון ה-State הגלובלי (כדי שהכפתור יחזור למצב "Sign Up")
     setUserRegistrations((prev) => prev.filter((reg) => reg._id !== registration._id));
 
-   const updatedParticipants = await fetchWorkoutRegistrations(props.id);
+   const updatedParticipants = await getAllParticipantsInWorkoutApi(props.id);
     setParticipantsCount(updatedParticipants.length);
 
     alert(result.message);
@@ -81,7 +81,7 @@ const isDisabled = isRegistered || isWaitlisted;
   // משיכת כמות הנרשמים מהשרת
   useEffect(() => {
     const getCount = async () => {
-      const data = await fetchWorkoutRegistrations(props.id);
+      const data = await getAllParticipantsInWorkoutApi(props.id);
       setParticipantsCount(data.length);
     };
     getCount();
@@ -109,11 +109,11 @@ const isDisabled = isRegistered || isWaitlisted;
           size="small"
           aria-label="add to favorites"
         >
-          {liked ? (
-            <FavoriteIcon sx={{ color: "#e53935" }} />
-          ) : (
-            <FavoriteBorderIcon sx={{ color: "#e53935" }} />
-          )}
+         {liked ? (
+  <FavoriteIcon className="favorite-icon" />
+) : (
+  <FavoriteBorderIcon className="favorite-icon" />
+)}
         </IconButton>
 {/* כפתור הביטול - יופיע רק אם המשתמש רשום או בהמתנה */}
     

@@ -1,0 +1,39 @@
+/* עיצוב אזור המשתמש */
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* רווח בין הטקסט לאייקון */
+    cursor: default;
+    
+  
+}
+
+/* עיצוב הטקסט "שלום..." */
+.user-greeting {
+    font-size: 25px;
+    font-weight: 400;
+    color: white;
+    /* מונע מהטקסט לרדת שורה אם השם ארוך */
+    white-space: nowrap; 
+}
+.studio-title{
+       font-size:50px;
+    font-weight: 400;
+    color: white;
+    /* מונע מהטקסט לרדת שורה אם השם ארוך */
+    white-space: nowrap; 
+}
+
+/* האייקון עצמו */
+.profile-icon {
+    color: white !important;
+   width: 50px !important;  /* באייקונים עדיף להשתמש ב-width ו-height */
+    height: 50px !important;
+   
+   
+}
+.flexHeader{
+       display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

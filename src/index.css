@@ -1,26 +1,12 @@
-.my-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #222;
-  padding: 10px 20px;
-  width: 250px;
-  position: absolute;  /* מאפשר למקם במדויק */
-  left: 50%;           /* ממקם באמצע אופקית */
-  transform: translate(-50%, 50%); /* מזיז חזרה חצי מהגובה והרוחב */
-}
-
-.my-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 50px;
-  cursor: pointer; 
-}
-
-.nav-toggle {
-  display: none; /* מוצג רק במובייל */
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
+ :root {
+  /* צבעי יסוד של הסטודיו */
+  --primary-color: #00b894;   /* הטורקיז הזרחני מהכפתורים */
+  --bg-dark: #1A1A1A;         /* הרקע הכהה של האתר */
+  --card-white: #FFFFFF;      /* הרקע של כרטיסי האימון */
+  --text-gray: #777;       /* צבע טקסט משני */
+  --accent-red: #e53935;      /* אדום ללבבות וכפתורי הרשמה */
+  
+  /* צבעים נוספים לניהול (Admin) */
+  --admin-blue: #2c3e50;
+  --admin-border: #34495e;
 }

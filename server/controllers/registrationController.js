@@ -55,60 +55,46 @@ export const getRegistrationByIdController = async (req, res) => {
 };
 export const getUserRegistrationsController = async (req, res) => {
     try {
-        // 1. שליפת ה-ID מהפרמטרים של הכתובת
         const userId = req.params.userId;
-
-        // 2. קריאה לפונקציית הסרביס שכתבת קודם
         const registrations = await getRegistrationsByUser(userId);
 
-        // 3. בדיקה אם נמצאו רישומים (אופציונלי - תלוי אם את רוצה 404 כשאין רישומים או פשוט מערך ריק)
         if (!registrations || registrations.length === 0) {
             return serverResponse(res, 200, { 
-                message: "לא נמצאו רישומים למשתמש זה", 
+                message: ErrorMessages.REGISTRATIONS.NO_USER_REGISTRATIONS, 
                 data: [] 
             });
         }
 
-        // 4. החזרת תשובה חיובית בפורמט שלך
         return serverResponse(res, 200, { 
-            message: SuccessMessages.REGISTRATIONS.GET_ALL, // ודאי שקיים אצלך אובייקט כזה
+            message: SuccessMessages.REGISTRATIONS.GET_BY_USER, 
             data: registrations 
         });
-
     } catch (error) {
-        // 5. טיפול בשגיאה בפורמט שלך
         return serverResponse(res, 500, { 
-            message: "שגיאה בשליפת רישומי המשתמש", 
+            message: ErrorMessages.REGISTRATIONS.GET_BY_USER, 
             error: error.message 
         });
     }
 };
 export const getWorkoutRegistrationsController = async (req, res) => {
     try {
-        // 1. שליפת ה-ID של האימון מהפרמטרים של הכתובת (נניח שזה מגיע כ-workoutId)
         const { workoutId } = req.params;
-
-        // 2. קריאה לפונקציית הסרביס החדשה ששולפת לפי אימון
         const registrations = await getRegistrationsByWorkout(workoutId);
 
-        // 3. בדיקה אם נמצאו נרשמים
         if (!registrations || registrations.length === 0) {
             return serverResponse(res, 200, { 
-                message: "עדיין אין נרשמים לאימון זה", 
+                message: ErrorMessages.REGISTRATIONS.NO_WORKOUT_REGISTRATIONS, 
                 data: [] 
             });
         }
 
-        // 4. החזרת תשובה חיובית עם רשימת המתאמנים
         return serverResponse(res, 200, { 
-            message: "רשימת הנרשמים לאימון נשלפה בהצלחה", 
+            message: SuccessMessages.REGISTRATIONS.GET_BY_WORKOUT, 
             data: registrations 
         });
-
     } catch (error) {
-        // 5. טיפול בשגיאה
         return serverResponse(res, 500, { 
-            message: "שגיאה בשליפת רשימת הנרשמים לאימון", 
+            message: ErrorMessages.REGISTRATIONS.GET_BY_WORKOUT, 
             error: error.message 
         });
     }
@@ -178,44 +164,35 @@ export const deleteRegistrationController = async (req, res) => {
         const { id } = req.params;
 
         if (!id) {
-            return res.status(400).json({ 
-                success: false, 
-                message: "Registration ID is missing" 
+            return serverResponse(res, 400, { 
+                message: ErrorMessages.REGISTRATIONS.ID_MISSING 
             });
         }
 
-        // Executing the cancellation logic
         const result = await deleteRegistrationById(id);
 
-        // Success response
-        res.status(200).json({
-            success: true,
-            message: "Registration cancelled successfully",
-            promotedFromWaitlist: result.promotedFromWaitlist 
+        return serverResponse(res, 200, {
+            message: SuccessMessages.REGISTRATIONS.DELETED,
+            data: { promotedFromWaitlist: result.promotedFromWaitlist }
         });
 
     } catch (error) {
         const errorMessage = error.message;
 
-        // Handling specific logic errors
         if (errorMessage.includes("less than 24 hours")) {
-            return res.status(403).json({ 
-                success: false, 
-                message: "Cancellation blocked: Less than 24 hours remaining until workout" 
+            return serverResponse(res, 403, { 
+                message: ErrorMessages.REGISTRATIONS.TOO_LATE_TO_CANCEL 
             });
         }
 
         if (errorMessage.includes("not found")) {
-            return res.status(404).json({ 
-                success: false, 
-                message: "Registration not found" 
+            return serverResponse(res, 404, { 
+                message: ErrorMessages.REGISTRATIONS.NOT_FOUND 
             });
         }
 
-        // Generic server error
-        res.status(500).json({ 
-            success: false, 
-            message: "An internal error occurred during cancellation", 
+        return serverResponse(res, 500, { 
+            message: ErrorMessages.REGISTRATIONS.DELETE_FAILED, 
             error: errorMessage 
         });
     }

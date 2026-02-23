@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router';
-import { registerUser } from '../../api/userApi.js';
+import { registerUserApi } from '../../api/userApi.js';
 import { ShopContext } from '../../ShopContext.js';
 import { InputFieldComp } from '../../components/common/InputFieldComp.jsx';
 

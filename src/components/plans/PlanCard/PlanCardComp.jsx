@@ -3,60 +3,59 @@ import { Card, CardContent, Typography, Button, Box, Divider } from '@mui/materi
 import './PlanCardComp.css';
 
 export const PlanCardComp = (props) => {
-    const {name,price,duration,onSelect} = props;
-   
-  // נתונים קבועים לפי התמונה מה-DB שלך
-  const planData = {
-    features: [
-      'Access 2 times a week',
-      'Full gym equipment',
-      'Personal locker',
-      'No registration fee'
-    ]
-  };
+    const { name, price, duration, onSelect } = props;
 
-  return (
-    <Card className="plan-card-mui" elevation={0}>
-      <CardContent>
-        {/* שם המנוי */}
-        <Typography variant="h5" className="plan-title-mui">
-          {name}
-        </Typography>
+    const planData = {
+        features: [
+            'Access 2 times a week',
+            'Full gym equipment',
+            'Personal locker',
+            'No registration fee'
+        ]
+    };
 
-        {/* מחיר */}
-        <Box className="price-container-mui">
-          <Typography variant="h6" className="price-color" sx={{ mr: 0.5 }}>₪</Typography>
-          <Typography variant="h3" className="price-color">
-            {price}
-          </Typography>
-        </Box>
+    return (
+        <Card className="plan-card-mui" elevation={0}>
+            <CardContent>
+                <Typography variant="h5" className="plan-title-mui">
+                    {name}
+                </Typography>
 
-        {/* משך הזמן (שנה) */}
-        <Typography variant="caption" sx={{ display: 'block', mb: 2, textTransform: 'uppercase', fontWeight: 'bold' }}>
-          PER {duration}
-        </Typography>
+                <Box className="price-container-mui">
+                    {/* העברנו ל-className */}
+                    <Typography variant="h6" className="price-color price-symbol">
+                        ₪
+                    </Typography>
+                    <Typography variant="h3" className="price-color">
+                        {price}
+                    </Typography>
+                </Box>
 
-        <Divider sx={{ bgcolor: '#333', my: 2 }} />
+                {/* העברנו ל-className */}
+                <Typography variant="caption" className="duration-text">
+                    PER {duration}
+                </Typography>
 
-        {/* רשימת תכונות */}
-        <Box className="features-list-mui">
-          {planData.features.map((item) => (
-            <Typography key={item} variant="body2" className="feature-item-mui">
-              • {item}
-            </Typography>
-          ))}
-        </Box>
+                {/* העברנו ל-className */}
+                <Divider className="plan-divider" />
 
-        <Button 
-        onClick={onSelect}
-          variant="contained" 
-          fullWidth 
-          className="enroll-btn-mui"
-          sx={{ mt: 3 }}
-        >
-          ENROLL NOW
-        </Button >
-      </CardContent>
-    </Card>
-  );
+                <Box className="features-list-mui">
+                    {planData.features.map((item) => (
+                        <Typography key={item} variant="body2" className="feature-item-mui">
+                            • {item}
+                        </Typography>
+                    ))}
+                </Box>
+
+                <Button
+                    onClick={onSelect}
+                    variant="contained"
+                    fullWidth
+                    className="enroll-btn-mui"
+                >
+                    ENROLL NOW
+                </Button>
+            </CardContent>
+        </Card>
+    );
 };

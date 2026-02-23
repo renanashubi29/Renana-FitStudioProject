@@ -11,7 +11,7 @@
 }
 
 /* אפקט ריחוף על כל הכרטיס */
-/*!important מכריח את הצבע להיות ככה בגלל הגדרות קשוחות של MUI */
+
 .plan-card-mui:hover {
     background-color: white !important;
     color: black !important;
@@ -60,4 +60,26 @@
     font-weight: bold !important;
     padding: 12px 0 !important;
     transition: 0.3s !important;
+}
+
+
+.price-symbol {
+    margin-right: 4px; /* במקום mr: 0.5 */
+}
+
+.duration-text {
+    display: block;
+    margin-bottom: 16px; /* במקום mb: 2 (MUI 2 = 16px) */
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.plan-divider {
+    background-color: #333;
+    margin-top: 16px;    /* במקום my: 2 */
+    margin-bottom: 16px;
+}
+
+.enroll-btn-mui {
+    margin-top: 24px !important;
 }

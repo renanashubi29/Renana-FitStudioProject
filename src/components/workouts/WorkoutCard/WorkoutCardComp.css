@@ -4,38 +4,13 @@ body {
   font-family: Arial, sans-serif; /* אופציונלי, רק כדי שהטקסט יראה יפה */
 }
 
-.my-nav {
-  display: flex;
-  justify-content: space-around;
-  align-items: center;
-  background: #222;
-  padding: 10px 20px;
-    width: 250px;
-  position: absolute;  /* מאפשר למקם במדויק */
-  left: 50%;           /* ממקם באמצע אופקית */
-  transform: translate(-50%, 50%); /* מזיז חזרה חצי מהגובה והרוחב כדי באמת להיות במרכז */
-}
 
-.my-nav a {
-  color: white;
-  text-decoration: none;
-  margin: 0 50px;
-  cursor: pointer; 
-}
-
-.nav-toggle {
-  display: none; /* מוצג רק במובייל */
-  background: none;
-  border: none;
-  color: white;
-  font-size: 24px;
-}
 
 
 .class-card {
    width: 180px; 
 
-  background: #ffffff;
+  background:var( --card-white);
 
   border-radius: 16px;
 
@@ -59,7 +34,7 @@ body {
 
 .time {
   font-size: 14px;
-  color: #777;
+
 }
 
 
@@ -72,35 +47,25 @@ body {
 .subtitle {
   margin-top: 4px;
   font-size: 14px;
-  color: #555;
+
 }
 
 .register-btn {
   width: 100%;
   background: none;
   border: none;
-  color: #e53935;
+  color: var(--accent-red) ;
   font-size: 18px;
   font-weight: 600;
   cursor: pointer;
 }
 .register-btn:disabled {
-  color: #888;          /* צבע אפור במקום אדום */
+  color: var(--text-gray);          /* צבע אפור במקום אדום */
   cursor: not-allowed;  /* סימן של "אין כניסה" במקום יד */
   opacity: 0.7;         /* קצת שקיפות */
 }
 
-.day {
-  width: 80px;
-  font-weight: bold;
-  text-align: center;
-  background-color: #fafafa;
-}
 
-.workouts {
-  display: flex;
-gap: 20px 10px;
-}
 .participants-count {
   direction: ltr;
   unicode-bidi: isolate; /* שומר שהמספרים לא יתהפכו גם אם הכרטיס כולו בעברית */
@@ -108,3 +73,7 @@ gap: 20px 10px;
   text-align: center; /* כדי שזה יישאר באמצע הכרטיס */
 }
 
+/* עיצוב אייקון הלב - מחליף את ה-SX */
+.favorite-icon {
+  color: var(--accent-red) !important;
+}

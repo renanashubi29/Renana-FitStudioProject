@@ -6,7 +6,7 @@ import { Box } from '@mui/material';
 import { ShopContext } from '../../../ShopContext';
 import './PlanSectionComp.css';
 import { Navigate, useLocation, useNavigate } from 'react-router';
-import { registerUser } from '../../../api/userApi.js';
+import { registerUserApi } from '../../../api/userApi.js';
 
 export const PlanSectionComp = () => {
   const location = useLocation();
@@ -25,7 +25,7 @@ const handlePlanSelection = async (planId) => {
       const finalData = { ...tempTraineeData, plan: planId };
 
       // שליחה ל-API
-      const response = await registerUser(finalData);
+      const response = await registerUserApi(finalData);
       if (response.data && response.data.token) {
     localStorage.setItem('token', response.data.token);
   }

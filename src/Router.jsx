@@ -5,11 +5,11 @@ import App from "./App.jsx";
 import LoginPage from "./pages/LoginPage/LoginPage.jsx";
 import {RegisterPage} from "./pages/RegisterPage/RegisterPage.jsx";
 import { useEffect, useState } from "react";
-import { fetchNextSevenDaysWorkouts } from "./api/workoutsApi.js";
+import { getWorkoutsForThisWeekApi } from "./api/workoutsApi.js";
 import { groupWorkoutsByDay } from "./utils/workoutsUtils.js";
-import { fetchUserRegistrations } from "./api/registerApi.js";
+import { getAllRegistrationsOfUserApi } from "./api/registrationApi.js";
 import { PlansCardsPage } from "./pages/PlansCardsPage.jsx";
-import { getAllPlans } from "./api/planApi.js";
+import { getAllPlansApi } from "./api/planApi.js";
 import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
 
  const router = createBrowserRouter([
@@ -52,8 +52,8 @@ useEffect(() => {
     const loadData = async () => {
         try {
             // 1. מביאים את הנתונים הגולמיים
-            const rawData = await fetchNextSevenDaysWorkouts();
-              const plansData = await getAllPlans();
+            const rawData = await getWorkoutsForThisWeekApi();
+              const plansData = await getAllPlansApi();
               setplans(plansData);
              console.log("נתונים גולמיים מהשרת:", plans);
 
@@ -84,7 +84,7 @@ useEffect(() => {
             // רק אם יש יוזר מחובר, נשלוף את הרישומים שלו
             if (user && user._id) {
                 try {
-                    const regs = await fetchUserRegistrations(user._id);
+                    const regs = await getAllRegistrationsOfUserApi(user._id);
                     setUserRegistrations(regs);
                     console.log("userRegistrations:",userRegistrations);
                 } catch (err) {

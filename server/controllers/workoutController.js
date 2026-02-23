@@ -153,7 +153,6 @@ export const resetWorkoutsFromCatalogController = async (req, res) => {
   }
 };
 export const resetWorkouts = async () => {
-  // בדרך כלל פעולות שמשנות נתונים בשרת (כמו ריסט) משתמשות ב-POST
   const response = await fetch("http://localhost:5000/api/workouts/reset", {
     method: "POST",
     headers: {
@@ -162,32 +161,25 @@ export const resetWorkouts = async () => {
   });
 
   if (!response.ok) {
-    // זריקת שגיאה במידה והשרת החזיר סטטוס שאינו 200-299
     const errorData = await response.json();
-    throw new Error(errorData.message || "Failed to reset workouts from catalog");
+    // שימוש בהודעה מהשרת או בהודעת ברירת מחדל מהאובייקט שלנו
+    throw new Error(errorData.message || ErrorMessages.WORKOUTS.RESET_CATALOG_FAILED);
   }
 
   const result = await response.json();
-  
-  // מחזירים את ה-data (רשימת האימונים שנוצרו) כפי שהקונטרולר שולח
   return result.data;
 };
 export const getWorkoutsForNextSevenDaysController = async (req, res) => {
   try {
-
-    // קריאה לפונקציה שמבצעת את הסינון הלוגי
     const workouts = await getWorkoutsForNextSevenDays();
 
-    // החזרת תשובה סטנדרטית עם הנתונים המסוננים
     return serverResponse(res, 200, {
-      message: "Upcoming workouts for the next 7 days fetched successfully",
+      message: SuccessMessages.WORKOUTS.GET_UPCOMING,
       data: workouts
     });
   } catch (error) {
-  
-    // במקרה של שגיאה בחישוב התאריכים או בשליפה מה-DB
     return serverResponse(res, 400, {
-      message: "Error fetching upcoming workouts",
+      message: ErrorMessages.WORKOUTS.GET_UPCOMING_FAILED,
       error: error.message
     });
   }

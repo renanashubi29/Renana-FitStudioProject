@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
-import { fetchNextSevenDaysWorkouts, handleWorkouts } from "../api/workoutsApi.js";
+import { getWorkoutsForThisWeekApi, getAllWorkoutsApi } from "../api/workoutsApi.js";
 import { groupWorkoutsByDay } from "../utils/workoutsUtils.js";
-import { fetchUserRegistrations } from "../api/registerApi.js";
+import { getAllRegistrationsOfUserApi } from "../api/registrationApi.js";
 import { useContext } from "react";
 import { ShopContext } from "../ShopContext.js";
 
@@ -10,7 +10,7 @@ import { ShopContext } from "../ShopContext.js";
 export const useWorkouts = () => {
   return useQuery({
     queryKey: ["All-workouts"], 
-    queryFn: handleWorkouts,  
+    queryFn: getAllWorkoutsApi,  
     select: (data) =>
     groupWorkoutsByDay(data),
     staleTime: 5 * 60 * 1000, 
@@ -22,7 +22,7 @@ export const useNextSevenDaysWorkouts = (filter, userRegistrations) => {
 
   return useQuery({
     queryKey: ["workouts", "next-seven-days"], 
-    queryFn: fetchNextSevenDaysWorkouts,
+    queryFn: getWorkoutsForThisWeekApi,
     select: (data) => {
       let filtered;
       filtered=data;

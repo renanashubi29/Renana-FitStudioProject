@@ -1,6 +1,6 @@
 import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router'; // ייבוא ה-Hook לניווט
-import { loginUser } from '../../api/userApi.js';
+import { loginUserApi } from '../../api/userApi.js';
 import './LoginPage.css';
 import { ShopContext } from '../../ShopContext.js';
 import { InputFieldComp } from '../../components/common/InputFieldComp.jsx';
@@ -24,7 +24,7 @@ export const LoginPage = () => {
         setLoading(true);
 
         try {
-            const response = await loginUser(formData);
+            const response = await loginUserApi(formData);
 console.log("The inner data:", response.data); 
 
 // שמירת הטוקן - הוא נמצא בתוך response.data.token

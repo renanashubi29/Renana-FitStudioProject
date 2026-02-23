@@ -1,8 +1,9 @@
 // src/api/authApi.js
+const BASE_URL = `${import.meta.env.VITE_API_URL}/users`;
 
-export const loginUser = async (formData) => {
+export const loginUserApi = async (formData) => {
     try {
-        const response = await fetch("http://localhost:5000/api/users/login", {
+        const response = await fetch(`${BASE_URL}/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -23,9 +24,9 @@ export const loginUser = async (formData) => {
         throw error;
     }
 };
-export const registerUser= async (formData) => {
+export const registerUserApi= async (formData) => {
     try {
-        const response = await fetch("http://localhost:5000/api/users/register", {
+        const response = await fetch(`${BASE_URL}/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

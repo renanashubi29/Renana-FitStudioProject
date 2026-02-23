@@ -1,0 +1,51 @@
+/* מיכל הקונטיינר הראשי */
+.address-container {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px; /* מרווח תואם לשאר השדות */
+  width: 100%;
+}
+
+/* תיקון הלייבל - העברה לצד ימין */
+.address-label {
+  font-weight: normal;
+  font-size: 14px;
+  margin-bottom: 5px;
+  color: #666;
+  text-align: right; /* יישור לימין */
+  width: 100%;
+}
+
+/* עיצוב ה-Input עצמו */
+.geoapify-autocomplete-input {
+  width: 100% !important;
+  height: 45px !important; /* הגדלתי מעט שיתאים לתמונה */
+  padding: 10px 15px !important;
+  font-size: 16px !important;
+  border: 1px solid #e0e0e0 !important; /* גבול בהיר יותר */
+  border-radius: 8px !important;
+  background-color: #fff !important;
+  box-sizing: border-box !important;
+  
+  /* תיקון הכיווניות */
+  direction: rtl !important; /* תמיכה בכתיבה מימין לשמאל */
+  text-align: right !important; /* יישור הטקסט וה-placeholder לימין */
+}
+
+/* הסרת האייקון של הזכוכית מגדלת/X אם הם מפריעים ליישור */
+.geoapify-close-button, .geoapify-search-icon {
+  display: none !important;
+}
+
+/* עיצוב רשימת ההצעות שתפתח ותתואם לימין */
+.geoapify-autocomplete-items {
+  direction: rtl !important;
+  text-align: right !important;
+  border-radius: 0 0 8px 8px !important;
+  border: 1px solid #e0e0e0 !important;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+}
+
+.geoapify-autocomplete-item {
+  padding: 12px 15px !important;
+}
