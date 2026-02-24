@@ -11,6 +11,7 @@ import { getAllRegistrationsOfUserApi } from "./api/registrationApi.js";
 import { PlansCardsPage } from "./pages/PlansCardsPage.jsx";
 import { getAllPlansApi } from "./api/planApi.js";
 import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
+import {AdminRegistration} from "./pages/AdminRegistration/AdminRegistration.jsx";
 
  const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
   {
     path: "/plansCards",
     element: <PlansCardsPage />,
+  },
+  {
+    path: "/admin/registrations",
+    element: <AdminRegistration />,
   },
  
 ]);

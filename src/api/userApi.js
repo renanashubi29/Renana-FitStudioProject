@@ -1,5 +1,27 @@
 // src/api/authApi.js
 const BASE_URL = `${import.meta.env.VITE_API_URL}/users`;
+export const getAllUsersApi = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json'
+                // אם השרת שלך דורש Token, תצטרכי להוסיף כאן:
+                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'שגיאה בטעינת המשתמשים');
+        }
+
+        return result.data; // מחזיר מערך של משתמשים
+    } catch (error) {
+        throw error;
+    }
+};
 
 export const loginUserApi = async (formData) => {
     try {

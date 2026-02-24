@@ -1,4 +1,30 @@
 const BASE_URL = `${import.meta.env.VITE_API_URL}/registrations`;
+// Fetch all registrations ( for admin use)
+export const getAllRegistrationsApi = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        const response = await fetch(`${BASE_URL}/`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            throw new Error(result.message || 'Error fetching all registrations');
+        }
+
+        // Returns the registrations data array
+        return result.data; 
+
+    } catch (error) {
+        console.error("Fetch all registrations error:", error);
+        throw error; 
+    }
+};
 //רישום לאימון
 export const createRegistrationApi = async (userId, workoutId) => {
     try {
