@@ -1,6 +1,7 @@
 import express from "express";
 import { 
   getAllUsersController, 
+  getAllCoachesController,
   getUserByIdController, 
   createUserController, 
   updateUserController, 
@@ -15,6 +16,8 @@ const router = express.Router();
 
 
 router.get("/", getAllUsersController);
+
+router.get("/coaches", getAllCoachesController);
 
 
 router.post("/", createUserController);

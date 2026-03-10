@@ -6,7 +6,7 @@ import User from "../models/userModel.js";
 // קבלת כל אימוני הקטלוג
 export const getAllCatalogWorkouts = async () => {
   try {
-    return await CatalogWorkout.find({});
+    return await CatalogWorkout.find({}).populate('coach');
   } catch (error) {
     throw new Error("Could not fetch catalog workouts: " + error.message);
   }

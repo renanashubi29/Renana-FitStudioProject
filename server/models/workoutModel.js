@@ -6,6 +6,10 @@ const ROOM_CAPACITIES = {
     'D': 25
 };
 const workoutSchema = new mongoose.Schema({
+    catalogWorkoutCode: { 
+        type: Number, 
+        required: true 
+    },
     workoutName: { type: String, required: true },
     roomName: { 
         type: String, 

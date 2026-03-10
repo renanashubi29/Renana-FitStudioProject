@@ -17,7 +17,14 @@ export const getAllUsers = async () => {
     throw new Error("Could not fetch users: " + error.message);
   }
 };
-
+export const getAllCoaches = async () => {
+  try {
+  //לקבלת פרטי האובייקט מרפרנס
+    return await User.find({role: { $in: ['coach', 'admin'] }});
+  } catch (error) {
+    throw new Error("Could not fetch users: " + error.message);
+  }
+};
 
 export const getUserById = async (id) => {
   try {

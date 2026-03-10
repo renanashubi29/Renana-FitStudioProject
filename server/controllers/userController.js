@@ -4,11 +4,13 @@ import {
   createUser, 
   deleteUserById, 
   getAllUsers, 
+   getAllCoaches,
   getUserById, 
   loginUserService, 
   registerUserService, 
   resetUsersFromFile, 
-  updateUserById 
+  updateUserById ,
+ 
 } from "../services/userService.js";
 
 import { serverResponse } from "../utils/serverResponse.js";
@@ -33,6 +35,25 @@ export const resetUsersController = async (req, res) => {
 export const getAllUsersController = async (req, res) => {
   try {
     const users = await getAllUsers();
+    if (!users || users.length === 0) {
+      return serverResponse(res, 204, { 
+        message: ErrorMessages.USERS.GET_ALL 
+      });
+    }
+    return serverResponse(res, 200, { 
+      message: SuccessMessages.USERS.GET_ALL, 
+      data: users 
+    });
+  } catch (error) {
+    return serverResponse(res, 500, { 
+      message: ErrorMessages.USERS.GET_ALL, 
+      error: error.message 
+    });
+  }
+};
+export const getAllCoachesController = async (req, res) => {
+  try {
+    const users = await getAllCoaches();
     if (!users || users.length === 0) {
       return serverResponse(res, 204, { 
         message: ErrorMessages.USERS.GET_ALL 

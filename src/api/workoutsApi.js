@@ -15,7 +15,72 @@ export const getAllWorkoutsApi = async () => {
     throw error;
   }
 };
+// 2. Create a new workout
+export const createWorkoutApi = async (workoutData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/`, {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workoutData),
+    });
 
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to create workout");
+    }
+
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error("Error in createWorkoutApi:", error);
+    throw error;
+  }
+};
+
+// 3. Update an existing workout
+export const updateWorkoutApi = async (id, workoutData) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(workoutData),
+    });
+
+  if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.error || errorData.message || "Failed to update workout");
+    }
+
+    const result = await response.json();
+    return result.data;
+  } catch (error) {
+    console.error("Error in updateWorkoutApi:", error);
+    throw error;
+  }
+};
+
+// 4. Delete a workout
+export const deleteWorkoutApi = async (id) => {
+  try {
+    const response = await fetch(`${BASE_URL}/${id}`, {
+      method: "DELETE",
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData.message || "Failed to delete workout");
+    }
+
+    return await response.json();
+  } catch (error) {
+    console.error("Error in deleteWorkoutApi:", error);
+    throw error;
+  }
+};
 export const resetWorkoutsFromCatalog = async () => {
   try {
     const response = await fetch(`${BASE_URL}/resetfromCatalog`, {

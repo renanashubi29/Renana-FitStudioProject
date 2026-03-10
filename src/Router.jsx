@@ -12,6 +12,8 @@ import { PlansCardsPage } from "./pages/PlansCardsPage.jsx";
 import { getAllPlansApi } from "./api/planApi.js";
 import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
 import {AdminRegistration} from "./pages/AdminRegistration/AdminRegistration.jsx";
+import { AdminCatalogWorkouts } from "./pages/AdminCatalogWorkouts/AdminCatalogWorkouts.jsx";
+import { AdminWorkouts } from "./pages/AdminWorkouts/AdminWorkouts.jsx";
 
  const router = createBrowserRouter([
   {
@@ -33,6 +35,14 @@ import {AdminRegistration} from "./pages/AdminRegistration/AdminRegistration.jsx
   {
     path: "/admin/registrations",
     element: <AdminRegistration />,
+  },
+  {
+    path: "/admin/catalogWorkouts",
+    element: <AdminCatalogWorkouts />,
+  },
+  {
+    path: "/admin/workouts",
+    element: <AdminWorkouts />,
   },
  
 ]);

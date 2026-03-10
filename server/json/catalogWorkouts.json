@@ -1,5 +1,6 @@
 [
   {
+    "workoutCode": 1,
     "workoutName": "Yoga Flow",
     "roomName": "A",
     "dayOfWeek": "Sunday",
@@ -7,6 +8,7 @@
     "coach": "699461f21b01117607061a66"
   },
   {
+    "workoutCode": 2,
     "workoutName": "CrossFit",
     "roomName": "B",
     "dayOfWeek": "Sunday",
@@ -14,6 +16,7 @@
     "coach": "699461f21b01117607061a68"
   },
   {
+    "workoutCode": 3,
     "workoutName": "Pilates",
     "roomName": "C",
     "dayOfWeek": "Sunday",
@@ -21,6 +24,7 @@
     "coach": "699461f21b01117607061a6a"
   },
   {
+    "workoutCode": 4,
     "workoutName": "Zumba",
     "roomName": "D",
     "dayOfWeek": "Sunday",
@@ -28,6 +32,7 @@
     "coach": "699461f21b01117607061a6c"
   },
   {
+    "workoutCode": 5,
     "workoutName": "Body Pump",
     "roomName": "B",
     "dayOfWeek": "Monday",
@@ -35,6 +40,7 @@
     "coach": "699461f21b01117607061a6e"
   },
   {
+    "workoutCode": 6,
     "workoutName": "Spinning",
     "roomName": "C",
     "dayOfWeek": "Monday",
@@ -42,6 +48,7 @@
     "coach": "699461f21b01117607061a66"
   },
   {
+    "workoutCode": 7,
     "workoutName": "Kickboxing",
     "roomName": "A",
     "dayOfWeek": "Monday",
@@ -49,6 +56,7 @@
     "coach": "699461f21b01117607061a68"
   },
   {
+    "workoutCode": 8,
     "workoutName": "Yoga Flow",
     "roomName": "D",
     "dayOfWeek": "Monday",
@@ -56,6 +64,7 @@
     "coach": "699461f21b01117607061a6a"
   },
   {
+    "workoutCode": 9,
     "workoutName": "TRX",
     "roomName": "C",
     "dayOfWeek": "Tuesday",
@@ -63,6 +72,7 @@
     "coach": "699461f21b01117607061a6c"
   },
   {
+    "workoutCode": 10,
     "workoutName": "Pilates",
     "roomName": "A",
     "dayOfWeek": "Tuesday",
@@ -70,6 +80,7 @@
     "coach": "699461f21b01117607061a6e"
   },
   {
+    "workoutCode": 11,
     "workoutName": "Zumba",
     "roomName": "B",
     "dayOfWeek": "Tuesday",
@@ -77,6 +88,7 @@
     "coach": "699461f21b01117607061a66"
   },
   {
+    "workoutCode": 12,
     "workoutName": "CrossFit",
     "roomName": "D",
     "dayOfWeek": "Tuesday",
@@ -84,6 +96,7 @@
     "coach": "699461f21b01117607061a68"
   },
   {
+    "workoutCode": 13,
     "workoutName": "Yoga Flow",
     "roomName": "A",
     "dayOfWeek": "Wednesday",
@@ -91,6 +104,7 @@
     "coach": "699461f21b01117607061a6a"
   },
   {
+    "workoutCode": 14,
     "workoutName": "Body Pump",
     "roomName": "B",
     "dayOfWeek": "Wednesday",
@@ -98,6 +112,7 @@
     "coach": "699461f21b01117607061a6c"
   },
   {
+    "workoutCode": 15,
     "workoutName": "Spinning",
     "roomName": "C",
     "dayOfWeek": "Wednesday",
@@ -105,6 +120,7 @@
     "coach": "699461f21b01117607061a6e"
   },
   {
+    "workoutCode": 16,
     "workoutName": "Kickboxing",
     "roomName": "D",
     "dayOfWeek": "Wednesday",
@@ -112,6 +128,7 @@
     "coach": "699461f21b01117607061a66"
   },
   {
+    "workoutCode": 17,
     "workoutName": "TRX",
     "roomName": "C",
     "dayOfWeek": "Thursday",
@@ -119,6 +136,7 @@
     "coach": "699461f21b01117607061a68"
   },
   {
+    "workoutCode": 18,
     "workoutName": "Pilates",
     "roomName": "A",
     "dayOfWeek": "Thursday",
@@ -126,6 +144,7 @@
     "coach": "699461f21b01117607061a6a"
   },
   {
+    "workoutCode": 19,
     "workoutName": "Zumba",
     "roomName": "B",
     "dayOfWeek": "Thursday",
@@ -133,6 +152,7 @@
     "coach": "699461f21b01117607061a6c"
   },
   {
+    "workoutCode": 20,
     "workoutName": "CrossFit",
     "roomName": "D",
     "dayOfWeek": "Thursday",
@@ -140,6 +160,7 @@
     "coach": "699461f21b01117607061a6e"
   },
   {
+    "workoutCode": 21,
     "workoutName": "Morning Yoga",
     "roomName": "A",
     "dayOfWeek": "Friday",
@@ -147,6 +168,7 @@
     "coach": "699461f21b01117607061a66"
   },
   {
+    "workoutCode": 22,
     "workoutName": "Friday HIIT",
     "roomName": "B",
     "dayOfWeek": "Friday",
