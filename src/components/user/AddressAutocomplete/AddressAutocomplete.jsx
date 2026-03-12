@@ -7,8 +7,11 @@ import '@geoapify/geocoder-autocomplete/styles/minimal.css';
 import './AddressAutocomplete.css'; 
 
 export const AddressAutocomplete = ({ formData, setFormData }) => {
+  console.log("formData",formData);
   const apiKey = import.meta.env.VITE_APP_GEOAPIFY_API_KEY;
-
+const initialValue = formData?.address?.city 
+    ? `${formData.address.street} ${formData.address.houseNumber}, ${formData.address.city}` 
+    : "";
   const handlePlaceSelect = (value) => {
     if (value && value.properties) {
       const props = value.properties;
@@ -36,10 +39,12 @@ export const AddressAutocomplete = ({ formData, setFormData }) => {
       
       <GeoapifyContext apiKey={apiKey}>
         <GeoapifyGeocoderAutocomplete
+
           placeholder="Type your address..."
           lang="en"
           filterByCountryCode={['il']}
           placeSelect={handlePlaceSelect}
+          value={initialValue}
           onClear={() => setFormData({ ...formData, address: "" })}
         />
       </GeoapifyContext>

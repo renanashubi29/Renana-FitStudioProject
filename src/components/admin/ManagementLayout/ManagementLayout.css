@@ -1,0 +1,49 @@
+/* דף הניהול */
+.page {
+  min-height: 100vh;
+  background-color: #121212;
+  padding: 2rem;
+  color: white;
+}
+
+/* מיכל התוכן */
+.container {
+  max-width: 1152px;
+  margin: 0 auto;
+}
+
+/* כותרת עליונה */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.title {
+  font-size: 1.875rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+/* כפתור אינדיגו */
+.btn {
+  background-color: #4f46e5;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 6px;
+  font-weight: 500;
+  border: none;
+  cursor: pointer;
+  transition: 0.2s;
+}
+
+.btn:hover {
+  background-color: #4338ca;
+}
+
+/* ריווח לתוכן עצמו */
+.content {
+  width: 100%;
+}
+

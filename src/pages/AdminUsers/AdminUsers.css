@@ -1,0 +1,15 @@
+.form-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* יוצר שתי עמודות שוות */
+    gap: 15px; /* יוצר את המרווח בין התיבות */
+    margin-bottom: 15px;
+}
+.modal-content input, 
+.modal-content select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px; /* למראה מעוגל ומודרני */
+    font-size: 14px;
+    background-color: #fff;
+}

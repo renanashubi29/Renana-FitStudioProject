@@ -37,7 +37,11 @@ export const getUserById = async (id) => {
 
 export const createUser = async (data) => {
   try {
-    const user = new User(data);
+    // הצפנת הסיסמה לפני השמירה
+    const salt = bcrypt.genSaltSync(10);
+    const hash = bcrypt.hashSync(data.password, salt);
+    
+    const user = new User({ ...data, password: hash });
     return await user.save();
   } catch (error) {
     throw new Error("Could not create user: " + error.message);

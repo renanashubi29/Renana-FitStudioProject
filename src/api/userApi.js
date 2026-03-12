@@ -91,3 +91,64 @@ export const registerUserApi= async (formData) => {
         throw error;
     }
 };
+// Create a new user (Admin functionality)
+export const createUserApi = async (formData) => {
+    try {
+        const response = await fetch(`${BASE_URL}/`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Failed to create user');
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Update an existing user by ID
+export const updateUserApi = async (id, formData) => {
+    try {
+        const response = await fetch(`${BASE_URL}/${id}`, {
+            method: 'PUT',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(formData)
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Failed to update user');
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Delete a user by ID
+export const deleteUserApi = async (id) => {
+    try {
+        const response = await fetch(`${BASE_URL}/${id}`, {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Failed to delete user');
+        return result.data;
+    } catch (error) {
+        throw error;
+    }
+};
+
+// Reset users collection (Careful: Usually for development only)
+export const resetUsersApi = async () => {
+    try {
+        const response = await fetch(`${BASE_URL}/reset`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' }
+        });
+        const result = await response.json();
+        if (!response.ok) throw new Error(result.message || 'Failed to reset users');
+        return result;
+    } catch (error) {
+        throw error;
+    }
+};

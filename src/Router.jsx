@@ -14,6 +14,8 @@ import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
 import {AdminRegistration} from "./pages/AdminRegistration/AdminRegistration.jsx";
 import { AdminCatalogWorkouts } from "./pages/AdminCatalogWorkouts/AdminCatalogWorkouts.jsx";
 import { AdminWorkouts } from "./pages/AdminWorkouts/AdminWorkouts.jsx";
+import { AdminUsers } from "./pages/AdminUsers/AdminUsers.jsx";
+import ManageUsers from "./pages/ManageUsers.jsx";
 
  const router = createBrowserRouter([
   {
@@ -43,6 +45,14 @@ import { AdminWorkouts } from "./pages/AdminWorkouts/AdminWorkouts.jsx";
   {
     path: "/admin/workouts",
     element: <AdminWorkouts />,
+  },
+  {
+    path: "/admin/users",
+    element: <AdminUsers />,
+  },
+  {
+    path: "/admin/test",
+    element: <ManageUsers />,
   },
  
 ]);

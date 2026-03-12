@@ -1,0 +1,67 @@
+.action-btn {
+    background: none;        /* מסיר את הצבע הלבן */
+    border: none;            /* מסיר את המסגרת */
+    padding: 0;              /* מסיר ריווח פנימי מיותר */
+    cursor: pointer;         /* הופך את העכבר ליד */
+    outline: inherit;        /* מונע מסגרות כחולות בלחיצה */
+}
+/* מניעת כיווץ של הטבלה במסכים עם הרבה עמודות */
+/* המיכל שעוטף את הטבלה */
+.overflow-x-auto {
+    width: 100% !important; 
+    margin: 0;
+    padding: 0;
+    border-radius: 12px;
+    overflow-x: auto; /* מאפשר גלילה רק אם באמת אין ברירה */
+    background-color: #1a1a1a;
+}
+
+/* הטבלה עצמה */
+table {
+    width: 100% !important; /* מכריח אותה להימתח מקצה לקצה */
+    min-width: 1000px; /* מבטיח שהעמודות לא יתכווצו מדי במסכים קטנים */
+    border-collapse: collapse;
+    table-layout: auto; /* נותן לדפדפן לחשב רווח אופטימלי לכל עמודה */
+}
+
+/* עיצוב התאים כדי שיהיה רווח יפה */
+th, td {
+    padding: 16px 20px !important; /* מגדיל את הריווח בין הטקסט לדפנות */
+    text-align: left;
+}
+/* כפתורי הפעולות (עריכה ומחיקה) */
+.action-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: flex-end; /* יישור הכפתורים לסוף השורה */
+}
+
+.action-btn {
+    background: transparent;
+    border: 1px solid #444;
+    padding: 6px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.edit-btn:hover {
+    background-color: rgba(59, 130, 246, 0.1);
+    border-color: #3b82f6;
+    transform: translateY(-2px);
+}
+
+.delete-btn:hover {
+    background-color: rgba(239, 68, 68, 0.1);
+    border-color: #ef4444;
+    transform: translateY(-2px);
+}
+
+/* ריווח שורות ואפקט הובר */
+tbody tr:hover {
+    background-color: #242424 !important;
+}
