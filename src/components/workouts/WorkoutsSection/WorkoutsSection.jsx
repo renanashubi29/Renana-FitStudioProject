@@ -16,7 +16,7 @@ export const WorkoutsSection = () => {
 
   return (
     <>
-   
+   <div className="container">
       <WorkoutsFilterButtons />
 
       <section className="workouts">
@@ -37,6 +37,7 @@ export const WorkoutsSection = () => {
           );
         })}
       </section>
+      </div>
     </>
   );
 };

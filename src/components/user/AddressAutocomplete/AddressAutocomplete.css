@@ -1,51 +1,60 @@
-/* מיכל הקונטיינר הראשי */
+/* מיכל הרכיב */
 .address-container {
-  display: flex;
-  flex-direction: column;
-  margin-bottom: 20px; /* מרווח תואם לשאר השדות */
-  width: 100%;
+    width: 100%;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
 
-/* תיקון הלייבל - העברה לצד ימין */
-.address-label {
-  font-weight: normal;
-  font-size: 14px;
-  margin-bottom: 5px;
-  color: #666;
-  text-align: right; /* יישור לימין */
-  width: 100%;
-}
-
-/* עיצוב ה-Input עצמו */
+/* עיצוב תיבת הקלט (ה-Input) */
 .geoapify-autocomplete-input {
-  width: 100% !important;
-  height: 45px !important; /* הגדלתי מעט שיתאים לתמונה */
-  padding: 10px 15px !important;
-  font-size: 16px !important;
-  border: 1px solid #e0e0e0 !important; /* גבול בהיר יותר */
-  border-radius: 8px !important;
-  background-color: #fff !important;
-  box-sizing: border-box !important;
-  
-  /* תיקון הכיווניות */
-  direction: rtl !important; /* תמיכה בכתיבה מימין לשמאל */
-  text-align: right !important; /* יישור הטקסט וה-placeholder לימין */
+    background-color: #2a2a2a !important; /* צבע זהה לשאר השדות */
+    color: white !important;
+    border: 1px solid #444 !important;
+    border-radius: 4px !important;
+    padding: 10px 12px !important;
+    font-size: 14px !important;
+    width: 100% !important;
+    outline: none !important;
 }
 
-/* הסרת האייקון של הזכוכית מגדלת/X אם הם מפריעים ליישור */
-.geoapify-close-button, .geoapify-search-icon {
-  display: none !important;
+.geoapify-autocomplete-input::placeholder {
+    color: #888 !important;
 }
 
-/* עיצוב רשימת ההצעות שתפתח ותתואם לימין */
+/* עיצוב רשימת ההצעות שנפתחת (Dropdown) */
 .geoapify-autocomplete-items {
-  direction: rtl !important;
-  text-align: right !important;
-  border-radius: 0 0 8px 8px !important;
-  border: 1px solid #e0e0e0 !important;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.1) !important;
+    background-color: #2a2a2a !important;
+    border: 1px solid #444 !important;
+    border-top: none !important;
+    border-radius: 0 0 4px 4px !important;
+    color: white !important;
+    z-index: 9999 !important;
 }
 
+/* כל פריט ברשימה */
 .geoapify-autocomplete-item {
-  padding: 12px 15px !important;
+    padding: 10px !important;
+    cursor: pointer !important;
+    color: #ddd !important;
+    border-bottom: 1px solid #3a3a3a !important;
+}
+
+/* פריט שעומדים עליו או שנבחר */
+.geoapify-autocomplete-item:hover,
+.geoapify-autocomplete-item.active {
+    background-color: #3a3a3a !important;
+    color: white !important;
+}
+
+/* האייקונים (זכוכית מגדלת ו-X) */
+.geoapify-close-button, 
+.geoapify-geocoder-icon {
+    fill: white !important;
+    color: white !important;
+}
+
+/* העלמת סימן ה-X המקורי אם הוא מתנגש בעיצוב */
+.geoapify-close-button {
+    background: transparent !important;
 }

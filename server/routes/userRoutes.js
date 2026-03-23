@@ -9,7 +9,8 @@ import {
   resetUsersController,
   registerUserController,
   loginUserController,
-  changePasswordController
+  changePasswordController,
+  getUserByTokenController
 } from "../controllers/userController.js";
 
 const router = express.Router();
@@ -24,6 +25,8 @@ router.post("/", createUserController);
 
 
 router.post("/reset", resetUsersController);
+
+router.get("/getUserByToken", getUserByTokenController);
 
 
 router.get("/:id", getUserByIdController);
@@ -42,5 +45,7 @@ router.post("/login", loginUserController);
 
 
 router.post("/:id/password", changePasswordController);
+
+
 
 export default router;

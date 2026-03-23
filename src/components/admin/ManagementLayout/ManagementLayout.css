@@ -1,49 +1,61 @@
-/* דף הניהול */
+/* ManagementLayout.css */
+
 .page {
-  min-height: 100vh;
-  background-color: #121212;
-  padding: 2rem;
-  color: white;
+    background-color: var(--bg-main); 
+    min-height: 100vh;
+    padding: 60px 20px;
+    color:  var(--text-white);
 }
 
-/* מיכל התוכן */
 .container {
-  max-width: 1152px;
-  margin: 0 auto;
+    max-width: 1200px;
+    margin: 0 auto;
 }
 
-/* כותרת עליונה */
 .header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 40px;
+    border-bottom: 2px solid var(--dark-gray);
+    padding-bottom: 20px;
 }
 
 .title {
-  font-size: 1.875rem;
-  font-weight: 700;
-  margin: 0;
+    font-family: 'Oswald', sans-serif;
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    margin: 0;
+    position: relative;
+   
 }
 
-/* כפתור אינדיגו */
+
+
 .btn {
-  background-color: #4f46e5;
-  color: white;
-  padding: 0.5rem 1rem;
-  border-radius: 6px;
-  font-weight: 500;
-  border: none;
-  cursor: pointer;
-  transition: 0.2s;
+    background-color: var(--primary-color);
+    color: var(--text-white);
+    font-family: 'Oswald', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 2px; /* פינות חדות יחסית משדרות עוצמה */
+    cursor: pointer;
+    transition: all 0.3s ease;
+    letter-spacing: 1px;
 }
 
 .btn:hover {
-  background-color: #4338ca;
+    background-color:  var(--text-white);
+    color: var(--primary-color);
+    box-shadow: 0 0 15px rgba(243, 97, 0, 0.3);
 }
 
-/* ריווח לתוכן עצמו */
 .content {
-  width: 100%;
+    margin-top: 20px;
+   
 }
-

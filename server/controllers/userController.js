@@ -10,6 +10,7 @@ import {
   registerUserService, 
   resetUsersFromFile, 
   updateUserById ,
+  getUserByToken
  
 } from "../services/userService.js";
 
@@ -193,5 +194,21 @@ export const changePasswordController = async (req, res) => {
       message: ErrorMessages.USERS.PASSWORD_CHANGE_FAILED,
       error: error.message 
     });
+  }
+};
+export const getUserByTokenController = async (req, res) => {
+  try {
+    // מחלצים את הטוקן מה-Headers (למשל: Bearer <token>)
+    const authHeader = req.headers.authorization;
+    const token = authHeader && authHeader.split(" ")[1];
+
+    if (!token) {
+      return res.status(401).json({ message: "No token provided" });
+    }
+
+    const user = await getUserByToken(token);
+    res.json(user);
+  } catch (error) {
+    res.status(401).json({ message: error.message });
   }
 };

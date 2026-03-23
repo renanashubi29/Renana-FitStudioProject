@@ -1,79 +1,99 @@
+
 body {
-  background-color: #222; /* צבע שמתקבל כרקע בהיר */
-  margin: 0; /* מסיר מרווחים אוטומטיים של הדפדפן */
-  font-family: Arial, sans-serif; /* אופציונלי, רק כדי שהטקסט יראה יפה */
-}
 
+  background-color: var(--bg-main); 
 
-
-
-.class-card {
-   width: 180px; 
-
-  background:var( --card-white);
-
-  border-radius: 16px;
-
-  padding: 16px;
-
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-
-  max-width: 360px;
-
-  direction: rtl;
+  margin: 0; 
 
   font-family: Arial, sans-serif;
 
 }
+/* כרטיס האימון המרכזי */
+.class-card {
+  background-color: var(--dark-gray); 
+  border: 1px solid var(--text-white);    
+  border-radius: 8px;
+  padding: 15px;
+  width: 200px;              
+  color: var(--text-white);
+  font-family: 'Arial', sans-serif;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  transition: transform 0.2s ease;
+}
+
+
 .card-header {
   display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 12px;
+  border-bottom: 1px solid var( --primary-color); 
+  padding-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .time {
-  font-size: 14px;
-
+  font-size: 0.8rem;
+  font-weight: bold;
+  color: var(--text-white);
 }
 
+/* גוף הכרטיס */
+.card-body {
+  text-align: center;
+}
 
 .title {
-  font-size: 24px;
-  font-weight: 700;
-  margin: 0;
+  font-size: 1.4rem;
+  font-weight: 900;
+  margin: 10px 0;
+  text-transform: uppercase;
 }
 
-.subtitle {
-  margin-top: 4px;
-  font-size: 14px;
-
+.details p {
+  margin: 2px 0;
+  font-size: 0.85rem;
+  color:  var(--text-white);
 }
 
+.participants {
+  margin-top: 8px !important;
+  font-weight: bold;
+}
+
+/* כפתור ה-SIGN UP הכתום */
 .register-btn {
-  width: 100%;
-  background: none;
+  background-color: var( --primary-color); /* כתום עז */
+  color: var(--text-white);
   border: none;
-  color: var(--accent-red) ;
-  font-size: 18px;
-  font-weight: 600;
+  border-radius: 4px;
+  padding: 10px;
+  width: 100%;
+  font-weight: bold;
+  font-size: 0.9rem;
   cursor: pointer;
+  margin-top: 15px;
+  text-transform: uppercase;
+  transition: background 0.3s ease;
 }
+
+.register-btn:hover {
+  background-color: var(  --primary-hover);
+}
+
 .register-btn:disabled {
-  color: var(--text-gray);          /* צבע אפור במקום אדום */
-  cursor: not-allowed;  /* סימן של "אין כניסה" במקום יד */
-  opacity: 0.7;         /* קצת שקיפות */
+  background-color: #555;
+  cursor: not-allowed;
 }
 
-
-.participants-count {
-  direction: ltr;
-  unicode-bidi: isolate; /* שומר שהמספרים לא יתהפכו גם אם הכרטיס כולו בעברית */
-  display: block;
-  text-align: center; /* כדי שזה יישאר באמצע הכרטיס */
-}
-
-/* עיצוב אייקון הלב - מחליף את ה-SX */
-.favorite-icon {
-  color: var(--accent-red) !important;
+/* כפתור ביטול (אופציונלי) */
+.cancel-btn {
+  background: transparent;
+  color: var(  --primary-hover);
+  border: none;
+  font-size: 0.75rem;
+  text-decoration: underline;
+  margin-top: 8px;
+  cursor: pointer;
 }

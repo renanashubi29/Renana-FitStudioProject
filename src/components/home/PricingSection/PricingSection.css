@@ -1,0 +1,99 @@
+
+.pricing-section {
+    background-color: var( --bg-main); 
+    padding: 80px 0;
+    text-align: center;
+     display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.section-title span {
+    color: var(--primary-color); 
+    text-transform: uppercase;
+    font-weight: 700;
+    letter-spacing: 2px;
+}
+
+.section-title h2 {
+    color: var(--text-white);
+    font-size: 32px;
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+
+.plans-container {
+    display: flex;
+    justify-content: center;
+ 
+}
+
+
+.plan-card-mui {
+    background-color:var(--dark-gray)!important; 
+    color: var(--text-white) !important;
+    width: 350px;
+    padding: 40px 20px;
+    border: 1px solid transparent;
+    transition: 0.3s;
+  
+    clip-path: polygon(0 0, 100% 5%, 100% 100%, 0 95%);
+}
+
+.plan-card-mui:hover {
+    border-color: var(--primary-color);
+    transform: translateY(-10px);
+}
+
+.plan-title-mui {
+    font-weight: 700 !important;
+    margin-bottom: 20px !important;
+}
+
+
+.price-container-mui {
+    display: flex;
+    justify-content: center;
+    align-items: baseline;
+    color: var(--primary-color);
+    margin-bottom: 5px;
+}
+
+.price-color {
+    color: var(--primary-color) !important;
+    font-weight: 800 !important;
+}
+
+.duration-text {
+    color: var(--text-gray) !important;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+.plan-divider {
+    background-color: var(--dark-gray) !important;
+    margin: 25px 0 !important;
+}
+
+
+.feature-item-mui {
+    color: var(--text-gray) !important;
+    margin-bottom: 12px !important;
+    list-style: none;
+}
+
+
+.enroll-btn-mui {
+    background-color:  var(--text-gray) !important;
+    color: var(--text-white)!important;
+    padding: 12px 0 !important;
+    margin-top: 20px !important;
+    border-radius: 0 !important; 
+    font-weight: 700 !important;
+}
+
+.enroll-btn-mui:hover {
+    background-color: var(--primary-color)!important;
+}

@@ -1,39 +1,29 @@
-/* עיצוב אזור המשתמש */
+.flexHeader {
+    display: flex;                /* הופך את הקונטיינר לגמיש */
+    justify-content: space-between; /* יוצר מרווח מקסימלי בין האלמנטים (כותרת בצד אחד, משתמש בצד שני) */
+    align-items: center;          /* מיישר את כולם בדיוק לאותו קו גובה באמצע */
+    padding: 1rem 5%;            /* נותן קצת מרווח נשימה מהצדדים */
+    width: 100%;                  /* תופס את כל רוחב המסך */
+    box-sizing: border-box;       /* מוודא שה-padding לא "מנפח" את הרוחב */
+    background-color: #1a1a1a;    /* או כל צבע כהה אחר שבחרת */
+}
+
 .user-profile {
     display: flex;
     align-items: center;
-    gap: 10px; /* רווח בין הטקסט לאייקון */
-    cursor: default;
-    
-  
+    gap: 8px;                     /* מרווח קטן בין האייקון לטקסט */
+    color: white;
 }
 
-/* עיצוב הטקסט "שלום..." */
-.user-greeting {
-    font-size: 25px;
-    font-weight: 400;
+.studio-title {
+    margin: 0;                    /* מבטל את המרווחים הדיפולטיביים של h1 שדוחפים הכל למטה */
+    font-size: 1.8rem;
     color: white;
-    /* מונע מהטקסט לרדת שורה אם השם ארוך */
-    white-space: nowrap; 
-}
-.studio-title{
-       font-size:50px;
-    font-weight: 400;
-    color: white;
-    /* מונע מהטקסט לרדת שורה אם השם ארוך */
-    white-space: nowrap; 
+    font-family: 'Arial Black', sans-serif; /* או הפונט שבחרת */
 }
 
-/* האייקון עצמו */
-.profile-icon {
-    color: white !important;
-   width: 50px !important;  /* באייקונים עדיף להשתמש ב-width ו-height */
-    height: 50px !important;
-   
-   
-}
-.flexHeader{
-       display: flex;
-    justify-content: space-between;
-    align-items: center;
+/* מוודא שגם כפתורי האדמין לא קופצים שורה */
+.AdminActions {
+    display: flex;
+    gap: 15px;
 }

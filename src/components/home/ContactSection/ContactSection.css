@@ -1,0 +1,55 @@
+.contact-section {
+    background-color: var(--bg-main);
+    padding: 40px 0;
+    border-bottom: 1px solid var(--dark-gray); 
+}
+
+.contact-container {
+    max-width: 1170px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 30px;
+}
+
+.contact-item {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.icon-box {
+    background-color: var(--primary-color); 
+    color: var(--text-white);
+    width: 65px;
+    height: 65px;
+    border-radius: 50%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 30px; 
+}
+
+
+.icon-box svg {
+    font-size: 30px;
+}
+
+.contact-text p {
+    color: var(--text-gray); 
+    margin: 0;
+    font-size: 15px;
+    max-width: 250px; 
+    line-height: 1.5;
+}
+
+/* רספונסיביות */
+@media (max-width: 768px) {
+    .contact-container {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 0 40px;
+    }
+}

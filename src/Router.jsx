@@ -2,8 +2,7 @@ import {  resetWorkoutsFromCatalog } from "./api/workoutsApi.js";
 import { ShopContext } from "./ShopContext.js";
 import { createBrowserRouter, RouterProvider } from "react-router";
 import App from "./App.jsx";
-import LoginPage from "./pages/LoginPage/LoginPage.jsx";
-import {RegisterPage} from "./pages/RegisterPage/RegisterPage.jsx";
+
 import { useEffect, useState } from "react";
 import { getWorkoutsForThisWeekApi } from "./api/workoutsApi.js";
 import { groupWorkoutsByDay } from "./utils/workoutsUtils.js";
@@ -11,25 +10,20 @@ import { getAllRegistrationsOfUserApi } from "./api/registrationApi.js";
 import { PlansCardsPage } from "./pages/PlansCardsPage.jsx";
 import { getAllPlansApi } from "./api/planApi.js";
 import { useWorkouts,useNextSevenDaysWorkouts } from "./hooks/useWorkouts.js";
-import {AdminRegistration} from "./pages/AdminRegistration/AdminRegistration.jsx";
-import { AdminCatalogWorkouts } from "./pages/AdminCatalogWorkouts/AdminCatalogWorkouts.jsx";
-import { AdminWorkouts } from "./pages/AdminWorkouts/AdminWorkouts.jsx";
-import { AdminUsers } from "./pages/AdminUsers/AdminUsers.jsx";
-import ManageUsers from "./pages/ManageUsers.jsx";
+import {AdminRegistration} from "./pages/AdminRegistration.jsx";
+import { AdminCatalogWorkouts } from "./pages/AdminCatalogWorkouts.jsx";
+import { AdminWorkouts } from "./pages/AdminWorkouts.jsx";
+
+import AdminUsers from "./pages/AdminUsers.jsx";
+import HomePage from "./pages/HomePage.jsx";
+import { getUserByTokenApi } from "./api/userApi.js";
 
  const router = createBrowserRouter([
   {
     path: "/",
-    element: <App />,
+    element: <HomePage />,
   },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
+ 
   {
     path: "/plansCards",
     element: <PlansCardsPage />,
@@ -51,8 +45,8 @@ import ManageUsers from "./pages/ManageUsers.jsx";
     element: <AdminUsers />,
   },
   {
-    path: "/admin/test",
-    element: <ManageUsers />,
+    path: "/schedule",
+    element: <App />,
   },
  
 ]);
@@ -121,7 +115,21 @@ useEffect(() => {
         loadData();
     }, [user]);
 
+useEffect(() => {
+    const checkAuth = async () => {
+        try {
+            const userData = await getUserByTokenApi();
+            if (userData) {
+                setUser(userData); // מעדכן את ה-State והאפליקציה מזהה את המשתמש
+            }
+        } catch (err) {
+            console.error("Auto-login failed:", err.message);
+            setUser(null);
+        }
+    };
 
+    checkAuth();
+}, []); // ירוץ רק פעם אחת בטעינת הדף
 return ( <ShopContext.Provider
      value={{ 
       workouts:/*  workouts */upcomingWorkouts, 

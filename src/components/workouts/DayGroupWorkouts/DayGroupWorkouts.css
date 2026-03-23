@@ -1,8 +1,8 @@
 .day-group h1 {
-  color: white;
+  color: var(--text-white);
   font-size: 2.0rem;
   margin-bottom: 30px;
-  border-left: 6px solid #00b894; 
+  border-left: 6px solid var(--secondary-color); 
   text-transform: capitalize;
   padding-left: 20px;
   width: 180px; 

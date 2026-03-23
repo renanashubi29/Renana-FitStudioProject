@@ -1,0 +1,63 @@
+
+.banner-section {
+    height: 100%;
+    width: 100%;
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    z-index: 1;
+    display: flex;
+    align-items: center;   
+    justify-content: center; 
+}
+
+
+
+.bs-text h2 {
+    color:var(--text-white);
+    font-size: 36px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+    letter-spacing: 2px;
+}
+
+.bs-text  {
+    font-size: 16px;
+    color: var(--text-gray);
+    font-weight: 400;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+     justify-content: center;
+     flex-direction: column;
+     gap: 30px;
+}
+
+
+.primary-btn.btn-normal {
+    display: inline-block;
+    padding: 14px 30px;
+    background: transparent;
+    border: 2px solid var(--primary-color); /* הכתום של המותג */
+    color: var(--text-white);
+    font-weight: 700;
+    text-transform: uppercase;
+    text-decoration: none;
+    transition: all 0.3s;
+}
+
+.primary-btn.btn-normal:hover {
+    background: var(--primary-color);
+    color: var(--text-white);
+}
+
+@media only screen and (max-width: 767px) {
+    .bs-text h2 {
+        font-size: 26px;
+    }
+    .banner-section {
+        height: 350px;
+    }
+}

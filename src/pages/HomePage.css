@@ -1,0 +1,19 @@
+
+.urlImg {
+  background-image: url('../assets/img/hero/hero-1.jpg');
+  background-size: cover;
+  background-position: center top; /* מבטיח שהחלק העליון של התמונה יתחיל מהתפריט */
+  background-repeat: no-repeat;
+  width: 100%;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.homepage-container {
+  width: 100%;
+  overflow-x: hidden; /* מעלים את הגלילה לרוחב המציקה */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; /* מסדר את הקומפוננטות אחת מתחת לשנייה */
+}

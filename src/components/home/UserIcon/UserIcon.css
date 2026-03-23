@@ -1,0 +1,22 @@
+.user-icon-wrapper {
+    /* זה מה שדוחף את הכל לקצה הימני של ה-Navbar */
+    margin-left: auto; 
+    display: flex;
+    align-items: center;
+}
+
+.user-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    color: white;
+    transition: color 0.3s;
+}
+
+.user-profile:hover {
+    color: #f36100; /* הופך לכתום במעבר עכבר */
+}
+
+.profile-icon {
+    font-size: 24px !important;
+}

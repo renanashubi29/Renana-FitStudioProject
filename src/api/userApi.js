@@ -152,3 +152,32 @@ export const resetUsersApi = async () => {
         throw error;
     }
 };
+// קבלת פרטי המשתמש המחובר באמצעות הטוקן (לפתרון בעיית הריענון)
+export const getUserByTokenApi = async () => {
+    try {
+        const token = localStorage.getItem('token');
+        
+        // אם אין טוקן, אין טעם בכלל לפנות לשרת
+        if (!token) return null;
+
+        const response = await fetch(`${BASE_URL}/getUserByToken`, {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': `Bearer ${token}`
+            }
+        });
+
+        const result = await response.json();
+
+        if (!response.ok) {
+            // אם הטוקן לא תקין או פג תוקף
+            localStorage.removeItem('token'); // מנקים את הטוקן הפגום
+            throw new Error(result.message || 'Session expired');
+        }
+
+        return result; // מחזיר את אובייקט המשתמש המלא
+    } catch (error) {
+        throw error;
+    }
+};

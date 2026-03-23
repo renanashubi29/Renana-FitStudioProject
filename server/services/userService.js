@@ -190,3 +190,28 @@ export const resetUsersFromFile = async () => {
     throw new Error("Reset Users Failed: " + error.message);
   }
 };
+export const getUserByToken = async (token) => {
+  try {
+    // 1. אימות ופענוח הטוקן - כאן אנחנו הופכים את הסטרינג לאובייקט חזרה
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    // 2. חילוץ ה-ID (ששמרת תחת השם sub)
+    const userId = decoded.sub;
+
+    // 3. שליפת המשתמש המלא מה-DB (כולל ה-plan שלו)
+    const user = await User.findById(userId).populate("plan");
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // 4. הסרת הסיסמה לפני ששולחים חזרה ל-React
+    const userObject = user.toObject();
+    delete userObject.password;
+
+    return userObject;
+  } catch (error) {
+    // אם הטוקן לא תקין או פג תוקף, jwt.verify יזרוק שגיאה
+    throw new Error("Invalid or expired token");
+  }
+};

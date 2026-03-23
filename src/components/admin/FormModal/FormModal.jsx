@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './FormModal.css';
 import { AddressAutocomplete } from '../../user/AddressAutocomplete/AddressAutocomplete';
 
-export const FormModal = ({ isOpen, onClose, onSubmit, initialData, title, fields }) => {
+export const FormModal = ({ isOpen, onClose, onSubmit, initialData, title, fields,submitButtonText = "Save Changes" }) => {
   const [formData, setFormData] = useState({});
 
   useEffect(() => {
@@ -40,13 +40,13 @@ export const FormModal = ({ isOpen, onClose, onSubmit, initialData, title, field
         </div>
         
         <form onSubmit={handleSubmit} className="modal-form">
-          <div className="form-grid">
+          <div className="form-group">
             {fields.map((field) => {
               if (field.condition && !field.condition(formData)) return null;
 
               if (field.type === 'address-autocomplete') {
                 return (
-                  <div key="address-section" className="form-group full-width">
+                  <div key="address-section" className="form-group">
                     <AddressAutocomplete 
                       formData={formData} 
                       setFormData={setFormData} 
@@ -97,7 +97,7 @@ export const FormModal = ({ isOpen, onClose, onSubmit, initialData, title, field
           
           <div className="modal-actions">
             <button type="button" className="cancel-btn" onClick={onClose}>Cancel</button>
-            <button type="submit" className="submit-btn">Save Changes</button>
+            <button type="submit" className="submit-btn">{submitButtonText}</button>
           </div>
         </form>
       </div>

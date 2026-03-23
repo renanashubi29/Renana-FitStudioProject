@@ -7,9 +7,11 @@ import { Header } from "./components/layout/Header/Header.jsx";
 
 function App() {
 return <>
-{/* <AdminActions /> */}
+<div className="app">
+
 <Header/>
 <WorkoutsSection/>
+</div>
 
 </>
 

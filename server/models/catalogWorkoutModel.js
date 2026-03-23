@@ -40,7 +40,8 @@ const CatalogWorkoutSchema = new mongoose.Schema({
         ref: 'User', // השם של מודל המשתמשים שלך
         required: true 
     },
-    time: { type: String, required: true }
+    time: { type: String, required: true },
+  
 }, { timestamps: true });
 CatalogWorkoutSchema.pre('save', async function() { // הורדנו את ה-next מהסוגריים
     if (this.isNew && !this.workoutCode) {

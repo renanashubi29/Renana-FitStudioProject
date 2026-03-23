@@ -1,0 +1,118 @@
+.main-footer {
+    background-color: var(--bg-main);
+    color: var(--text-white);
+    padding: 80px 0 30px;
+    border-top: 1px solid var(--text-gray); /* קו עדין למעלה */
+}
+
+.footer-container {
+    max-width: 1170px;
+    margin: 0 auto;
+    display: grid;
+    /* שימוש ב-Grid במקום Flex מאפשר שליטה טובה יותר בעמודות */
+    grid-template-columns: 2fr 1fr 1fr 1.5fr; 
+    gap: 40px;
+    padding: 0 20px;
+}
+
+/* לוגו וטקסט */
+.footer-logo {
+    font-size: 28px;
+    font-weight: 800;
+    margin-bottom: 20px;
+    letter-spacing: 1px;
+}
+.logo-accent { color: var(--primary-color); }
+
+.footer-desc {
+    color: var(--text-gray);
+    font-size: 14px;
+    line-height: 1.7;
+    margin-bottom: 25px;
+}
+
+.footer-socials {
+    display: flex;
+    gap: 15px;
+}
+.footer-socials svg {
+    color: var(--text-white);
+    background: var(--text-white);
+    padding: 8px;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: var(--transition-fast, 0.3s);
+}
+.footer-socials svg:hover {
+    background: var(--primary-color);
+    transform: translateY(-3px);
+}
+
+/* כותרות */
+.footer-column h4 {
+    font-size: 16px;
+    text-transform: uppercase;
+    margin-bottom: 25px;
+    font-weight: 700;
+}
+
+/* רשימות */
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+}
+.footer-column ul li { margin-bottom: 12px; }
+.footer-column ul li a {
+    color: var(--text-gray);
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+.footer-column ul li a:hover {
+    color: var(--primary-color);
+    padding-left: 5px; /* אפקט קטן בהובר */
+}
+
+/* עמודת מדריכים */
+.guide-item {
+    margin-bottom: 20px;
+}
+.guide-item p {
+    font-size: 14px;
+    font-weight: 600;
+    margin-bottom: 5px;
+    line-height: 1.4;
+    transition: 0.3s;
+    cursor: pointer;
+}
+.guide-item p:hover { color: var(--primary-color); }
+.guide-item span {
+    font-size: 12px;
+    color: var(--text-gray);
+}
+
+/* חלק תחתון */
+.footer-bottom {
+    text-align: center;
+    margin-top: 60px;
+    padding-top: 30px;
+    border-top: 1px solid var(--text-gray);
+    color: var(--text-gray);
+    font-size: 14px;
+}
+.heart { color: var(--primary-color); }
+
+/* רספונסיביות */
+@media (max-width: 992px) {
+    .footer-container {
+        grid-template-columns: 1fr 1fr; /* 2 עמודות בשורה */
+    }
+}
+
+@media (max-width: 576px) {
+    .footer-container {
+        grid-template-columns: 1fr; /* עמודה אחת בנייד */
+        text-align: center;
+    }
+    .footer-socials { justify-content: center; }
+}

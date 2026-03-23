@@ -1,12 +1,15 @@
  :root {
-  /* צבעי יסוד של הסטודיו */
-  --primary-color: #00b894;   /* הטורקיז הזרחני מהכפתורים */
-  --bg-dark: #1A1A1A;         /* הרקע הכהה של האתר */
-  --card-white: #FFFFFF;      /* הרקע של כרטיסי האימון */
-  --text-gray: #777;       /* צבע טקסט משני */
-  --accent-red: #e53935;      /* אדום ללבבות וכפתורי הרשמה */
   
-  /* צבעים נוספים לניהול (Admin) */
-  --admin-blue: #2c3e50;
-  --admin-border: #34495e;
-}
+  --primary-color: #f36100; /* הצבע המקורי של הטמפלייט הוא כתום עז */
+  --primary-hover: orangered;
+  
+ 
+  --bg-main: #0a0a0a;       /* רקע כללי עמוק */
+ 
+  /* טקסט */
+  --text-white: #ffffff;
+ 
+  
+  --dark-gray:#252525;
+  --secondary-color:#00b894;
+} 

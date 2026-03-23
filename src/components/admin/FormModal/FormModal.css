@@ -1,21 +1,21 @@
-/* רקע כהה שמכסה את כל המסך */
+
 .modal-overlay {
   position: fixed;
   top: 0;
   left: 0;
   width: 100vw;
   height: 100vh;
-  background: rgba(0, 0, 0, 0.7); /* רקע חצי שקוף */
+  background: var(--dark-gray)rgba(0, 0, 0, 0.7); 
   display: flex;
-  justify-content: center; /* מרכוז אופקי */
-  align-items: center;     /* מרכוז אנכי */
+  justify-content: center; 
+  align-items: center;     
   z-index: 9999;           /* מעל הכל */
 }
 
-/* כרטיס המודאל עצמו */
+
 .modal-card {
-  background: #1e1e1e; /* התאמה לצבעים הכהים של הפרויקט */
-  color: white;
+  background: var(--bg-main); 
+  color:  var(--text-white);
   padding: 2rem;
   border-radius: 12px;
   width: 90%;
@@ -25,13 +25,13 @@
   animation: fadeIn 0.3s ease-out;
 }
 
-/* כותרת המודאל */
+
 .modal-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1.5rem;
-  border-bottom: 1px solid #333;
+  border-bottom: 1px solid var(--dark-gray);
   padding-bottom: 1rem;
 }
 
@@ -44,7 +44,7 @@
 .close-btn {
   background: none;
   border: none;
-  color: #aaa;
+  color: var(--text-gray);
   font-size: 2rem;
   cursor: pointer;
   line-height: 1;
@@ -52,10 +52,10 @@
 }
 
 .close-btn:hover {
-  color: white;
+  color:  var(--text-white);
 }
 
-/* סידור הטופס */
+
 .form-grid {
   display: flex;
   flex-direction: column;
@@ -70,22 +70,22 @@
 
 .form-group label {
   font-size: 0.9rem;
-  color: #bbb;
+  color: var(--text-gray);
   text-align: left;
 }
 
-/* עיצוב ה-Inputs וה-Selects */
+
 .form-group input, 
 .form-group select {
   padding: 12px;
-  background: #2c2c2c;
-  border: 1px solid #444;
+  background: var(--dark-gray);
+  border: 1px solid var(--dark-gray);
   border-radius: 6px;
-  color: white;
+  color:  var(--text-white);
   font-size: 1rem;
 }
 
-/* כפתורי הפעולה בתחתית */
+
 .modal-actions {
   display: flex;
   justify-content: center;
@@ -94,8 +94,8 @@
 }
 
 .submit-btn {
-  background: #6200ea; /* צבע סגול שתואם לתמונות שלך */
-  color: white;
+  background:  var(--primary-color); 
+  color:  var(--text-white);
   border: none;
   padding: 12px 24px;
   border-radius: 6px;
@@ -106,14 +106,36 @@
 
 .cancel-btn {
   background: transparent;
-  color: #aaa;
-  border: 1px solid #444;
+  color: var(--text-gray);
+  border: 1px solid var(--dark-gray);
   padding: 12px 24px;
   border-radius: 6px;
   cursor: pointer;
   flex: 1;
 }
 
+.modal-tabs {
+    display: flex;
+    gap: 20px;
+    margin-bottom: 25px;
+}
+
+.tab-btn {
+    background: none;
+    border: none;
+    color: var(--text-gray);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 5px 0;
+    transition: all 0.3s;
+    border-bottom: 2px solid transparent;
+}
+
+.tab-btn.active {
+    color:   var(--secondary-color);
+    border-bottom: 2px solid   var(--secondary-color);
+}
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(-20px); }
   to { opacity: 1; transform: translateY(0); }

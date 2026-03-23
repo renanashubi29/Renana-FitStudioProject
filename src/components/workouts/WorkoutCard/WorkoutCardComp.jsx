@@ -12,13 +12,12 @@ export const WorkoutCardComp = (props) => {
   const [participantsCount, setParticipantsCount] = useState(0);
   const [liked, setLiked] = useState(false);
  
-  // בדיקה האם המשתמש כבר רשום לאימון הזה
-  const registration = userRegistrations?.find((reg) => {
+
+const registration = user ? userRegistrations?.find((reg) => {
     const regId = String(reg.workout?._id || reg.workout);
     const cardId = String(props.id);
     return regId === cardId;
-  });
-
+}) : null; // אם אין יוזר, אל תחפש רישומים
 
  // פונקציית הרישום
   const handleRegisterClick = async () => {
@@ -101,60 +100,45 @@ const isDisabled = isRegistered || isWaitlisted;
 
 
 
-  return (
-    <div className="class-card">
-      <div className="card-header">
-        <IconButton
-          onClick={() => setLiked(!liked)}
-          size="small"
-          aria-label="add to favorites"
-        >
-         {liked ? (
-  <FavoriteIcon className="favorite-icon" />
-) : (
-  <FavoriteBorderIcon className="favorite-icon" />
-)}
-        </IconButton>
-{/* כפתור הביטול - יופיע רק אם המשתמש רשום או בהמתנה */}
-    
-        <div className="time">
-          {props.time} - {calculateEndTime(props.time)} 
-        </div>
+ return (
+  <div className="class-card">
+    <div className="card-header">
+      <span className="time">{props.time} - {calculateEndTime(props.time)}</span>
+      <IconButton
+        onClick={() => setLiked(!liked)}
+        size="small"
+        className="heart-btn"
+      >
+        {liked ? (
+          <FavoriteIcon style={{ color: '#ff4d4d', fontSize: '1.2rem' }} />
+        ) : (
+          <FavoriteBorderIcon style={{ color: '#ff4d4d', fontSize: '1.2rem' }} />
+        )}
+      </IconButton>
+    </div>
+
+    <div className="card-body">
+      <h2 className="title">{props.workoutName}</h2>
+      <div className="details">
+        <p>Room: {props.roomName}</p>
+        <p>{props.coach}</p>
+        <p className="participants">{participantsCount}/{props.maxParticipants}</p>
       </div>
 
-      <h2 className="title">{props.workoutName}</h2>
-
-      <p className="subtitle">Room: {props.roomName}</p>
-        <p className="subtitle">{props.coach}</p>
-        {/* הוספת שורת התפוסה */}
-<p className="participants-count">
-  {participantsCount}/{props.maxParticipants}
-</p>
       <button
-        className="register-btn"
-       onClick={handleRegisterClick}
-        disabled={isDisabled}
+        className={`register-btn ${isRegistered ? 'registered' : ''}`}
+        onClick={handleRegisterClick}
+        disabled={isDisabled && !isRegistered}
       >
-        {isRegistered ? (
-          "Registered ✅"
-        ) : isFull ? (
-          "Join Waitlist ⏳"
-        ) : (
-          "Sign Up"
-        )}
+        {isRegistered ? "Registered ✅" : isFull ? "Join Waitlist ⏳" : "SIGN UP"}
       </button>
- 
-    {isDisabled && (
-      <button
-         className="register-btn"
-        onClick={handleCancelClick}
-        size="small"
-      >
-        Cancel
-      </button>
-    )}
-     
 
+      {isRegistered && (
+        <button className="cancel-btn" onClick={handleCancelClick}>
+          Cancel Registration
+        </button>
+      )}
     </div>
-  );
+  </div>
+);
 };

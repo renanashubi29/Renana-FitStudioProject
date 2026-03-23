@@ -1,9 +1,35 @@
-#root {
+/*   #root {
   max-width: 1280px;
   margin: 0 auto;
   padding: 2rem;
   text-align: center;
+} */  
+  #root {
+  width: 100%;
+  margin: 0;
+  padding: 0;
 }
+
+ * {
+  box-sizing: border-box; /* המרווחים יהיו בתוך הרוחב, לא בנוסף אליו */
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  overflow-x: hidden; /* תעודת ביטוח: מונע גלילה לרוחב בכל מקרה */
+}
+
+ .app{
+   width: 100%;
+  overflow-x: hidden; /* מעלים את הגלילה לרוחב המציקה */
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column; 
+ }
+/* למחוק או לשנות את זה: */
 
 .logo {
   height: 6em;
