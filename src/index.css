@@ -13,3 +13,6 @@
   --dark-gray:#252525;
   --secondary-color:#00b894;
 } 
+.swal2-container {
+  z-index: 10000 !important;
+}

@@ -12,6 +12,7 @@ import {
 } from '../api/workoutsApi';
 import { getAllCoachesApi } from '../api/userApi';
 import { getAllParticipantsInWorkoutApi } from '../api/registrationApi';
+import { showStudioAlert } from '../components/studioAlert/studioAlert';
 
 const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 };
 
@@ -74,15 +75,30 @@ export const AdminWorkouts = () => {
             // בדיקת רשומים לפני מחיקה (לוגיקה ספציפית לאימונים פעילים)
             const participants = await getAllParticipantsInWorkoutApi(id);
             if (participants?.length > 0) {
-                alert(`Cannot delete: ${participants.length} participants are registered.`);
+               showStudioAlert(
+          "Cannot Delete", 
+          `This workout has ${participants.length} registered participants. Please manage registrations before deleting.`, 
+          "warning"
+        );
                 return;
             }
 
-            if (window.confirm('Are you sure you want to delete this scheduled workout?')) {
+         
                 await deleteWorkoutApi(id);
                 loadData();
-            }
-        } catch (err) { alert(err.message); }
+                showStudioAlert(
+                "Deleted!", 
+                "The scheduled workout has been removed.", 
+                "success"
+            );
+           
+        } catch (err) { const errorMessage = err.response?.data?.message || err.message || "Deletion failed";
+        
+        showStudioAlert(
+            "Error", 
+            errorMessage, 
+            "error"
+        );}
     };
 
     const handleSubmit = async (formData) => {
@@ -91,16 +107,28 @@ export const AdminWorkouts = () => {
                 // וולידציה של קיבולת מול רשומים בעת עדכון
                 const participants = await getAllParticipantsInWorkoutApi(selectedWorkout._id);
                 if (participants?.length > Number(formData.maxParticipants)) {
-                    alert(`Capacity cannot be lower than the ${participants.length} current participants.`);
+                 showStudioAlert(
+        "Capacity Issue", 
+        `Capacity cannot be lower than the ${participants.length} current participants already registered.`, 
+        "warning"
+    );
                     return;
                 }
                 await updateWorkoutApi(selectedWorkout._id, formData);
+                showStudioAlert("Updated!", "The workout schedule has been updated.", "success");
             } else {
                 await createWorkoutApi(formData);
+                showStudioAlert("Created!", "The new workout has been added to the calendar.", "success");
             }
             setIsModalOpen(false);
             loadData();
-        } catch (err) { alert(err.message); }
+        } catch (err) { const errorMessage = err.response?.data?.message || err.message || "Failed to save workout";
+        
+        showStudioAlert(
+            "Error", 
+            errorMessage, 
+            "error"
+        ); }
     };
 
     const handleOpenEdit = (item) => {

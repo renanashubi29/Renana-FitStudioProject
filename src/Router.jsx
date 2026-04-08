@@ -17,36 +17,43 @@ import { AdminWorkouts } from "./pages/AdminWorkouts.jsx";
 import AdminUsers from "./pages/AdminUsers.jsx";
 import HomePage from "./pages/HomePage.jsx";
 import { getUserByTokenApi } from "./api/userApi.js";
+import { RootLayout } from "./components/RootLayout/RootLayout.jsx";
 
  const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <HomePage />,
-  },
  
   {
-    path: "/plansCards",
-    element: <PlansCardsPage />,
-  },
-  {
-    path: "/admin/registrations",
-    element: <AdminRegistration />,
-  },
-  {
-    path: "/admin/catalogWorkouts",
-    element: <AdminCatalogWorkouts />,
-  },
-  {
-    path: "/admin/workouts",
-    element: <AdminWorkouts />,
-  },
-  {
-    path: "/admin/users",
-    element: <AdminUsers />,
-  },
-  {
-    path: "/schedule",
-    element: <App />,
+    path: "/",
+    element: <RootLayout/>, // העטיפה עם ה-Navbar
+    children: [
+      {
+        path: "/",
+        element: <HomePage />,
+      },
+      {
+        path: "/plansCards",
+        element: <PlansCardsPage />,
+      },
+      {
+        path: "/admin/registrations",
+        element: <AdminRegistration />,
+      },
+      {
+        path: "/admin/catalogWorkouts",
+        element: <AdminCatalogWorkouts />,
+      },
+      {
+        path: "/admin/workouts",
+        element: <AdminWorkouts />,
+      },
+      {
+        path: "/admin/users",
+        element: <AdminUsers />,
+      },
+      {
+        path: "/schedule",
+        element: <App />,
+      },
+    ],
   },
  
 ]);

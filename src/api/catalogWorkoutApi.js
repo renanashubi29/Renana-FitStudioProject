@@ -86,14 +86,15 @@ export const updateCatalogWorkoutApi = async (id, updateData) => {
 
         const result = await response.json();
 
-        if (!response.ok) {
-            throw new Error(result.message || 'Error updating catalog workout');
+     if (!response.ok) {
+            const detailedError = result.error || result.message || 'Error updating catalog workout';
+            throw new Error(detailedError);
         }
 
         return result.data;
     } catch (error) {
-        console.error("Update catalog workout error:", error);
-        throw error;
+        console.error("Update catalog workout error:", error.message);
+        throw error; 
     }
 };
 

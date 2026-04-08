@@ -379,6 +379,7 @@ export const getWorkoutsForNextSevenDays = async () => {
     // היום הנוכחי
     const now = new Date();
     const currentTime = extractTimeFromDate(now);
+    console.log("current time:",currentTime);
     const todayStr = getDateToString(now);
 //היום האחרון שנפתח
     const nextWeek = new Date();

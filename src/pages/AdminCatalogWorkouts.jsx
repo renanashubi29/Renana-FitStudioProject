@@ -12,6 +12,7 @@ import {
     deleteCatalogWorkoutApi 
 } from '../api/catalogWorkoutApi';
 import { getAllCoachesApi } from '../api/userApi';
+import { showStudioAlert } from '../components/studioAlert/studioAlert';
 
 const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 };
 
@@ -81,12 +82,16 @@ export const AdminCatalogWorkouts = () => {
     ];
 
     const handleDelete = async (id) => {
-        if (window.confirm('Delete this workout from catalog?')) {
+      
             try {
                 await deleteCatalogWorkoutApi(id);
                 loadData();
-            } catch (err) { alert(err.message); }
-        }
+                 showStudioAlert( "Success!", 
+    "Catalog workout was deleted successfully!", 
+    "success");
+            } catch (err) { const errorMsg = err.response?.data?.message || err.message;
+                    showStudioAlert("Error", errorMsg, "error");}
+        
     };
 
     const handleSubmit = async (formData) => {
@@ -98,7 +103,8 @@ export const AdminCatalogWorkouts = () => {
             }
             setIsModalOpen(false);
             loadData();
-        } catch (err) { alert(err.message); }
+        } catch (err) { const errorMsg = err.response?.data?.message || err.message;
+                    showStudioAlert("Error", errorMsg, "error");}
     };
 
     const handleOpenEdit = (item) => {

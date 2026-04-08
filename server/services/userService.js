@@ -3,6 +3,9 @@ import { getAllPlans } from "./planService.js";
 import fs from "fs";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import CatalogWorkout from "../models/catalogWorkoutModel.js";
+import Workout from "../models/workoutModel.js";
+import Registration from "../models/registrationModel.js";
 
 
 
@@ -49,11 +52,49 @@ export const createUser = async (data) => {
 };
 
 
-export const deleteUserById = async (id) => {
+/* export const deleteUserById = async (id) => {
   try {
     return await User.findByIdAndDelete(id);
   } catch (error) {
     throw new Error("Could not delete user: " + error.message);
+  }
+}; */
+export const deleteUserById = async (id) => {
+  try {
+    // 1. Find the user first
+    const user = await User.findById(id);
+
+    if (!user) {
+      throw new Error("User not found");
+    }
+
+    // 2. Role-based validation (Admin/Trainer)
+    if (user.role === 'admin' || user.role === 'coach') {
+      if (user.role === 'admin') {
+        throw new Error("Admin users cannot be deleted from the system");
+      }
+
+      if (user.role === 'coach') {
+        const inCatalog = await Workout.findOne({ coach: id });
+        const inActiveClasses = await CatalogWorkout.findOne({ coach: id });
+
+        if (inCatalog || inActiveClasses) {
+          throw new Error("Cannot delete trainer: This user is still linked to workouts or active classes");
+        }
+      }
+    }
+
+    
+    await Registration.deleteMany({
+      user: id,
+      date: { $gte: new Date() } 
+    });
+
+    // 4. Finally, delete the user
+    return await User.findByIdAndDelete(id);
+
+  } catch (error) {
+    throw new Error(error.message);
   }
 };
 

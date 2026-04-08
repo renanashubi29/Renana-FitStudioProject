@@ -25,7 +25,7 @@ export const ContactSection = () => {
     ];
 
     return (
-        <section className="contact-section">
+        <section className="contact-section"  id="contact">
             <div className="contact-container">
                 {contactData.map((item) => (
                     <div key={item.id} className="contact-item">

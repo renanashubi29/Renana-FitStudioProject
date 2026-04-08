@@ -42,7 +42,7 @@ const baseUrl = import.meta.env.VITE_CLOUDINARY_BASE_URL;
     ];
 
   return (
-    <section className="classes-section">
+    <section className="classes-section"  id="classes">
       <div className="container">
         <div className="section-title">
           <span>OUR CLASSES</span>

@@ -7,6 +7,7 @@ import { ShopContext } from '../../../ShopContext';
 import './PlanSectionComp.css';
 import { Navigate, useLocation, useNavigate } from 'react-router';
 import { registerUserApi } from '../../../api/userApi.js';
+import { showStudioAlert } from '../../studioAlert/studioAlert.jsx';
 
 export const PlanSectionComp = () => {
   const location = useLocation();
@@ -16,7 +17,11 @@ export const PlanSectionComp = () => {
   const { plans,setUser } = useContext(ShopContext);
 const handlePlanSelection = async (planId) => {
     if (!tempTraineeData) {
-      alert("Missing registration data");
+      showStudioAlert(
+        "Oops!", 
+        "Missing registration data. Please fill in all fields.", 
+        "warning"
+    );
       return;
     }
 

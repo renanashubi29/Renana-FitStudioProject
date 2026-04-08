@@ -1,13 +1,18 @@
 import React, { useContext } from "react";
 import { ShopContext } from "../../../ShopContext";
 import './WorkoutsFilterButtons.css';
+import { showStudioAlert } from "../../studioAlert/studioAlert";
 export const WorkoutsFilterButtons = () => {
   const { filter, setFilter, userRegistrations } = useContext(ShopContext);
 
   const handleMyScheduleClick = () => {
     // בדיקה האם יש הרשמות לפני שינוי הפילטר
     if (!userRegistrations || userRegistrations.length === 0) {
-      alert("You haven't registered for any workouts yet! 💪");
+     showStudioAlert(
+    "Stay Active!", 
+    "You haven't registered for any workouts yet! 💪", 
+    "info"
+);
     } else {
       setFilter("registered");
     }

@@ -17,7 +17,7 @@ export const useWorkouts = () => {
   });
 };
 export const useNextSevenDaysWorkouts = (filter, userRegistrations) => {
-  // אם ה-Context עדיין מחזיר null, נוסיף הגנה קטנה
+ 
 
 
   return useQuery({

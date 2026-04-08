@@ -5,6 +5,8 @@ import FavoriteIcon from "@mui/icons-material/Favorite";
 import { createRegistrationApi, getAllParticipantsInWorkoutApi, deleteRegistrationApi } from "../../../api/registrationApi";
 import { ShopContext } from "../../../ShopContext";
 import './WorkoutCardComp.css';
+import { showStudioAlert } from "../../studioAlert/studioAlert";
+
 
 
 export const WorkoutCardComp = (props) => {
@@ -22,7 +24,8 @@ const registration = user ? userRegistrations?.find((reg) => {
  // פונקציית הרישום
   const handleRegisterClick = async () => {
     if (!user) {
-      alert("Please log in to register for a workout");
+ console.log("TEST: I am inside the function!");
+      showStudioAlert("Wait!", "Please log in to register for a workout", "warning");
       return;
     }
 
@@ -35,24 +38,36 @@ setUserRegistrations((prev) => {
 });
       if (result.status === "Registered") {
     setParticipantsCount((prev) => prev + 1);
-    alert("Registered successfully! See you there.");
+    showStudioAlert(
+    "Success!", 
+    "Registered successfully! See you there.", 
+    "success"
+);
 } else {
-    alert("You've been added to the Waitlist successfully! ⏳");
+   showStudioAlert(
+    "Success!", 
+    "You've been added to the Waitlist successfully! ⏳", 
+    "success"
+);
+    
 }
     } catch (error) {
-      alert(error.message);
+      const errorMessage = error.response?.data?.message || error.message || "Action failed";
+      showStudioAlert("Error", errorMessage, "error");
     }
   };
  const handleCancelClick = async () => {
   if (!user) {
-    alert("Please log in to manage your registrations");
+   showStudioAlert("Wait!", "Please log in to manage your registrations", "warning");
     return;
   }
 
   // מכיוון שאנחנו בתוך הכרטיסייה, יש לנו כבר את אובייקט ה-registration
   if (!registration) return;
-
-  if (!window.confirm("Are you sure you want to cancel?")) return;
+ showStudioAlert( "Success!", 
+    "Your registration was canceled successfully!", 
+    "success");
+ // if (!window.confirm("Are you sure you want to cancel?")) return;
 
   try {
     console.log(registration._id);
@@ -65,11 +80,20 @@ setUserRegistrations((prev) => {
    const updatedParticipants = await getAllParticipantsInWorkoutApi(props.id);
     setParticipantsCount(updatedParticipants.length);
 
-    alert(result.message);
+    showStudioAlert(
+        "Cancelled!", 
+        result.message || "Your registration has been removed.", 
+        "success"
+    );
 
   } catch (error) {
-    // כאן תופיע השגיאה במידה ועברו פחות מ-24 שעות
-    alert(error.message);
+    const errorMessage = error.response?.data?.message || error.message || "Action failed";
+    showStudioAlert(
+        "Notice", 
+        errorMessage, 
+        "error"
+    );
+   
   }
 };
 //סטטוס כפתור

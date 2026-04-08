@@ -6,7 +6,8 @@ export const BannerSection = () => {
     const bannerImg = "banner-bg.jpg";
     return (
         <section className="banner-section set-bg"
-        style={{ backgroundImage: `url(${baseUrl}${bannerImg})` }}>
+        style={{ backgroundImage: `url(${baseUrl}${bannerImg})` }}
+         id="about">
             <div className="container">
                 <div className="row">
                     <div className="col-lg-12 text-center">

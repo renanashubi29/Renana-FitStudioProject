@@ -3,7 +3,7 @@ import './PricingSection.css';
 
 export const PricingSection = () => {
     return (
-        <section className="pricing-section">
+        <section className="pricing-section"  id="Pricing">
             <div className="container">
                 <div className="section-title">
                     <span>Our Plan</span>

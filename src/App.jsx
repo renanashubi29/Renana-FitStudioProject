@@ -1,15 +1,15 @@
 
 import "./index.css";
 
-import { WorkoutsSection } from "./components/workouts/WorkoutsSection/WorkoutsSection.jsx";
+import { WorkoutsSection } from "./components/schedule/WorkoutsSection/WorkoutsSection.jsx";
 import {AdminActions} from "./components/admin/AdminActions/AdminActions.jsx";
-import { Header } from "./components/layout/Header/Header.jsx";
+
 
 function App() {
 return <>
 <div className="app">
 
-<Header/>
+
 <WorkoutsSection/>
 </div>
 

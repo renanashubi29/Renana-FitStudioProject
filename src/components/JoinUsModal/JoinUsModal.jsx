@@ -4,6 +4,7 @@ import { ShopContext } from '../../ShopContext.js';
 import { useNavigate } from 'react-router';
 import { FormModal } from '../admin/FormModal/FormModal.jsx';
 import './JoinUsModal.css';
+import { showStudioAlert } from '../studioAlert/studioAlert.jsx';
 export const JoinUsModal = ({ isOpen, onClose }) => {
     const [isLoginView, setIsLoginView] = useState(true);
     const { setUser } = useContext(ShopContext);
@@ -39,7 +40,9 @@ export const JoinUsModal = ({ isOpen, onClose }) => {
                 navigate('/plansCards', { state: { tempTraineeData: formData } });
             }
         } catch (err) {
-            alert("Authentication failed. Please try again.");
+       
+
+    showStudioAlert("Wait!", err, "error");
         }
     };
 

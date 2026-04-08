@@ -131,7 +131,10 @@ export const deleteUserApi = async (id) => {
             headers: { 'Content-Type': 'application/json' }
         });
         const result = await response.json();
-        if (!response.ok) throw new Error(result.message || 'Failed to delete user');
+      if (!response.ok) {
+            const errorMessage = result.error || result.message || 'Failed to delete user';
+            throw new Error(errorMessage);
+        }
         return result.data;
     } catch (error) {
         throw error;

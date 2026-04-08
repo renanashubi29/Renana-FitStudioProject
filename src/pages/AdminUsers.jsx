@@ -5,6 +5,7 @@ import { UserRowData } from '../components/admin/UserRowData';
 import { FormModal } from '../components/admin/FormModal/FormModal';
 import { getAllUsersApi, updateUserApi, createUserApi, deleteUserApi } from '../api/userApi';
 import { getAllPlansApi } from '../api/planApi';
+import { showStudioAlert } from '../components/studioAlert/studioAlert';
 
 export const AdminUsers = () => {
     const [users, setUsers] = useState([]);
@@ -78,11 +79,23 @@ export const AdminUsers = () => {
     ];
 
     const handleDelete = async (id) => {
-        if (window.confirm("Are you sure?")) {
+        
             try {
                 await deleteUserApi(id);
                 loadData();
-            } catch (err) { alert(err.message); }
+                showStudioAlert(
+                "Deleted", 
+                "The user has been successfully removed.", 
+                "success"
+            );
+            } catch (err) { 
+                const errorMessage = err.message || "An unexpected error occurred";
+        
+        showStudioAlert(
+            "Error deleting user", 
+            errorMessage, 
+            "error"
+        );
         }
     };
 
@@ -92,11 +105,19 @@ export const AdminUsers = () => {
                 await updateUserApi(selectedUser._id, formData);
             } else {
                 await createUserApi(formData);
+                  showStudioAlert("Created!", "A new user has been added to FitStudio.", "success");
             }
             setIsModalOpen(false);
             loadData();
+          
         } catch (err) {
-            alert("Error: " + err.message);
+           const errorMessage = err.response?.data?.message || err.message || "Operation failed";
+
+        showStudioAlert(
+            "Error", 
+            errorMessage, 
+            "error"
+        );
         }
     };
     const handleOpenEdit = (user) => {

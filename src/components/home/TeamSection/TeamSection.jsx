@@ -19,7 +19,7 @@ export const TeamSection = () => {
     ];
 
     return (
-        <section className="team-section">
+        <section className="team-section"  id="team">
             <div className="team-container">
                 <div className="team-header">
                     <div className="team-titles">

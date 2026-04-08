@@ -13,6 +13,7 @@ import {
 // בהנחה שיש לך API שמושך רשימות לבחירה במודאל
 import { getAllUsersApi } from '../api/userApi';
 import { getWorkoutsForThisWeekApi } from '../api/workoutsApi';
+import { showStudioAlert } from '../components/studioAlert/studioAlert';
 
 export const AdminRegistration = () => {
     const [registrations, setRegistrations] = useState([]);
@@ -51,7 +52,13 @@ export const AdminRegistration = () => {
 
     } catch (err) {
         console.error("Failed to load and filter registrations:", err.message);
-        alert("נכשלה טעינת הנתונים: " + err.message);
+       const errorMessage = err.response?.data?.message || err.message || "Could not load data";
+
+    showStudioAlert(
+        "Oops!", 
+        "Failed to load data: " + errorMessage, 
+        "error"
+    );
     } finally {
         setIsLoading(false);
     }
@@ -88,21 +95,41 @@ export const AdminRegistration = () => {
     ];
 
     const handleDelete = async (id) => {
-        if (window.confirm('Are you sure you want to delete this registration?')) {
+      
             try {
                 await deleteRegistrationApi(id);
                 loadData();
-            } catch (err) { alert(err.message); }
-        }
+               
+           showStudioAlert(
+            "Success", 
+           "Registration deleted successfully", 
+            "success"
+        );
+        
+            } catch (err) { const errorMsg = err.response?.data?.message || err.message || "Could not delete registration";
+            
+            showStudioAlert("Error", errorMsg, "error"); }
+        
     };
 
     const handleSubmit = async (formData) => {
         try {
-            // במקרה של רישום, בדרך כלל יש רק יצירה (אין "עריכת" רישום קיים לרוב)
+          
             await createRegistrationApi(formData.userId, formData.workoutId);
             setIsModalOpen(false);
             loadData();
-        } catch (err) { alert(err.message); }
+            showStudioAlert(
+            "Registration Successful!", 
+            "The participant has been added to the workout.", 
+            "success"
+        );
+        } catch (err) { const errorMessage = err.response?.data?.message || err.message || "Registration failed";
+
+        showStudioAlert(
+            "Registration Error", 
+            errorMessage, 
+            "error"
+        ); }
     };
 
     if (isLoading) return <div>Loading Registrations...</div>;

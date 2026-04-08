@@ -70,7 +70,7 @@ export const deleteRegistrationApi = async (registrationId) => {
         const result = await response.json();
 
         if (!response.ok) {
-            // כאן נקבל את הודעת ה-24 שעות מהשרת באנגלית
+          
             throw new Error(result.message || 'Error deleting registration');
         }
 

@@ -1,0 +1,18 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main-header {
+  background-color: #000; /* או כל צבע כהה אחר, כדי שלא יהיה שקוף על הטקסט */
+  width: 100%;
+  position: relative; /* זה יבטיח שהוא תופס מקום ודוחף את התוכן למטה */
+  z-index: 1000;
+  padding: 10px 0; /* קצת פדינג כדי שזה ייראה מאוורר */
+}
+
+.content-area {
+  flex-grow: 1;
+  padding: 20px; /* מרווח סטנדרטי מהצדדים ומהלמעלה */
+}

@@ -20,7 +20,7 @@ const HomePage = () => {
   <div className="homepage-container">
   <div className='urlImg'
   style={{ backgroundImage: `url(${baseUrl}${heroImg})` }}>
-  <Navbar />
+ {/*  <Navbar /> */}
   <Hero />
   </div>
       

@@ -14,7 +14,7 @@ export const Services = () => {
 ];
 
   return (
-    <section className="services-section">
+    <section className="services-section" id="services">
       <div className="container">
         <div className="services-header">
           <span>WHY CHOSE US?</span>
