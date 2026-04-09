@@ -119,7 +119,7 @@ export const deleteCatalogWorkoutApi = async (id) => {
     }
 };
 
-// איפוס הקטלוג (Reset)
+// איפוס הקטלוג 
 export const resetCatalogApi = async () => {
     try {
         const response = await fetch(`${BASE_URL}/reset`, {

@@ -6,7 +6,7 @@ export const getAllWorkoutsApi = async () => {
     const response = await fetch(`${BASE_URL}/`);
 
     if (!response.ok) 
-      throw new Error("Failed to fetch workouts"); // תיקנתי מ-products ל-workouts
+      throw new Error("Failed to fetch workouts"); 
 
     const result = await response.json();
     return result.data; 
@@ -15,7 +15,7 @@ export const getAllWorkoutsApi = async () => {
     throw error;
   }
 };
-// 2. Create a new workout
+
 export const createWorkoutApi = async (workoutData) => {
   try {
     const response = await fetch(`${BASE_URL}/`, {
@@ -39,7 +39,6 @@ export const createWorkoutApi = async (workoutData) => {
   }
 };
 
-// 3. Update an existing workout
 export const updateWorkoutApi = async (id, workoutData) => {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {
@@ -63,7 +62,7 @@ export const updateWorkoutApi = async (id, workoutData) => {
   }
 };
 
-// 4. Delete a workout
+
 export const deleteWorkoutApi = async (id) => {
   try {
     const response = await fetch(`${BASE_URL}/${id}`, {

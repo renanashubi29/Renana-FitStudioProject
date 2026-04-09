@@ -1,4 +1,4 @@
-// src/api/authApi.js
+
 const BASE_URL = `${import.meta.env.VITE_API_URL}/users`;
 export const getAllUsersApi = async () => {
     try {
@@ -6,8 +6,7 @@ export const getAllUsersApi = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-                // אם השרת שלך דורש Token, תצטרכי להוסיף כאן:
-                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+                
             }
         });
 
@@ -17,7 +16,7 @@ export const getAllUsersApi = async () => {
             throw new Error(result.message || 'שגיאה בטעינת המשתמשים');
         }
 
-        return result.data; // מחזיר מערך של משתמשים
+        return result.data; 
     } catch (error) {
         throw error;
     }
@@ -28,8 +27,7 @@ export const getAllCoachesApi = async () => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json'
-                // אם השרת שלך דורש Token, תצטרכי להוסיף כאן:
-                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+             
             }
         });
 
@@ -39,7 +37,7 @@ export const getAllCoachesApi = async () => {
             throw new Error(result.message || 'שגיאה בטעינת המשתמשים');
         }
 
-        return result.data; // מחזיר מערך של משתמשים
+        return result.data; 
     } catch (error) {
         throw error;
     }
@@ -58,13 +56,13 @@ export const loginUserApi = async (formData) => {
         const result = await response.json();
 
         if (!response.ok) {
-            // אם השרת החזיר שגיאה (למשל סיסמה שגויה)
+    
             throw new Error(result.message || 'שגיאה בהתחברות');
         }
 
-        return result; // מחזיר את הנתונים (כמו Token או שם משתמש)
+        return result; 
     } catch (error) {
-        // זורק את השגיאה הלאה כדי שנוכל להציג אותה ב-UI
+
         throw error;
     }
 };
@@ -81,17 +79,17 @@ export const registerUserApi= async (formData) => {
         const result = await response.json();
 
         if (!response.ok) {
-            // אם השרת החזיר שגיאה (למשל סיסמה שגויה)
+          
             throw new Error(result.message || 'שגיאה בהתחברות');
         }
 
-        return result; // מחזיר את הנתונים (כמו Token או שם משתמש)
+        return result; 
     } catch (error) {
-        // זורק את השגיאה הלאה כדי שנוכל להציג אותה ב-UI
+       
         throw error;
     }
 };
-// Create a new user (Admin functionality)
+
 export const createUserApi = async (formData) => {
     try {
         const response = await fetch(`${BASE_URL}/`, {
@@ -107,7 +105,7 @@ export const createUserApi = async (formData) => {
     }
 };
 
-// Update an existing user by ID
+
 export const updateUserApi = async (id, formData) => {
     try {
         const response = await fetch(`${BASE_URL}/${id}`, {
@@ -123,7 +121,6 @@ export const updateUserApi = async (id, formData) => {
     }
 };
 
-// Delete a user by ID
 export const deleteUserApi = async (id) => {
     try {
         const response = await fetch(`${BASE_URL}/${id}`, {
@@ -141,7 +138,7 @@ export const deleteUserApi = async (id) => {
     }
 };
 
-// Reset users collection (Careful: Usually for development only)
+
 export const resetUsersApi = async () => {
     try {
         const response = await fetch(`${BASE_URL}/reset`, {
@@ -160,7 +157,7 @@ export const getUserByTokenApi = async () => {
     try {
         const token = localStorage.getItem('token');
         
-        // אם אין טוקן, אין טעם בכלל לפנות לשרת
+       
         if (!token) return null;
 
         const response = await fetch(`${BASE_URL}/getUserByToken`, {
@@ -174,12 +171,12 @@ export const getUserByTokenApi = async () => {
         const result = await response.json();
 
         if (!response.ok) {
-            // אם הטוקן לא תקין או פג תוקף
-            localStorage.removeItem('token'); // מנקים את הטוקן הפגום
+            
+            localStorage.removeItem('token'); 
             throw new Error(result.message || 'Session expired');
         }
 
-        return result; // מחזיר את אובייקט המשתמש המלא
+        return result; 
     } catch (error) {
         throw error;
     }

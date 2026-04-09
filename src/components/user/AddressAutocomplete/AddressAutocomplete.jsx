@@ -7,7 +7,7 @@ import '@geoapify/geocoder-autocomplete/styles/minimal.css';
 import './AddressAutocomplete.css'; 
 
 export const AddressAutocomplete = ({ formData, setFormData }) => {
-  console.log("formData",formData);
+ 
   const apiKey = import.meta.env.VITE_APP_GEOAPIFY_API_KEY;
 const initialValue = formData?.address?.city 
     ? `${formData.address.street} ${formData.address.houseNumber}, ${formData.address.city}` 

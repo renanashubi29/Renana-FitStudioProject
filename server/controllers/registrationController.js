@@ -101,10 +101,10 @@ export const getWorkoutRegistrationsController = async (req, res) => {
 };
 export const createRegistrationController = async (req, res) => {
     try {
-        // יצירת עותק נקי של הנתונים בעזרת Spread Operator
+        
         const registrationData = { ...req.body };
         
-        // שליחת העותק לסרביס שכתבנו קודם
+     
         const savedRegistration = await createRegistration(registrationData);
         
         return serverResponse(res, 201, { 
@@ -112,7 +112,7 @@ export const createRegistrationController = async (req, res) => {
             data: savedRegistration 
         });
     } catch (error) {
-        // תופס את כל השגיאות (מנוי מלא, כבר רשום וכו')
+      
         return serverResponse(res, 400, { 
             message: ErrorMessages.REGISTRATIONS.CREATE_FAILED, 
             error: error.message 

@@ -1,5 +1,5 @@
 const BASE_URL = `${import.meta.env.VITE_API_URL}/registrations`;
-// Fetch all registrations ( for admin use)
+
 export const getAllRegistrationsApi = async () => {
     try {
         const token = localStorage.getItem('token');
@@ -17,7 +17,7 @@ export const getAllRegistrationsApi = async () => {
             throw new Error(result.message || 'Error fetching all registrations');
         }
 
-        // Returns the registrations data array
+       
         return result.data; 
 
     } catch (error) {
@@ -46,7 +46,7 @@ export const createRegistrationApi = async (userId, workoutId) => {
 
        
         if (!response.ok) {
-            //הודעת השגיאה שנזרקה
+         
             throw new Error(result.error || result.message || "Registration failed");
         }
 
@@ -74,11 +74,11 @@ export const deleteRegistrationApi = async (registrationId) => {
             throw new Error(result.message || 'Error deleting registration');
         }
 
-        return result // מחזיר את האובייקט עם ה-message וה-promotedFromWaitlist
+        return result 
         
     } catch (error) {
         console.error("Delete registration error:", error);
-        throw error; // חשוב לזרוק את השגיאה כדי שה-UI יוכל להציג אותה למשתמש
+        throw error; 
     }
 };
 //מערך של כל הרישומים של משתמש מסויים
@@ -89,8 +89,7 @@ export const getAllRegistrationsOfUserApi = async (userId) => {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                // אם יש לך טוקן ב-localStorage, כדאי להוסיף אותו כאן בעתיד:
-                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+                
             }
         });
 
@@ -111,13 +110,12 @@ export const getAllRegistrationsOfUserApi = async (userId) => {
 //מחזירה מערך של כל המשתתפחם באימון ספציפי
 export const getAllParticipantsInWorkoutApi = async (workoutId) => {
     try {
-        // שינוי ה-URL לכתובת של האימון (workout) במקום המשתמש (user)
+  
         const response = await fetch(`${BASE_URL}/workout/${workoutId}`, {
             method: 'GET',
             headers: {
                 'Content-Type': 'application/json',
-                // אם בעתיד תוסיף אימות (Middleware), כאן ייכנס הטוקן:
-                // 'Authorization': `Bearer ${localStorage.getItem('token')}`
+            
             }
         });
 

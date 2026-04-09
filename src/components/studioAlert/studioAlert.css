@@ -1,24 +1,24 @@
-/* עיצוב המודאל עצמו - פינות עגולות יותר ופונט נקי */
+
 .my-custom-popup {
-    border-radius: 20px !important; /* מעוגל יותר, כמו בכרטיסיות האימונים */
-    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; /* פונט ספורטיבי ונקי */
+    border-radius: 20px !important; 
+    font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
 }
 
-/* עיצוב הכפתור */
+
 .swal2-confirm {
-    border-radius: 8px !important; /* כפתור מעט מעוגל */
-    text-transform: uppercase;    /* הופך את הטקסט לאנרגטי (OK -> OK) */
+    border-radius: 8px !important; 
+    text-transform: uppercase;   
     font-weight: bold !important;
-    padding: 12px 24px !important; /* כפתור בולט יותר */
-    letter-spacing: 1px;          /* מרווח קל בין האותיות */
+    padding: 12px 24px !important;
+    letter-spacing: 1px;          
 }
 
-/* ביטול המסגרת הכחולה שמופיעה לפעמים כשלוחצים */
+
 .swal2-styled:focus {
     box-shadow: none !important;
 }
 
-/* ביטול קו המתאר של סימן הקריאה */
+
 .swal2-icon {
     border: none !important;
 }

@@ -59,7 +59,7 @@ export const ErrorMessages = {
         RESET_FAILED: "Error resetting workouts",
         SYNC_CATALOG_FAILED: "Failed to sync active workouts from catalog",
         GET_UPCOMING_FAILED: "Error fetching upcoming workouts",
-        RESET_CATALOG_FAILED: "Failed to reset workouts from catalog" // עבור פונקציית ה-reset        
+        RESET_CATALOG_FAILED: "Failed to reset workouts from catalog"      
     },
     USERS: {
         GET_ALL: "Error fetching users",

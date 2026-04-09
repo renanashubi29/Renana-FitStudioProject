@@ -11,12 +11,12 @@ import { useQueryClient } from '@tanstack/react-query';
 export const AdminUsers = () => {
     const queryClient = useQueryClient();
     const [users, setUsers] = useState([]);
-    const [plans, setPlans] = useState([]); // הוספת plans
+    const [plans, setPlans] = useState([]); 
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState(null);
 
-    // טעינת נתונים (משתמשים ותוכניות)
+    //טעינת נתונים
     const loadData = async () => {
         setIsLoading(true);
         try {
@@ -37,7 +37,7 @@ export const AdminUsers = () => {
         loadData();
     }, []);
 
-    // הגדרת השדות בצורה חכמה יותר
+    // הגדרת השדות 
     const userFields = [
         { name: 'name', label: 'Full Name', required: true, gridRow: 1 },
         { name: 'email', label: 'Email', type: 'email', required: true, gridRow: 1 },
@@ -55,7 +55,7 @@ export const AdminUsers = () => {
             gridRow: 3 
         },
         { name: 'phone', label: 'Phone', required: true, gridRow: 3 },
-        // שדות מותנים (Conditional Fields) - נטפל בהם בתוך ה-FormModal או ע"י העברת פונקציה
+       
         { 
             name: 'experience', 
             label: 'Experience (Years)', 
@@ -67,7 +67,7 @@ export const AdminUsers = () => {
             label: 'Specialization', 
             condition: (data) => data.role === 'coach' 
         },
-        // שדה ה-Plan שמושך נתונים מה-API
+ 
         {
             name: 'plan',
             label: 'Plan',
@@ -75,7 +75,7 @@ export const AdminUsers = () => {
             options: plans.map(p => ({ value: p._id, label: `${p.name} - ₪${p.price}` })),
             required: true
         },
-        // שדה מיוחד לכתובת
+
         { name: 'address', type: 'address-autocomplete' } ,
 
     ];
@@ -124,9 +124,7 @@ export const AdminUsers = () => {
         }
     };
     const handleOpenEdit = (user) => {
-    // 1. אנחנו שומרים את המשתמש שנבחר ב-State
-    // 2. מבצעים התאמה קלה: אם ה-plan הוא אובייקט מה-DB, נחלץ רק את ה-ID
-    // כדי שה-Select במודאל יזהה אותו
+
     const formattedUser = {
         ...user,
         plan: user.plan?._id || user.plan 

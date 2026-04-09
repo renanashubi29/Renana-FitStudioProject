@@ -1,6 +1,7 @@
 import React from 'react';
 import ChevronRightIcon from '@mui/icons-material/ChevronRight';
 import './Classes.css';
+import ClassCard from '../ClassCard/ClassCard';
 
 
 
@@ -51,7 +52,14 @@ const baseUrl = import.meta.env.VITE_CLOUDINARY_BASE_URL;
         
         <div className="classes-grid">
           {classesData.map((item) => (
-            <div className="class-item" key={item.id}>
+            <ClassCard 
+            key={item.id}
+            baseUrl={baseUrl}
+            title={item.title}
+            category={item.category}
+            image={item.image}
+            />
+           /*  <div className="class-item" key={item.id}>
               <div className="class-image">
                 <img src={`${baseUrl}${item.image}.jpg`} 
                                     alt={item.title} />
@@ -65,7 +73,7 @@ const baseUrl = import.meta.env.VITE_CLOUDINARY_BASE_URL;
                   <ChevronRightIcon sx={{ fontSize: 24, color: 'white' }} />
                 </div>
               </div>
-            </div>
+            </div> */
           ))}
         </div>
       </div>

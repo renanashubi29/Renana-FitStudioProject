@@ -76,7 +76,7 @@ export const AdminWorkouts = () => {
 
     const handleDelete = async (id) => {
         try {
-            // בדיקת רשומים לפני מחיקה (לוגיקה ספציפית לאימונים פעילים)
+            // בדיקה האם יש רישומים לאימון
             const participants = await getAllParticipantsInWorkoutApi(id);
             if (participants?.length > 0) {
                showStudioAlert(
@@ -112,7 +112,7 @@ export const AdminWorkouts = () => {
      const handleSubmit = async (formData) => {
         try {
             if (selectedWorkout) {
-                // וולידציה של קיבולת מול רשומים בעת עדכון
+                //בדיקה האם ניתן לשנות את  הקיבולת של האימון
                 const participants = await getAllParticipantsInWorkoutApi(selectedWorkout._id);
                 if (participants?.length > Number(formData.maxParticipants)) {
                  showStudioAlert(

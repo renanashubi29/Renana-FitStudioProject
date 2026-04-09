@@ -198,7 +198,7 @@ export const changePasswordController = async (req, res) => {
 };
 export const getUserByTokenController = async (req, res) => {
   try {
-    // מחלצים את הטוקן מה-Headers (למשל: Bearer <token>)
+   
     const authHeader = req.headers.authorization;
     const token = authHeader && authHeader.split(" ")[1];
 

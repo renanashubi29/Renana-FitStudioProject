@@ -1,5 +1,5 @@
 import fs from "fs";
-import CatalogWorkout from "../models/catalogWorkoutModel.js"; // וודאי שהנתיב נכון
+import CatalogWorkout from "../models/catalogWorkoutModel.js"; 
 import { getMinutesFromStartOfDay } from "../utils/dateUtil.js";
 import User from "../models/userModel.js";
 
@@ -24,7 +24,7 @@ export const getCatalogWorkoutById = async (id) => {
 // יצירת אימון קטלוג חדש
 export const createCatalogWorkout = async (data) => {
   try {
-    //  בדיקת שדות חובה
+    
     if (!data.time || !data.dayOfWeek || !data.roomName) {
       throw new Error("Missing required fields: time, dayOfWeek, or roomName");
     }
@@ -46,7 +46,7 @@ export const createCatalogWorkout = async (data) => {
       }
     }
 
-    // 3. יצירה ושמירה
+    // יצירה ושמירה
     const newCatalogWorkout = new CatalogWorkout(data);
     return await newCatalogWorkout.save();
 
@@ -96,7 +96,7 @@ export const updateCatalogWorkoutById = async (id, data) => {
     });
 
   } catch (error) {
-    // זריקת השגיאה הלאה לקונטרולר
+    
     throw error; 
   }
 };
@@ -117,18 +117,18 @@ export const resetCatalogFromFile = async () => {
     for (let i = 0; i < catalogData.length; i++) {
       const current = catalogData[i];
 
-      // 1. בדיקה שהמאמנת קיימת ב-Database
+      // בדיקה שהמאמנת קיימת ב-Database
       const coachExists = await User.findById(current.coach);
       if (!coachExists) {
         throw new Error(`Coach Validation Error: Coach with ID ${current.coach} was not found for workout "${current.workoutName}"`);
       }
 
-      // 2. (בונוס) בדיקה שהמשתמש הוא אכן מאמנת או אדמין
+      // בדיקה שהמשתמש הוא אכן מאמנת או אדמין
       if (coachExists.role !== 'coach' && coachExists.role !== 'admin') {
         throw new Error(`Role Error: User ${coachExists.firstName} is not authorized to coach "${current.workoutName}"`);
       }
 
-      // בדיקת כפילויות בתוך הקובץ (הקוד הקיים שלך)
+      // בדיקת קונפליקט מבחינת זמנים בהתנגשות אימונים
       for (let j = i + 1; j < catalogData.length; j++) {
         const other = catalogData[j];
         if (current.dayOfWeek === other.dayOfWeek && current.roomName === other.roomName) {

@@ -162,7 +162,7 @@ export const resetWorkouts = async () => {
 
   if (!response.ok) {
     const errorData = await response.json();
-    // שימוש בהודעה מהשרת או בהודעת ברירת מחדל מהאובייקט שלנו
+  
     throw new Error(errorData.message || ErrorMessages.WORKOUTS.RESET_CATALOG_FAILED);
   }
 

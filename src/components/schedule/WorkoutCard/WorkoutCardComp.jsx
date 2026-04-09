@@ -24,7 +24,7 @@ const registration = user ? userRegistrations?.find((reg) => {
  // פונקציית הרישום
   const handleRegisterClick = async () => {
     if (!user) {
- console.log("TEST: I am inside the function!");
+
       showStudioAlert("Wait!", "Please log in to register for a workout", "warning");
       return;
     }
@@ -70,7 +70,7 @@ setUserRegistrations((prev) => {
  // if (!window.confirm("Are you sure you want to cancel?")) return;
 
   try {
-    console.log(registration._id);
+    
     // 1. קריאה ל-API (משתמשים ב-ID של הרישום שמצאנו קודם)
     const result = await deleteRegistrationApi(registration._id);
 

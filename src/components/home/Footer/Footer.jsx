@@ -11,7 +11,6 @@ export const Footer = () => {
         <footer className="main-footer">
             <div className="footer-container">
                 
-                {/* עמודה 1: אודות וסושיאל */}
                 <div className="footer-column about-col">
                     <div className="footer-logo">
                         <span>GYM</span><span className="logo-accent">M</span>
@@ -28,7 +27,6 @@ export const Footer = () => {
                     </div>
                 </div>
 
-                {/* עמודה 2 ו-3: לינקים (משתמשות באותו קלאס) */}
                 <div className="footer-column links-col">
                     <h4>Useful links</h4>
                     <ul>

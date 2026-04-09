@@ -1,6 +1,5 @@
-import React, { useState } from 'react';
+
 import './HomePage.css';
-import Navbar from '../components/home/Navbar/Navbar';
 import { Hero } from '../components/home/Hero/Hero';
 import Services from '../components/home/Services/Services';
 import Classes from '../components/home/Classes/Classes';

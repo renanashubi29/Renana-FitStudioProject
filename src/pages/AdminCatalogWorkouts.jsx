@@ -14,7 +14,7 @@ import {
 import { getAllCoachesApi } from '../api/userApi';
 import { showStudioAlert } from '../components/studioAlert/studioAlert';
 
-const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 };
+const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25,'P': 3 };
 
 export const AdminCatalogWorkouts = () => {
     const queryClient = useQueryClient();
@@ -99,6 +99,9 @@ export const AdminCatalogWorkouts = () => {
         try {
             if (selectedWorkout) {
                 await updateCatalogWorkoutApi(selectedWorkout._id, formData);
+                showStudioAlert( "Success!", 
+    "Catalog workout was updated successfully!", 
+    "success");
             } else {
                 queryClient.invalidateQueries({ queryKey: ["workouts", "next-seven-days"] });
                 await createCatalogWorkoutApi(formData);

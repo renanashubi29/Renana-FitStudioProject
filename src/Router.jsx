@@ -77,17 +77,17 @@ resetWorkoutsFromCatalog();
 useEffect(() => {
     const loadData = async () => {
         try {
-            // 1. מביאים את הנתונים הגולמיים
+            //  מביאים את הנתונים הגולמיים
             const rawData = await getWorkoutsForThisWeekApi();
               const plansData = await getAllPlansApi();
               setplans(plansData);
-             console.log("נתונים גולמיים מהשרת:", plans);
+            
 
-            // 2. מעבדים אותם (Grouping) מיד על המשתנה המקומי
+            //  מעבדים אותם (Grouping) מיד על המשתנה המקומי
             const grouped = groupWorkoutsByDay(rawData);
-          //  console.log("נתונים לאחר קבוץ:", grouped);
+         
 
-            // 3. שומרים ב-State את התוצאה הסופית
+            // שומרים ב-State את התוצאה הסופית
             setWorkouts(grouped);
             
         } catch (error) {
@@ -112,7 +112,7 @@ useEffect(() => {
                 try {
                     const regs = await getAllRegistrationsOfUserApi(user._id);
                     setUserRegistrations(regs);
-                    console.log("userRegistrations:",userRegistrations);
+                  
                 } catch (err) {
                     console.error("Failed to load registrations on refresh", err);
                 }

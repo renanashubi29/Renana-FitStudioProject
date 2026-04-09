@@ -1,10 +1,10 @@
-import React from "react";
+
 import { WorkoutCardComp } from "../WorkoutCard/WorkoutCardComp";
 import './DayGroupWorkouts.css';
 export const DayGroupWorkouts = (props) => {
   return (
     <div className="day-group">
-      {/* שם היום מגיע מהפרופס */}
+     
       <h1>{props.dayName}</h1>
       <div className="cards-flex">
         {/* ריצה על מערך האימונים הספציפי ליום הזה */}

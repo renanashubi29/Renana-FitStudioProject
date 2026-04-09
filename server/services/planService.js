@@ -3,7 +3,7 @@ import fs from "fs";
 import Plan from "../models/planModel.js";
 
 
-// Get all plans
+// קבלת כל סוגי המנויים
 export const getAllPlans = async () => {
   try {
     return await Plan.find({});
@@ -12,7 +12,7 @@ export const getAllPlans = async () => {
   }
 };
 
-// Get plan by ID
+// קבלת מנוי לפי ID
 export const getPlanById = async (id) => {
   try {
     return await Plan.findById(id);
@@ -21,7 +21,7 @@ export const getPlanById = async (id) => {
   }
 };
 
-// Create a new plan
+//יצירת מנוי
 export const createPlan = async (data) => {
   try {
     const plan = new Plan(data);
@@ -31,7 +31,7 @@ export const createPlan = async (data) => {
   }
 };
 
-// Delete plan
+// מחיקת מנוי
 export const deletePlanById = async (id) => {
   try {
     return await Plan.findByIdAndDelete(id);
@@ -40,11 +40,10 @@ export const deletePlanById = async (id) => {
   }
 };
 
-// Update plan
+// עדכון מנוי
 export const updatePlanById = async (id, data) => {
   try {
-    // { new: true } returns the updated document instead of the old one
-    // { runValidators: true } ensures the update follows your Schema rules (like enum)
+   
     return await Plan.findByIdAndUpdate(id, data, { new: true, runValidators: true });
   } catch (error) {
     throw new Error("Could not update plan: " + error.message);

@@ -6,7 +6,7 @@ import {
   updateCatalogWorkoutController, 
   deleteCatalogWorkoutController, 
   resetCatalogController 
-} from "../controllers/catalogWorkoutController.js"; // ודאי שזה השם שנתת לקובץ
+} from "../controllers/catalogWorkoutController.js"; 
 
 
 const router = express.Router();

@@ -25,7 +25,7 @@ export const getWorkoutById = async (id) => {
 // יצירת אימון חדש
 export const createWorkout = async (data) => {
   try {
-    //  בדיקה אם בכלל יש נתונים
+   
     if (!data.time || !data.date || !data.roomName) {
         throw new Error("Missing required fields: time, date, or roomName");
     }
@@ -155,160 +155,31 @@ export const resetWorkoutsFromFile = async () => {
     throw new Error("Could not reset workouts: " + error.message);
   }
 };
-/* //הכנסה לרשימת האימונים אימונים מהקטלוג שלא קיימים
- export const resetWorkoutsFromCatalog = async () => {
-  //קבלת כל אימוני הקטלוג
-    const catalogItems = await CatalogWorkout.find({});
-    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
-    
-    const now = new Date();
-    const currentTimeStr = extractTimeFromDate(now);
 
-    const currentYear = now.getFullYear();
-    const currentMonth = now.getMonth();
-    const currentDate = now.getDate();
-    //מערך לשמירת האימונים שנוספו מהקטלוג לאימונים הפעילים
-    const createdWorkouts = [];
-
-    //מעבר על כל ימי השבוע -יום שהתחיל יפתח ההרשמה לשבוע הבא
-    for (let i = 0; i < 8; i++) {
-        // יצירת תאריך UTC נקי
-        const targetDate = new Date(Date.UTC(currentYear, currentMonth, currentDate + i, 0, 0, 0, 0));
-        const dayName = daysOfWeek[targetDate.getUTCDay()];
-        //תיתן לי את כל אימוני הקטלוג של אותו היום במעבר על הלולאה
-
-        let relevantItems = catalogItems.filter(item => item.dayOfWeek === dayName);
-
-        
-        //אם זה היום הנוכחי יש צורך בסינון לפי השעה-הצגת רק האימונים שאחרי השעה
-        if (i === 0) {
-            relevantItems = relevantItems.filter(item => item.time > currentTimeStr);
-        } 
-        //אם זה היום האחרון יש צורך להציג רק את האימונים שלפני השעה הנוכחית
-        else if (i === 7) {
-            relevantItems = relevantItems.filter(item => item.time <= currentTimeStr);
-        }
-      
-//מעבר על כל אימוני הקטלוג של אותו היום ובדיקה האם הם קיימים באימונים הפעילים
-        for (const item of relevantItems) {
-            const existing = await Workout.findOne({
-              catalogWorkoutCode: item.workoutCode,
-              date: targetDate
-            });
-//אם לא חזר לי אובייקט אז אני צריכה להוסיף מהקטלוג לאימונים הפעילים
-            if (!existing) {
-                const newWorkout = new Workout({
-                   catalogWorkoutCode:item.workoutCode,
-                    workoutName: item.workoutName,
-                    roomName: item.roomName,
-                    date: targetDate,
-                    time: item.time,
-                    coach: item.coach,
-                    maxParticipants: item.maxParticipants
-                });
-                //שמירה בDB
-                const saved = await newWorkout.save();
-                createdWorkouts.push(saved);
-            }
-        }
-    }
-    return createdWorkouts;
-} */
-/* export const resetWorkoutsFromCatalog = async () => {
-  //קבלת כל אימוני הקטלוג
-   const allWorkouts = await Workout.find({});
-    const allCatalogWorkouts = await CatalogWorkout.find({});
-    const now = new Date();
-
-// 2. יצירת תאריך של "היום" בשעה 00:00:00 (בפורמט UTC)
-const startDate = new Date(Date.UTC(
-    now.getUTCFullYear(), 
-    now.getUTCMonth(), 
-    now.getUTCDate(), 
-    0, 0, 0, 0
-));
-
-// 3. יצירת תאריך של "עוד שבוע" (היום + 7 ימים) באותה שעה
-const endDate = new Date(startDate); // מעתיקים את תאריך ההתחלה
-endDate.setUTCDate(startDate.getUTCDate() + 7); // מוסיפים 7 ימים
-
-// בדיקה של התוצאות בפורמט ISO (הפורמט שביקשת)
-console.log("Start Date:", startDate.toISOString()); 
-// פלט לדוגמה: 2026-03-12T00:00:00.000Z
-
-console.log("End Date:", endDate.toISOString());
-// פלט לדוגמה: 2026-03-19T00:00:00.000Z
-let workoutsItems = allWorkouts.filter(item => {
-    const itemDateNumber = new Date(item.date).getTime();
-    return itemDateNumber >= startDate && itemDateNumber <= endDate;
-});
-for (const item of workoutsItems) {
-  const currentTimeStr = extractTimeFromDate(new Date());
- console.log(currentTimeStr); // למשל: "17:30"
-  const itemDateNumber = new Date(item.date).getTime();
-  if(itemDateNumber===startDate)
- workoutsItems = workoutsItems.filter(item => {
-    return item.time>currentTimeStr;
-});
- 
-  if(itemDateNumber===endDate)
- workoutsItems = workoutsItems.filter(item => {
-    return item.time<=currentTimeStr;
-});
-
-}
-for (const item of allCatalogWorkouts)
-{
- const found = workoutsItems.find(ele=>ele.catalogWorkoutCode===item.workoutCode)
-if (!found) {
-        // כאן את יוצרת את האימון החדש
-        const newWorkout = new Workout({
-            catalogWorkoutCode: item.workoutCode,
-            workoutName: item.workoutName,
-            roomName: item.roomName,
-            date: getNextDateByDayName(item.dayOfWeek), 
-            time: item.time,
-            coach: item.coach,
-            maxParticipants: item.maxParticipants
-        });
-
-        // 3. שמירה בבסיס הנתונים
-        const saved = await newWorkout.save();
-        
-        // 4. עדכון המערך המקומי כדי שלא ניצור אותו שוב בטעות באותה ריצה
-        workoutsItems.push(saved);
-        
-        // (אופציונלי) שמירה במערך שאת מחזירה בסוף הפונקציה
-        createdWorkouts.push(saved);
-    }
-}
-
-} */
 export const resetWorkoutsFromCatalog = async () => {
-    console.log("--- Starting resetWorkoutsFromCatalog ---");
+
 
     const allWorkouts = await Workout.find({});
     const allCatalogWorkouts = await CatalogWorkout.find({});
-    console.log(`Fetched ${allWorkouts.length} active workouts and ${allCatalogWorkouts.length} catalog items.`);
+   
 
     const now = new Date();
     const startDate = new Date(Date.UTC(now.getUTCFullYear(), now.getUTCMonth(), now.getUTCDate(), 0, 0, 0, 0));
     const endDate = new Date(startDate);
     endDate.setUTCDate(startDate.getUTCDate() + 7);
 
-    console.log("Search Window:", startDate.toISOString(), "to", endDate.toISOString());
+    
 
-    // 1. פילטור ראשוני לפי תאריכים
+    //פילטור לפי תאריכי האימונים מהיום הנוכחי עד שבוע ממנו
     let workoutsItems = allWorkouts.filter(item => {
         const itemDateNumber = new Date(item.date).getTime();
         return itemDateNumber >= startDate.getTime() && itemDateNumber <= endDate.getTime();
     });
-    console.log(`Workouts found in this week's window: ${workoutsItems.length}`);
+ 
 
-    // 2. פילטור שעות (היום והיום השמיני) - עושים את זה פעם אחת, לא בתוך לולאה
+    // פילטור לפי השעה הנוכחית ביום הראשון והאחרון
     const currentTimeStr = extractTimeFromDate(now);
-    console.log(`Current Time for filtering: ${currentTimeStr}`);
-
+   
     workoutsItems = workoutsItems.filter(item => {
         const itemDateNumber = new Date(item.date).getTime();
         
@@ -323,7 +194,7 @@ export const resetWorkoutsFromCatalog = async () => {
         // כל שאר הימים - תשאיר הכל
         return true;
     });
-    console.log(`Workouts items after time filtering: ${workoutsItems.length}`);
+
 
     const createdWorkouts = [];
 
@@ -332,7 +203,7 @@ export const resetWorkoutsFromCatalog = async () => {
         const targetDate = getNextDateByDayName(item.dayOfWeek,item.time);
         const targetDateTime = targetDate.getTime();
 
-        console.log(`Checking catalog item: ${item.workoutName} (${item.dayOfWeek} ${item.time})`);
+      
 
         // בדיקה: האם האימון כבר קיים בתאריך הספציפי הזה?
         const found = workoutsItems.find(ele => 
@@ -340,7 +211,7 @@ export const resetWorkoutsFromCatalog = async () => {
         );
 
         if (!found) {
-            console.log(`>>> Missing! Creating ${item.workoutName} for ${targetDate.toISOString().split('T')[0]}`);
+          
             
             try {
                 const newWorkout = new Workout({
@@ -364,7 +235,6 @@ export const resetWorkoutsFromCatalog = async () => {
         }
     }
 
-    console.log(`--- Process Finished. Created ${createdWorkouts.length} new workouts. ---`);
     return createdWorkouts;
 };
 
@@ -379,7 +249,7 @@ export const getWorkoutsForNextSevenDays = async () => {
     // היום הנוכחי
     const now = new Date();
     const currentTime = extractTimeFromDate(now);
-    console.log("current time:",currentTime);
+    
     const todayStr = getDateToString(now);
 //היום האחרון שנפתח
     const nextWeek = new Date();
@@ -406,7 +276,7 @@ export const getWorkoutsForNextSevenDays = async () => {
       }
 
       return true; // כל מה שבאמצע
-    });//סיום פילטור והגדרה איך לסנן
+    });
 
   } catch (error) {
     throw new Error("Failed to fetch and filter: " + error.message);

@@ -1,5 +1,6 @@
 import React from 'react';
 import './GallerySection.css';
+import GalleryCard from '../GalleryCard/GalleryCard';
 
 
 export const GallerySection = () => {
@@ -19,19 +20,19 @@ const baseUrl = import.meta.env.VITE_CLOUDINARY_BASE_URL;
     return (
         <section className="gallery-section">
       
-    {/* שים לב: הורדנו את ה-div של ה-container כדי שהגלריה תהיה חופשית */}
     <div className="gallery-wrapper">
         {galleryData.map((item) => (
-            <div 
-                key={item.id} 
-                className={`gallery-item ${item.sizeClass}`}
-                style={{ backgroundImage: `url(${baseUrl}${item.img}.jpg)` }}
-            >
-                <div className="gi-hover-text">
-                    <h5>{item.title}</h5>
-                </div>
-            </div>
-        ))}
+            
+         <GalleryCard 
+      key={item.id} 
+      baseUrl={baseUrl}
+      img={item.img}
+      title={item.title}
+      sizeClass={item.sizeClass}
+    />
+  
+       
+  ))}
     </div>
       
 </section>

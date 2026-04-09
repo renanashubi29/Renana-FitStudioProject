@@ -65,7 +65,7 @@ export const createCatalogWorkoutController = async (req, res) => {
       data: savedWorkout 
     });
   } catch (error) {
-    // כאן השגיאה מהסרביס (למשל חפיפה בזמנים) תיתפס ותחזור למשתמש
+
     return serverResponse(res, 400, { 
       message: ErrorMessages.WORKOUTS.CREATE_FAILED, 
       error: error.message 
@@ -127,7 +127,7 @@ export const updateCatalogWorkoutController = async (req, res) => {
       data: updatedWorkout 
     });
   } catch (error) {
-    // במידה ויש חפיפה בזמן או ID לא תקין
+   
     return serverResponse(res, 400, { 
       message: ErrorMessages.WORKOUTS.UPDATE_FAILED, 
       error: error.message 

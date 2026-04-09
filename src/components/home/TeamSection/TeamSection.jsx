@@ -5,6 +5,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import './TeamSection.css';
+import TeamCard from '../TeamCard/TeamCard';
 
 export const TeamSection = () => {
     const baseUrl = import.meta.env.VITE_CLOUDINARY_BASE_URL;
@@ -42,19 +43,14 @@ export const TeamSection = () => {
                     className="team-swiper"
                 >
                     {teamData.map((member) => (
-                        <SwiperSlide key={member.id}>
-                            <div className="team-card">
-                                {/* מעבירים את ה-URL כמשתנה CSS בלבד */}
-                                <div 
-                                    className="team-img-box" 
-                                    style={{ '--bg-image': `url(${baseUrl}${member.img}.jpg)` }}
-                                >
-                                    <div className="team-hover-content">
-                                        <h4>{member.name}</h4>
-                                        <span>{member.role}</span>
-                                    </div>
-                                </div>
-                            </div>
+                 <SwiperSlide key={member.id}>
+                        <TeamCard
+                       key={member.id}  
+  name={member.name}
+  role={member.role}
+  img={member.img}
+  baseUrl={baseUrl}
+                        />
                         </SwiperSlide>
                     ))}
                 </Swiper>

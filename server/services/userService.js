@@ -7,14 +7,9 @@ import CatalogWorkout from "../models/catalogWorkoutModel.js";
 import Workout from "../models/workoutModel.js";
 import Registration from "../models/registrationModel.js";
 
-
-
-
-
-
 export const getAllUsers = async () => {
   try {
-  //לקבלת פרטי האובייקט מרפרנס
+  
     return await User.find({}).populate("plan");
   } catch (error) {
     throw new Error("Could not fetch users: " + error.message);
@@ -22,7 +17,7 @@ export const getAllUsers = async () => {
 };
 export const getAllCoaches = async () => {
   try {
-  //לקבלת פרטי האובייקט מרפרנס
+  
     return await User.find({role: { $in: ['coach', 'admin'] }});
   } catch (error) {
     throw new Error("Could not fetch users: " + error.message);
@@ -52,23 +47,17 @@ export const createUser = async (data) => {
 };
 
 
-/* export const deleteUserById = async (id) => {
-  try {
-    return await User.findByIdAndDelete(id);
-  } catch (error) {
-    throw new Error("Could not delete user: " + error.message);
-  }
-}; */
+
 export const deleteUserById = async (id) => {
   try {
-    // 1. Find the user first
+   
     const user = await User.findById(id);
 
     if (!user) {
       throw new Error("User not found");
     }
 
-    // 2. Role-based validation (Admin/Trainer)
+   
     if (user.role === 'admin' || user.role === 'coach') {
       if (user.role === 'admin') {
         throw new Error("Admin users cannot be deleted from the system");
@@ -90,7 +79,6 @@ export const deleteUserById = async (id) => {
       date: { $gte: new Date() } 
     });
 
-    // 4. Finally, delete the user
     return await User.findByIdAndDelete(id);
 
   } catch (error) {
@@ -101,7 +89,7 @@ export const deleteUserById = async (id) => {
 
 export const updateUserById = async (id, data) => {
   try {
-    // runValidators מוודא שהעדכון עומד בחוקי ה-enum וה-required
+   
     return await User.findByIdAndUpdate(id, data, { new: true, runValidators: true }).populate("plan");
   } catch (error) {
     throw new Error("Could not update user: " + error.message);
@@ -114,7 +102,7 @@ export const loginUserService = async (email, password) => {
     throw error;
   }
 
-  const user = await User.findOne({ email }); // או getUserByEmail(email)
+  const user = await User.findOne({ email }); 
   if (!user) {
     const error = new Error("User not found");
     error.status = 404;
@@ -128,16 +116,16 @@ export const loginUserService = async (email, password) => {
     throw error;
   }
 
-  //return user;
+ 
 
-  // Create the Token
+  // יצירת הטוקן
 const token = jwt.sign(
   { sub: user._id, email: user.email }, // Payload
   process.env.JWT_SECRET, // Secret Key
   { expiresIn: "1d" }, // Options
 );
 
-// Return the user (without password) and the token
+
 const userObject = user.toObject();
 delete userObject.password;
 
@@ -156,14 +144,14 @@ export const registerUserService = async (userData) => {
 
   const userToSave = { ...userData, password: hash };
 
-  const user = await User.create(userToSave); // או createUser(userToSave)
+  const user = await User.create(userToSave); //יצירת יוזר וטוקן
  const token = jwt.sign(
   { sub: user._id, email: user.email }, // Payload
   process.env.JWT_SECRET, // Secret Key
   { expiresIn: "1d" }, // Options
 );
 
-// Return the user (without password) and the token
+
 const userObject = user.toObject();
 delete userObject.password;
 
@@ -219,8 +207,7 @@ export const resetUsersFromFile = async () => {
         throw new Error(`User "${userData.name}" has an invalid Plan ID`);
       }
 
-      // 1. חייב await כדי שההצפנה והשמירה יסתיימו
-      // 2. הסרביס שלך מחזיר אובייקט { user, token }, אז ניקח רק את ה-user
+    
       const result = await registerUserService(userData);
       
       insertedUsers.push(result.user);
@@ -233,26 +220,26 @@ export const resetUsersFromFile = async () => {
 };
 export const getUserByToken = async (token) => {
   try {
-    // 1. אימות ופענוח הטוקן - כאן אנחנו הופכים את הסטרינג לאובייקט חזרה
+   
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-    // 2. חילוץ ה-ID (ששמרת תחת השם sub)
+   
     const userId = decoded.sub;
 
-    // 3. שליפת המשתמש המלא מה-DB (כולל ה-plan שלו)
+  
     const user = await User.findById(userId).populate("plan");
 
     if (!user) {
       throw new Error("User not found");
     }
 
-    // 4. הסרת הסיסמה לפני ששולחים חזרה ל-React
+  
     const userObject = user.toObject();
     delete userObject.password;
 
     return userObject;
   } catch (error) {
-    // אם הטוקן לא תקין או פג תוקף, jwt.verify יזרוק שגיאה
+  
     throw new Error("Invalid or expired token");
   }
 };

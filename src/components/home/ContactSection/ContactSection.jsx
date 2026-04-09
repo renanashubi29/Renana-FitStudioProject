@@ -4,6 +4,7 @@ import './ContactSection.css';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import PhoneIphoneIcon from '@mui/icons-material/PhoneIphone';
 import EmailIcon from '@mui/icons-material/Email';
+import ContactCard from '../ContactCard/ContactCard';
 
 export const ContactSection = () => {
     const contactData = [
@@ -28,14 +29,11 @@ export const ContactSection = () => {
         <section className="contact-section"  id="contact">
             <div className="contact-container">
                 {contactData.map((item) => (
-                    <div key={item.id} className="contact-item">
-                        <div className="icon-box">
-                            {item.icon}
-                        </div>
-                        <div className="contact-text">
-                            <p>{item.text}</p>
-                        </div>
-                    </div>
+                    <ContactCard
+                    key={item.id} 
+                        icon={item.icon} 
+                        text={item.text}
+                    />
                 ))}
             </div>
         </section>

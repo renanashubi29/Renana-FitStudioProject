@@ -23,28 +23,29 @@ export const getRegistrationById = async (id) => {
         throw new Error("Error finding registration: " + error.message);
     }
 };
-
+//קבלת כל רישומי האימונים של משתמש מסויים
 export const getRegistrationsByUser = async (userId) => {
     try {
-        // אנחנו מחפשים בכל הטבלה איפה ששדה ה-user שווה ל-userId ששלחנו
+        
         const registrations = await Registration.find({ user: userId })
-            .populate("workout"); // אנחנו רוצים את פרטי האימון כדי להציג אותם
+            .populate("workout"); //פרטי האימון
 
-        return registrations; // זה יחזיר מערך של כל הרישומים של אותו יוזר
+        return registrations; 
     } catch (error) {
         throw new Error("Error finding user registrations: " + error.message);
     }
 };
+//קבלת כל הרישומים של אימון מסויים
 export const getRegistrationsByWorkout = async (workoutId) => {
     try {
-        // מחפשים בטבלת הרישומים את כל השורות שבהן שדה ה-workout תואם ל-ID שקיבלנו
+      
         const registrations = await Registration.find({ workout: workoutId })
-            .populate("user", "name email phone") // מביא את פרטי המשתמש (שם, אימייל וטלפון)
+            .populate("user", "name email phone") // פרטים נוספים 
             .exec();
 
-        return registrations; // מחזיר מערך של אובייקטים הכוללים את פרטי המשתמשים שנרשמו
+        return registrations; 
     } catch (error) {
-        throw new Error("שגיאה בשליפת הרשומים לאימון: " + error.message);
+        throw new Error("Error " + error.message);
     }
 };
 
@@ -80,14 +81,14 @@ export const resetRegistrationsFromFile = async () => {
         for (const reg of registrationsData) {
         
             const userExists = await User.findById(reg.user);
-            console.log(reg.user);
+            
             if (!userExists) {
                 throw new Error(`User with ID ${reg.user} not found in database. Reset aborted.`);
             }
 
        
             const workoutExists = await Workout.findById(reg.workout);
-            console.log(workoutExists);
+           
             if (!workoutExists) {
                 throw new Error(`Workout with ID ${reg.workout} not found in database. Reset aborted.`);
             }
@@ -103,7 +104,7 @@ export const resetRegistrationsFromFile = async () => {
         throw new Error("Could not reset registrations: " + error.message);
     }
 };
-// הוסיפי את זה ל- services/registrationService.js (או הקובץ ששלחת)
+
 
 /**
  * פונקציה שמחזירה את כמות הנרשמים לאימון ספציפי
@@ -161,7 +162,7 @@ export const createRegistration = async (data) => {
     } else if (limitString === "Unlimited") {
         limitNumber = null; // ללא הגבלה
     }
-    //choach/admin have not plan
+   
 } else {
     
     limitNumber = null; 
@@ -172,11 +173,11 @@ export const createRegistration = async (data) => {
             throw new Error(`You have reached your weekly limit of ${limitNumber} workouts`);
         }
 
-        // 4. יצירת הרישום
+        // יצירת הרישום
        const registration = new Registration({ ...data, status: registrationStatus });
        const savedRegistration = await registration.save();
 
-// כאן הקסם: שליפה מחדש של הרישום עם אובייקט האימון המלא
+// שליפה הרישום עם נתונים נוספים
         return await Registration.findById(savedRegistration._id).populate('workout');
         
     } catch (error) {
@@ -191,14 +192,14 @@ export const deleteRegistrationById = async (id) => {
         //מציאת הרישום לביטול והוצאת פרטי העובד
         const registration = await Registration.findById(id).populate('workout');
         if (!registration) throw new Error("Registration not found");
-        // ודאי שהאימון קיים בתוך הרישום
+        
 if (!registration.workout) {
     throw new Error("Workout details not found for this registration");
 }
 
-        //בדיקת זמן: האם יש יותר מ-24 שעות עד האימון?
+        //בדיקת זמן: האם יש יותר מ-24 שעות עד האימון
         const now = new Date();
-        //תאריך אימון מלא כולל שעות ודקות מחובר
+       
         const workoutDate = new Date(registration.workout.date);
 
 if (registration.workout.time) {
@@ -214,15 +215,15 @@ if (registration.workout.time) {
             throw new Error("Cannot cancel less than 24 hours before the workout");
         }
 
-        // 3. מחיקת ההרשמה הנוכחית
+        //  מחיקת ההרשמה הנוכחית
         const workoutId = registration.workout._id;
         await Registration.findByIdAndDelete(id);
 
-        //מיון לפי זמן יצירה ותיתן לי את הראשון
+        //מיון לפי זמן יצירה והכנסת המשתמש הראשון שנרשם לרישמת ההמתנה לאימון
         const nextInLine = await Registration.findOne({
             workout: workoutId,
             status: 'Waitlist'
-        }).sort({ createdAt: 1 }); // 1 אומר מהישן לחדש (FIFO)
+        }).sort({ createdAt: 1 }); 
 
         if (nextInLine) {
             nextInLine.status = 'Registered';

@@ -3,14 +3,14 @@ import React, { useState, useEffect } from 'react';
 import { ManagementLayout } from '../components/admin/ManagementLayout/ManagementLayout';
 import { DataTable } from '../components/admin/DataTable/DataTable';
 import { FormModal } from '../components/admin/FormModal/FormModal';
-import { RegistrationRowData } from '../components/admin/RegistrationRowData'; // הרכיב שיצרנו למעלה
+import { RegistrationRowData } from '../components/admin/RegistrationRowData'; 
 
 import { 
     getAllRegistrationsApi, 
     deleteRegistrationApi, 
     createRegistrationApi 
 } from '../api/registrationApi';
-// בהנחה שיש לך API שמושך רשימות לבחירה במודאל
+
 import { getAllUsersApi } from '../api/userApi';
 import { getWorkoutsForThisWeekApi } from '../api/workoutsApi';
 import { showStudioAlert } from '../components/studioAlert/studioAlert';
@@ -25,29 +25,29 @@ export const AdminRegistration = () => {
     const loadData = async () => {
     setIsLoading(true);
     try {
-        // 1. שליפת כל ההרשמות (Registrations)
+        
         const allRegistrations = await getAllRegistrationsApi();
 
-        // 2. שליפת האימונים לשבוע הקרוב (לפי הפונקציה שלך)
+   
         const weeklyWorkouts = await getWorkoutsForThisWeekApi();
 
-        // 3. שליפת כל המשתמשים (עבור המודאל)
+      
         const allUsers = await getAllUsersApi();
 
         // --- לוגיקת הסינון ---
         
-        // יצירת רשימה של ה-IDs של האימונים שמתקיימים השבוע
+      
         const weeklyWorkoutIds = weeklyWorkouts.map(w => w._id);
 
-        // פילטור הרישומים: נשמור רק רישום שהאימון שלו נמצא ברשימת "אימוני השבוע"
+      
         const filteredRegistrations = allRegistrations.filter(reg => {
-            // בדיקה שהרישום מכיל אובייקט אימון ושה-ID שלו קיים ברשימת השבוע
+    
             return reg.workout && weeklyWorkoutIds.includes(reg.workout._id);
         });
 
-        // 4. עדכון הסטייט של הקומפוננטה
+   
         setRegistrations(filteredRegistrations);
-        setWorkouts(weeklyWorkouts); // המודאל יציג רק אימונים רלוונטיים לשבוע
+        setWorkouts(weeklyWorkouts);
         setUsers(allUsers);
 
     } catch (err) {
