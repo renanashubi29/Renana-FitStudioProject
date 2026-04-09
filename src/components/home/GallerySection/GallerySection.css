@@ -12,7 +12,7 @@
 }
 
 .gallery-item {
-   flex: 1 1 auto;
+   /* flex: 1 1 auto;
     position: relative;
     background-repeat: no-repeat;
     background-size: cover;
@@ -20,7 +20,20 @@
     border: 2px solid var(--bg-main); 
     overflow: hidden;
     cursor: pointer;
-    transition: all 0.4s;
+    transition: all 0.4s; */
+    position: relative;
+    /* מניעת עיוות התמונה */
+    background-repeat: no-repeat;
+    background-size: cover; 
+    
+    /* התיקון נמצא כאן! */
+    background-position: top center; /* <--- שפירי את center ל-top center */
+    
+    /* יתר הקוד נשאר ללא שינוי */
+    border: 2px solid var(--bg-main, #fff);
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s ease;
 }
 
 .large-item {

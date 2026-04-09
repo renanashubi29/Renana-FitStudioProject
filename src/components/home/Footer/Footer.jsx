@@ -1,16 +1,31 @@
-import React from 'react';
-import './Footer.css';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TwitterIcon from '@mui/icons-material/Twitter';
-import YouTubeIcon from '@mui/icons-material/YouTube';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import MailOutlineIcon from '@mui/icons-material/MailOutline';
 
+
+import { FooterColumn } from "../FooterColumn/FooterColumn";
+import { GuideItemFooter } from "../GuideItemFooter/GuideItemFooter";
+import { SocialLinks } from "../SocialLinks";
+
+
+import './Footer.css';
 export const Footer = () => {
+    const usefulLinks = [
+        { label: 'About', href: '#about' },
+        { label: 'Blog', href: '#blog' },
+        { label: 'Classes', href: '#classes' },
+        { label: 'Contact', href: '#contact' },
+    ];
+
+    const supportLinks = [
+        { label: 'Login', href: '#login' },
+        { label: 'My account', href: '#account' },
+        { label: 'Subscribe', href: '#subscribe' },
+        { label: 'Contact', href: '#contact' },
+    ];
+
     return (
         <footer className="main-footer">
             <div className="footer-container">
                 
+                {/* עמודת אודות */}
                 <div className="footer-column about-col">
                     <div className="footer-logo">
                         <span>GYM</span><span className="logo-accent">M</span>
@@ -18,46 +33,24 @@ export const Footer = () => {
                     <p className="footer-desc">
                         Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
                     </p>
-                    <div className="footer-socials">
-                        <FacebookIcon />
-                        <TwitterIcon />
-                        <YouTubeIcon />
-                        <InstagramIcon />
-                        <MailOutlineIcon />
-                    </div>
+                    <SocialLinks />
                 </div>
 
-                <div className="footer-column links-col">
-                    <h4>Useful links</h4>
-                    <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#blog">Blog</a></li>
-                        <li><a href="#classes">Classes</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
+                {/* עמודות לינקים */}
+                <FooterColumn title="Useful links" links={usefulLinks} />
+                <FooterColumn title="Support" links={supportLinks} />
 
-                <div className="footer-column links-col">
-                    <h4>Support</h4>
-                    <ul>
-                        <li><a href="#login">Login</a></li>
-                        <li><a href="#account">My account</a></li>
-                        <li><a href="#subscribe">Subscribe</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </div>
-
-                {/* עמודה 4: בלוג/מדריכים */}
+                {/* עמודת מדריכים */}
                 <div className="footer-column guides-col">
                     <h4>Tips & Guides</h4>
-                    <div className="guide-item">
-                        <p>Physical fitness may help prevent depression, anxiety</p>
-                        <span>3 min read | 20 Comments</span>
-                    </div>
-                    <div className="guide-item">
-                        <p>Fitness: The best exercise to lose belly fat and tone up...</p>
-                        <span>3 min read | 20 Comments</span>
-                    </div>
+                    <GuideItemFooter 
+                        title="Physical fitness may help prevent depression, anxiety" 
+                        meta="3 min read | 20 Comments" 
+                    />
+                    <GuideItemFooter 
+                        title="Fitness: The best exercise to lose belly fat and tone up..." 
+                        meta="3 min read | 20 Comments" 
+                    />
                 </div>
             </div>
 

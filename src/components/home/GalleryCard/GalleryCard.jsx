@@ -1,11 +1,11 @@
 
 
 
- export const GalleryCard = ({key, img, title, sizeClass, baseUrl }) => {
+ export const GalleryCard = ({ img, title, sizeClass, baseUrl }) => {
 
   return (
   <div 
-                key={key} 
+              
                 className={`gallery-item ${sizeClass}`}
                 style={{ backgroundImage: `url(${baseUrl}${img}.jpg)` }}
             >
