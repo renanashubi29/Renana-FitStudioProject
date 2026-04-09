@@ -1,8 +1,9 @@
 
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { ManagementLayout } from '../components/admin/ManagementLayout/ManagementLayout';
 import { DataTable } from '../components/admin/DataTable/DataTable';
 import { FormModal } from '../components/admin/FormModal/FormModal';
+import { useQueryClient } from '@tanstack/react-query';
 
 import { 
     getWorkoutsForThisWeekApi, 
@@ -13,11 +14,14 @@ import {
 import { getAllCoachesApi } from '../api/userApi';
 import { getAllParticipantsInWorkoutApi } from '../api/registrationApi';
 import { showStudioAlert } from '../components/studioAlert/studioAlert';
+import { ShopContext } from '../ShopContext';
 
-const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 };
+const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 ,'P': 3};
 
 export const AdminWorkouts = () => {
-    const [workouts, setWorkouts] = useState([]);
+    const queryClient = useQueryClient();
+    const [workoutsArray, setWorkoutsArray] = useState([]);
+  const { workouts, setWorkouts } = useContext(ShopContext);
     const [coaches, setCoaches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -30,7 +34,7 @@ export const AdminWorkouts = () => {
                 getWorkoutsForThisWeekApi(),
                 getAllCoachesApi()
             ]);
-            setWorkouts(workoutsData);
+            setWorkoutsArray(workoutsData);
             setCoaches(coachesData);
         } catch (err) {
             console.error("Failed to load workouts data:", err.message);
@@ -85,6 +89,10 @@ export const AdminWorkouts = () => {
 
          
                 await deleteWorkoutApi(id);
+                            queryClient.invalidateQueries({ 
+        queryKey: ["workouts", "next-seven-days"] 
+    });
+       
                 loadData();
                 showStudioAlert(
                 "Deleted!", 
@@ -101,7 +109,7 @@ export const AdminWorkouts = () => {
         );}
     };
 
-    const handleSubmit = async (formData) => {
+     const handleSubmit = async (formData) => {
         try {
             if (selectedWorkout) {
                 // וולידציה של קיבולת מול רשומים בעת עדכון
@@ -114,10 +122,20 @@ export const AdminWorkouts = () => {
     );
                     return;
                 }
-                await updateWorkoutApi(selectedWorkout._id, formData);
+                const updatedWorkout=await updateWorkoutApi(selectedWorkout._id, formData);
+queryClient.invalidateQueries({ 
+                    queryKey: ["workouts", "next-seven-days"] 
+                });
+
+                setWorkouts(prev => prev.map(day => 
+                    day.map(w => w._id === selectedWorkout._id ? updatedWorkout : w)
+                ));
                 showStudioAlert("Updated!", "The workout schedule has been updated.", "success");
             } else {
                 await createWorkoutApi(formData);
+                queryClient.invalidateQueries({ 
+        queryKey: ["workouts", "next-seven-days"] 
+    });
                 showStudioAlert("Created!", "The new workout has been added to the calendar.", "success");
             }
             setIsModalOpen(false);
@@ -129,7 +147,8 @@ export const AdminWorkouts = () => {
             errorMessage, 
             "error"
         ); }
-    };
+    }; 
+    
 
     const handleOpenEdit = (item) => {
         setSelectedWorkout({
@@ -150,7 +169,7 @@ export const AdminWorkouts = () => {
         >
             <DataTable 
                 headers={['Workout (Code)', 'Date', 'Time', 'Room', 'Coach', 'Actions']}
-                data={workouts}
+                data={workoutsArray}
                 actions={['edit', 'delete']}
                 onEdit={handleOpenEdit}
                 onDelete={handleDelete}

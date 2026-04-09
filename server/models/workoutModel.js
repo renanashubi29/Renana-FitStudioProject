@@ -3,7 +3,8 @@ const ROOM_CAPACITIES = {
     'A': 10,
     'B': 15,
     'C': 20,
-    'D': 25
+    'D': 25,
+    'P': 3
 };
 const workoutSchema = new mongoose.Schema({
     catalogWorkoutCode: { 
@@ -14,7 +15,7 @@ const workoutSchema = new mongoose.Schema({
     roomName: { 
         type: String, 
         required: true, 
-        enum: ['A', 'B', 'C', 'D'],
+        enum: ['A', 'B', 'C', 'D', 'P'],
         uppercase: true 
     },
    maxParticipants: { 

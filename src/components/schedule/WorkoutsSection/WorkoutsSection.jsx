@@ -13,6 +13,8 @@ const getDayName = (dayIndex) => {
 
 export const WorkoutsSection = () => {
   const { workouts } = useContext(ShopContext);
+  console.log("--- WorkoutsSection Rendered ---");
+  console.log("Current workouts structure from Context:", workouts);
 
   return (
     <>

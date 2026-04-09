@@ -4,7 +4,7 @@ import { ManagementLayout } from '../components/admin/ManagementLayout/Managemen
 import { DataTable } from '../components/admin/DataTable/DataTable';
 import { FormModal } from '../components/admin/FormModal/FormModal';
 import { CatalogRowData } from '../components/admin/CatalogRowData';
-
+import { useQueryClient } from '@tanstack/react-query';
 import { 
     getAllCatalogWorkoutsApi, 
     createCatalogWorkoutApi, 
@@ -17,6 +17,7 @@ import { showStudioAlert } from '../components/studioAlert/studioAlert';
 const ROOM_CAPACITIES = { 'A': 10, 'B': 15, 'C': 20, 'D': 25 };
 
 export const AdminCatalogWorkouts = () => {
+    const queryClient = useQueryClient();
     const [catalog, setCatalog] = useState([]);
     const [coaches, setCoaches] = useState([]);
     const [isLoading, setIsLoading] = useState(true);
@@ -99,6 +100,7 @@ export const AdminCatalogWorkouts = () => {
             if (selectedWorkout) {
                 await updateCatalogWorkoutApi(selectedWorkout._id, formData);
             } else {
+                queryClient.invalidateQueries({ queryKey: ["workouts", "next-seven-days"] });
                 await createCatalogWorkoutApi(formData);
             }
             setIsModalOpen(false);
@@ -137,7 +139,7 @@ export const AdminCatalogWorkouts = () => {
                 isOpen={isModalOpen}
                 onClose={() => setIsModalOpen(false)}
                 onSubmit={handleSubmit}
-                initialData={selectedWorkout || { roomName: 'A', maxParticipants: 10, dayOfWeek: 'Sunday' }}
+                initialData={selectedWorkout || { roomName: 'A', maxParticipants: ROOM_CAPACITIES['A'], dayOfWeek: 'Sunday' }}
                 title={selectedWorkout ? "Edit Workout" : "Add to Catalog"}
                 fields={catalogFields}
             />

@@ -6,8 +6,10 @@ import { FormModal } from '../components/admin/FormModal/FormModal';
 import { getAllUsersApi, updateUserApi, createUserApi, deleteUserApi } from '../api/userApi';
 import { getAllPlansApi } from '../api/planApi';
 import { showStudioAlert } from '../components/studioAlert/studioAlert';
+import { useQueryClient } from '@tanstack/react-query';
 
 export const AdminUsers = () => {
+    const queryClient = useQueryClient();
     const [users, setUsers] = useState([]);
     const [plans, setPlans] = useState([]); // הוספת plans
     const [isLoading, setIsLoading] = useState(true);
@@ -40,7 +42,7 @@ export const AdminUsers = () => {
         { name: 'name', label: 'Full Name', required: true, gridRow: 1 },
         { name: 'email', label: 'Email', type: 'email', required: true, gridRow: 1 },
         { name: 'userName', label: 'User Name', required: true, gridRow: 2 },
-        { name: 'password', label: 'Password', type: 'password', required: !selectedUser, gridRow: 2 },
+        { name: 'password', label: 'Password', type: 'password', readOnly: !!selectedUser, gridRow: 2 },
         { 
             name: 'role', 
             label: 'Role', 
@@ -103,6 +105,7 @@ export const AdminUsers = () => {
         try {
             if (selectedUser) {
                 await updateUserApi(selectedUser._id, formData);
+                queryClient.invalidateQueries({ queryKey: ["workouts", "next-seven-days"] });
             } else {
                 await createUserApi(formData);
                   showStudioAlert("Created!", "A new user has been added to FitStudio.", "success");

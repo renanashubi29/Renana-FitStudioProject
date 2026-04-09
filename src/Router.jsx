@@ -140,6 +140,7 @@ useEffect(() => {
 return ( <ShopContext.Provider
      value={{ 
       workouts:/*  workouts */upcomingWorkouts, 
+      setWorkouts,
       setFilter:setFilter,
       filter: filter,
       user: user, 
